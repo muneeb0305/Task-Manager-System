@@ -44,9 +44,9 @@ export function UserProvider({ children }) {
         const res = await PutData(UpdateApi, updatedUser, token)
         return res
     };
-    
+
     return (
-        <UserContext.Provider value={{ selectedUser, user, create, remove, update, getUserById, getUser}}>
+        <UserContext.Provider value={{ selectedUser, user, create, remove, update, getUserById, getUser }}>
             {children}
         </UserContext.Provider>
     );

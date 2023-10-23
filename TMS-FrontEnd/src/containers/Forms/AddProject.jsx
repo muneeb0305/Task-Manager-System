@@ -15,12 +15,15 @@ export default function AddProject() {
     // Form State
     const [Form, setForm] = useState({
         name: '',
-        description: ''
+        description: 'N/A'
     })
 
     useEffect(() => {
         if (isID) {
             getProjectById(id)
+                .catch(err => {
+                    navigate('/project')
+                })
         }
         // eslint-disable-next-line
     }, [id, isID])
@@ -68,8 +71,8 @@ export default function AddProject() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="text" name="name" value={Form.name} onChange={handleChange} minLength={8} title={'Project Name'} />
-                                <Input type="text" name="description" value={Form.description} onChange={handleChange} title={'Description'} />
+                                <Input type="text" name="name" value={Form.name} onChange={handleChange} maxLength={50} title={'Project Name'} required />
+                                <Input type="text" name="description" value={Form.description} maxLength={200} onChange={handleChange} title={'Description'} />
                             </div>
                             <Button type="submit" label={'Submit'} />
                         </form>

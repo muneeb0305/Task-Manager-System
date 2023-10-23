@@ -41,7 +41,7 @@ export default function ProjectDetail() {
     }
     const handleClick = () => {
         if (team.length === 0) {
-            alert("No Team Added")
+            alert("First Add Team")
         }
         else {
             navigate(`assign`)

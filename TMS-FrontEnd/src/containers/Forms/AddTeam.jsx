@@ -63,7 +63,7 @@ export default function AddTeam() {
                     <h1 className="text-4xl font-medium py-7 text-center">Team {isID ? "Updation" : "Creation"}</h1>
                     <div className='bg-white p-5 shadow-lg rounded-lg '>
                         <form autoComplete="off" onSubmit={handleSubmit}>
-                            <Input type="text" name="teamName" value={Form.teamName} onChange={handleChange} minLength={8} title={'Team Name'} />
+                            <Input type="text" name="teamName" value={Form.teamName} onChange={handleChange} maxLength={50} title={'Team Name'} required />
                             <Button type="submit" label={'Submit'} />
                         </form>
                     </div>

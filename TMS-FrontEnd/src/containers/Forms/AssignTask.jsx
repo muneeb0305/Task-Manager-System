@@ -62,7 +62,7 @@ export default function AssignTask() {
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6 items-center">
                                 <Input type="number" name="userId" value={Form.userId} onChange={handleChange} minLength={8} title={'User Id'} disabled />
-                                <Select label={'User'} data={teamUsers.map((users) => ({ Id: users.id, value: users.userName }))} onChange={handleChange} />
+                                <Select label={'User'} data={teamUsers.map((users) => ({ Id: users.id, value: users.userName }))} onChange={handleChange} required />
                             </div>
                             <div className="flex justify-center">
                                 <div className='flex items-baseline gap-3'>

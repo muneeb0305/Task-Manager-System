@@ -18,19 +18,19 @@ export default function AssignProject() {
         projectId: Number(id),
         teamId: ``,
     })
-    
+
     useEffect(() => {
         getTeam()
         // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
-       if(team.length !== 0){
-        setForm(prevState=>({
-            ...prevState,
-            teamId : team[0].id
-        }))
-       }
+        if (team.length !== 0) {
+            setForm(prevState => ({
+                ...prevState,
+                teamId: team[0].id
+            }))
+        }
         // eslint-disable-next-line
     }, [team])
 
@@ -59,7 +59,7 @@ export default function AssignProject() {
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6 items-center">
                                 <Input type="number" name="teamId" value={Form.teamId} onChange={handleChange} minLength={8} title={'Team Id'} disabled />
-                                <Select label={'Team'} data={team.map((teams) => ({ Id: teams.id, value: teams.teamName }))} onChange={handleChange} />
+                                <Select label={'Team'} data={team.map((teams) => ({ Id: teams.id, value: teams.teamName }))} onChange={handleChange} required />
                             </div>
                             <div className="flex justify-center">
                                 <div className='flex items-baseline gap-3'>

@@ -33,7 +33,7 @@ export default function AddTask() {
     // Form State
     const [Form, setForm] = useState({
         taskName: '',
-        taskDescription: '',
+        taskDescription: 'N/A',
         dueDate: '',
         status: taskStatus[0].id,
         projectId: Number(Pid)
@@ -88,6 +88,15 @@ export default function AddTask() {
                 .catch(err => alert(err))
     }
 
+    const getTodatDate = () => {
+        const _date = new Date()
+        const date = _date.getDate()
+        const month = _date.getMonth() + 1
+        const year = _date.getFullYear()
+        const fullDate = `${year}-${month}-${date}`
+        return fullDate
+    }
+
     return (
         <section>
             <div className="bg-gray-50 min-h-screen pt-20">
@@ -96,11 +105,11 @@ export default function AddTask() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="text" name="taskName" value={Form.taskName} onChange={handleChange} minLength={8} title={'Task Name'} />
-                                <Input type="text" name="taskDescription" value={Form.taskDescription} onChange={handleChange} title={'Task Description'} />
+                                <Input type="text" name="taskName" value={Form.taskName} onChange={handleChange} maxLength={50} title={'Task Name'} required />
+                                <Input type="text" name="taskDescription" value={Form.taskDescription} onChange={handleChange} title={'Task Description'} maxLength={200} />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="date" name="dueDate" value={Form.dueDate} onChange={handleChange} minLength={8} title={'Due Date'} />
+                                <Input type="date" name="dueDate" value={Form.dueDate} onChange={handleChange} minLength={8} title={'Due Date'} min={getTodatDate()} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Select label={'Task Status'} data={taskStatus} name='status' value={Form.status} onChange={handleChange} />

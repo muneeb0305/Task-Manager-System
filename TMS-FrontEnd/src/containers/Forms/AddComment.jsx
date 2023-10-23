@@ -69,7 +69,7 @@ export default function AddComment() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="text" name="commentText" value={Form.commentText} onChange={handleChange} title={'Comment'} />
+                                <Input type="text" name="commentText" value={Form.commentText} onChange={handleChange} title={'Comment'} required />
                             </div>
                             <Button type="submit" label={'Submit'} />
                         </form>

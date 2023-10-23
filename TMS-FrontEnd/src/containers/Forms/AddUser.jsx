@@ -36,6 +36,9 @@ export default function AddUser() {
     useEffect(() => {
         if (isID) {
             getUserById(id)
+                .catch(err => {
+                    navigate('/user')
+                })
         }
         // eslint-disable-next-line
     }, [isID, id]);
@@ -92,15 +95,15 @@ export default function AddUser() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="text" name="userName" value={Form.userName} onChange={handleChange} minLength={8} title={'User Name'} />
-                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} />
+                                <Input type="text" name="userName" value={Form.userName} onChange={handleChange} maxLength={50} title={'User Name'} required />
+                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} required/>
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="password" name="password" value={Form.password} onChange={handleChange} title={'Password'} />
-                                <Input type="password" name="retype_password" value={Form.retype_password} onChange={handleChange} title={'Confirm Password'} />
+                                <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} title={'Password'} required/>
+                                <Input type="password" name="retype_password" value={Form.retype_password} minLength={8} onChange={handleChange} title={'Confirm Password'} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Select label={'Task Status'} data={userType} name='role' value={Form.role} onChange={handleChange} />
+                                <Select label={'User Typr'} data={userType} name='role' value={Form.role} onChange={handleChange} required/>
                             </div>
                             <Button type="submit" label={'Submit'} />
                         </form>
