@@ -3,7 +3,7 @@ import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useToken } from './TokenProvider';
+import { useAuth } from './AuthProvider';
 
 const TeamContext = createContext();
 
@@ -13,7 +13,7 @@ export function TeamProvider({ children }) {
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [teamUsers, setTeamUsers] = useState([]);
     // Get Token
-    const { token } = useToken()
+    const { token } = useAuth()
     
     // Get All Teams
     const getTeam = async () => {

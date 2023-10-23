@@ -3,7 +3,7 @@ import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useToken } from './TokenProvider';
+import { useAuth } from './AuthProvider';
 
 const TaskContext = createContext();
 
@@ -11,7 +11,7 @@ export function TaskProvider({ children }) {
 
     const [task, setTask] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
-    const { token } = useToken()
+    const { token } = useAuth()
 
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {

@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/24/solid'
-import Table from '../components/Table'
-import Button from '../components/Button'
+import Table from '../../components/Table'
+import Button from '../../components/Button'
 
 export default function Tasks() {
 

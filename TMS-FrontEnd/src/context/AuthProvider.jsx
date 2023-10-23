@@ -1,9 +1,10 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { PostData } from '../utils/PostData';
 
-const TokenContext = createContext();
+const AuthContext = createContext();
 
-export function TokenProvider({ children }) {
+export function AuthProvider({ children }) {
   const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [user, setUser] = useState();
 
@@ -18,6 +19,13 @@ export function TokenProvider({ children }) {
     }
     // eslint-disable-next-line
   }, []);
+
+  // Login
+  const Login = async (userForm) => {
+    const LoginApi = `https://localhost:7174/api/Login`
+    const res = await PostData(LoginApi, userForm, token)
+    SetToken(res)
+  };
 
   const SetToken = (newToken) => {
     setToken(newToken);
@@ -35,12 +43,12 @@ export function TokenProvider({ children }) {
   };
 
   return (
-    <TokenContext.Provider value={{ token, SetToken, clearToken, user }}>
+    <AuthContext.Provider value={{ token, SetToken, clearToken, user, Login }}>
       {children}
-    </TokenContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
-export function useToken() {
-  return useContext(TokenContext);
+export function useAuth() {
+  return useContext(AuthContext);
 }

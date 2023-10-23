@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { useToken } from '../context/TokenProvider'
+import { useAuth } from '../context/AuthProvider'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -9,7 +9,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [open] = useState(false)
-  const { clearToken } = useToken()
+  const { clearToken } = useAuth()
 
   const handleLogout = () => {
     clearToken()

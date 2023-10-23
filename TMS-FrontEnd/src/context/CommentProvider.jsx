@@ -3,7 +3,7 @@ import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useToken } from './TokenProvider';
+import { useAuth } from './AuthProvider';
 
 const CommentContext = createContext();
 
@@ -12,7 +12,7 @@ export function CommentProvider({ children }) {
     const [comment, setComment] = useState([]);
     const [selectedComment, setSelectedComment] = useState(null);
     // Get Token
-    const { token } = useToken()
+    const { token } = useAuth()
 
     // Get All Comments by Task Id
     const getComment = async (id) => {

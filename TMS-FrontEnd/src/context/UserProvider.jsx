@@ -3,7 +3,7 @@ import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useToken } from './TokenProvider';
+import { useAuth } from './AuthProvider';
 
 const UserContext = createContext();
 
@@ -12,7 +12,7 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     // Get Token from Token Provider
-    const { token } = useToken()
+    const { token } = useAuth()
 
     //Get All Users
     const getUser = async () => {

@@ -3,7 +3,7 @@ import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useToken } from './TokenProvider';
+import { useAuth } from './AuthProvider';
 
 const ProjectContext = createContext();
 
@@ -12,7 +12,7 @@ export function ProjectProvider({ children }) {
     const [project, setProject] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
     // Get Token
-    const { token } = useToken()
+    const { token } = useAuth()
 
     // Get Project
     const getProject = async () => {

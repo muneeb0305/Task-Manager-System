@@ -1,29 +1,24 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useToken } from "../../context/TokenProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function Login() {
-    const { SetToken } = useToken()
+    const { Login } = useAuth()
+    const navigate = useNavigate()
     const [Form, setForm] = useState({
         email: "",
         password: ""
     })
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`https://localhost:7174/api/Login`, Form)
-            .then(res => {
-                SetToken(res.data)
-                setForm({
-                    email: "",
-                    password: ""
-                })
+        Login(Form)
+            .then(() => {
+               navigate('/')
             })
             .catch(err => {
-                console.log(err)
-                alert(err.response)
+                alert(err)
             })
     }
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useToken } from '../../context/TokenProvider';
 import { useCommentData } from '../../context/CommentProvider';
+import { useAuth } from '../../context/AuthProvider';
 
 export default function AddComment() {
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ export default function AddComment() {
     const isID = !!id
     // Get data from Providers
     const { selectedComment, create, update, getCommentById } = useCommentData()
-    const { user } = useToken()
+    const { user } = useAuth()
     // Form State
     const [Form, setForm] = useState({
         commentText: '',
