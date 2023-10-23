@@ -9,21 +9,22 @@ import { UserProvider } from './context/UserProvider';
 function App() {
 
   return (
-    <>
-      <AuthProvider>
-        <ProjectProvider>
-          <UserProvider>
-            <TeamProvider>
-              <TaskProvider>
-                <CommentProvider>
-                  <Authentication />
-                </CommentProvider>
-              </TaskProvider>
-            </TeamProvider>
-          </UserProvider>
-        </ProjectProvider>
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <ProjectProvider>
+        <UserProvider>
+          <TeamProvider>
+            <TaskProvider>
+              <CommentProvider>
+                
+                {/* Start-Up Page */}
+                <Authentication />   
+
+              </CommentProvider>
+            </TaskProvider>
+          </TeamProvider>
+        </UserProvider>
+      </ProjectProvider>
+    </AuthProvider>
   );
 }
 

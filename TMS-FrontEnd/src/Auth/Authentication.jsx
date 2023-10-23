@@ -4,6 +4,7 @@ import Login from '../containers/MainPages/Login';
 import { useAuth } from '../context/AuthProvider';
 
 export default function Authentication() {
+    // Get Token
     const {token} = useAuth()   
     return (
         <Routes>
