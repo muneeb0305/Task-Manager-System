@@ -1,0 +1,12 @@
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\bin\Debug\net7.0\TM.Buisness.CustomExceptions.deps.json
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\bin\Debug\net7.0\TM.Buisness.CustomExceptions.dll
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\bin\Debug\net7.0\TM.Buisness.CustomExceptions.pdb
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.csproj.AssemblyReference.cache
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.AssemblyInfoInputs.cache
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.AssemblyInfo.cs
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.csproj.CoreCompileInputs.cache
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.dll
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\refint\TM.Buisness.CustomExceptions.dll
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\TM.Buisness.CustomExceptions.pdb
+C:\Users\ahmefmun\OneDrive - PERSEUS MANAGEMENT GROUP INC\Desktop\ASP.Net\src\TaskManager\BuisnessServices\TM.Buisness.CustomExceptions\obj\Debug\net7.0\ref\TM.Buisness.CustomExceptions.dll

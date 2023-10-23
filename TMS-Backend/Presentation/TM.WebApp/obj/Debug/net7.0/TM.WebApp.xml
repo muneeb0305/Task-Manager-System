@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TM.WebApp</name>
+    </assembly>
+    <members>
+        <member name="M:TM.WebApp.Controllers.CommentController.Get(System.Int32)">
+            <summary>Get Comment by Id</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.CommentController.GetAllComments(System.Int32)">
+            <summary>Get Comment by TaskId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.CommentController.Create(System.Int32,TM.Buisness.Models.CommentModel)">
+            <summary>Create Comment</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.CommentController.Delete(System.Int32)">
+            <summary>Delete Comment</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.CommentController.Update(System.Int32,TM.Buisness.Models.CommentModel)">
+            <summary>Update Comment</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.LoginController.Login(TM.Buisness.Models.LoginModel)">
+            <summary>Login</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.GetProject">
+            <summary>Admin can Get all Projects</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.GetProject(System.Int32)">
+            <summary>Get Project by ProjectId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.Create(TM.Buisness.Models.ProjectModel)">
+            <summary>Admin can Create Project</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.Delete(System.Int32)">
+            <summary>Admin can Delete Project</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.Update(System.Int32,TM.Buisness.Models.ProjectModel)">
+            <summary>Admin can Update Project</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.AssignProject(TM.Buisness.Models.TeamProject)">
+            <summary>Admin can Assign Project To Team</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.GetTask(System.Int32)">
+            <summary>Admin can Get Task by TaskId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.GetAllTasks(System.Int32)">
+            <summary>Get Task by ProjectId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.Create(TM.Buisness.Models.TaskModel)">
+            <summary>Admin can Create Task</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.Delete(System.Int32)">
+            <summary>Admin can Delete Task</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.Update(System.Int32,TM.Buisness.Models.TaskModel)">
+            <summary>Admin can Update Task</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.AssignTask(TM.Buisness.Models.UserTask)">
+            <summary>Admin can Assign Task to User</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.GetAllTeam">
+            <summary>Admin can Get All Teams</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.GetTeam(System.Int32)">
+            <summary>Get Team by TeamId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.GetTeamUser(System.Int32)">
+            <summary>Get Team Users by Team Id</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.Create(TM.Buisness.Models.TeamModel)">
+            <summary>Admin can Create Team</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.Update(System.Int32,TM.Buisness.Models.TeamModel)">
+            <summary>Admin can Update Team</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.Delete(System.Int32)">
+            <summary>Admin can Delete Team</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.GetAllUsers">
+            <summary>Admin cas see All Users</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.GetUser(System.Int32)">
+            <summary>Get User By Id</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.Create(TM.Buisness.Models.UserModel)">
+            <summary>Admin can Create User</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.Update(System.Int32,TM.Buisness.Models.UserModel)">
+            <summary>Update User</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.Delete(System.Int32)">
+            <summary>Admin can Delete User</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.Assignteam(TM.Buisness.Models.UserTeam)">
+            <summary>Admin Can Assign Team to User</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.UsersController.UnassignTeam(System.Int32)">
+            <summary>Admin Can remove user from Team</summary>
+        </member>
+        <member name="T:TM.WebApp.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TM.WebApp.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TM.WebApp.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

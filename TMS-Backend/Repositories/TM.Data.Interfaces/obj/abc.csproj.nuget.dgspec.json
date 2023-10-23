@@ -1,0 +1,122 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Interfaces\\abc.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Interfaces\\abc.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Interfaces\\abc.csproj",
+        "projectName": "abc",
+        "projectPath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Interfaces\\abc.csproj",
+        "packagesPath": "C:\\Users\\ahmefmun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ahmefmun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\TM.Data.Models.csproj": {
+                "projectPath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\TM.Data.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\TM.Data.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\TM.Data.Models.csproj",
+        "projectName": "TM.Data.Models",
+        "projectPath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\TM.Data.Models.csproj",
+        "packagesPath": "C:\\Users\\ahmefmun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\ASP.Net\\src\\TaskManager\\Repositories\\TM.Data.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ahmefmun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
