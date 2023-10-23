@@ -4,11 +4,11 @@ namespace TM.Buisness.CustomErrors
 {
     public class Errors : IErrors
     {
-        public void Validate(bool condition, string message)
+        public void Validate(bool condition, string Message)
         {
             if (condition)
             {
-                throw new ValidationException(message);
+                throw new ValidationException(Message);
             }
         }
         public void NotFound(bool condition, string message)
