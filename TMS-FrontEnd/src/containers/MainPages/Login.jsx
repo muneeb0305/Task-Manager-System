@@ -5,12 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 
 export default function Login() {
-    const { Login } = useAuth()
     const navigate = useNavigate()
+    //Get Login Function From Provider
+    const { Login } = useAuth()
+    // Form State
     const [Form, setForm] = useState({
         email: "",
         password: ""
     })
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         Login(Form)
