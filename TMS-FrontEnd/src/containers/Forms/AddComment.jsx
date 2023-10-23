@@ -47,6 +47,9 @@ export default function AddComment() {
     useEffect(() => {
         if (isID) {
             getCommentById(id)
+            .catch(err => {
+                navigate(`/project/${Pid}/task/${Tid}`)
+            })
         }
         // eslint-disable-next-line
     }, [isID, id]);

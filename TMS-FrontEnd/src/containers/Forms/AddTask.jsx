@@ -42,6 +42,9 @@ export default function AddTask() {
     useEffect(() => {
         if (isID) {
             getTaskById(id)
+            .catch(err => {
+                navigate(`/project/${Pid}`)
+            })
         }
         // eslint-disable-next-line
     }, [isID]);

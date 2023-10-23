@@ -12,8 +12,8 @@ using TM.Data;
 namespace TM.Data.Migrations
 {
     [DbContext(typeof(TaskManagerContext))]
-    [Migration("20231023075224_initial")]
-    partial class initial
+    [Migration("20231023124203_CreateDb")]
+    partial class CreateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,7 +178,7 @@ namespace TM.Data.Migrations
                         {
                             UserId = 1,
                             Email = "muneeb@gmail.com",
-                            Password = "$2a$11$7AA2/gIW2TkDu0BTWwgAoOFBt2F8eD.SxgWnWv30tVqVzfvoFo2qq",
+                            Password = "$2a$11$omEYHjPmrmYQjw6fmsPyZukWhY0dsbK3yVg0zPZxhPH0LD8yfKJDq",
                             Role = "admin",
                             UserName = "Muneeb Ahmed"
                         });

@@ -18,6 +18,10 @@ export default function AddTeam() {
     useEffect(() => {
         if (isID) {
             getTeamById(id)
+                .catch(err => {
+                    console.log(err)
+                    alert(err)
+                })
         }
         // eslint-disable-next-line
     }, []);

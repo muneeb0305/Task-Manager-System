@@ -30,6 +30,12 @@ namespace TM.Data
                 .HasForeignKey(u => u.TeamId)
                 .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<User>()
+               .HasMany(u => u.AssignedTask)
+               .WithOne(t => t.AssignedUser)
+               .HasForeignKey(t => t.AssignedUserID)
+               .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Project>()
                 .HasOne(t => t.Team)
                 .WithOne(t => t.Project)
@@ -41,7 +47,6 @@ namespace TM.Data
                 .WithMany(u=>u.AssignedTask)
                 .HasForeignKey(u=>u.AssignedUserID)
                 .OnDelete(DeleteBehavior.SetNull);
-
         }
     }
 }

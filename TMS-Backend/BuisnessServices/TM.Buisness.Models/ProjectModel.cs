@@ -8,7 +8,7 @@ namespace TM.Buisness.Models
         [StringLength(50, ErrorMessage = "Name length can't be more than 50 characters.")]
         public string Name { get; set; } = null!;
 
-        [StringLength(50, ErrorMessage = "Description length can't be more than 200 characters.")]
+        [StringLength(200, ErrorMessage = "Description length can't be more than 200 characters.")]
         public string? Description { get; set; }
     }
 }
