@@ -5,5 +5,6 @@ namespace TM.Buisness.Interfaces
     public interface ITeamService : IServices<TeamModel>
     {
         public Task<object> GetTeamUsers(int Teamid);
+        public Task<object> GetUserTeam(int UserId);
     }
 }

@@ -12,7 +12,7 @@ import { useAuth } from '../../context/AuthProvider'
 export default function ProjectDetail() {
     const navigate = useNavigate()
     // Get Project id from Url
-    const { id } = useParams()
+    const { ProjectId } = useParams()
     // Get data from providers
     const { selectedProject, getProjectById } = useProjectData()
     const { task, getTaskByProjectId, remove, getUserTask } = useTaskData()
@@ -24,11 +24,13 @@ export default function ProjectDetail() {
     const tableData = task
     const dataArr = ['taskName', 'status', 'dueDate']
     const removeFunc = remove
+    const editLink = 'task'
+    const viewLink = 'task'
 
     useEffect(() => {
-        getProjectById(id)
+        getProjectById(ProjectId)
         if (role === 'admin') {
-            getTaskByProjectId(id)
+            getTaskByProjectId(ProjectId)
             getTeam()
         }
         if (role === 'user') {
@@ -72,7 +74,7 @@ export default function ProjectDetail() {
                             <div className='flex justify-between px-4'>
                                 <div className='flex items-center'>
                                     <ListBulletIcon className={`h-7 w-7 text-blue-500 `} />
-                                    <h2 className='text-xl pl-3'>{role=== 'admin'?'': 'Your'} Tasks</h2>
+                                    <h2 className='text-xl pl-3'>{role === 'admin' ? '' : 'Your'} Tasks</h2>
                                 </div>
                                 {
                                     role === 'admin' ?
@@ -80,7 +82,7 @@ export default function ProjectDetail() {
                                         : null
                                 }
                             </div>
-                            <Table tableData={tableData} tableHeader={Headers} name="task" dataArr={dataArr} remove={removeFunc} />
+                            <Table tableData={tableData} tableHeader={Headers} editLink={editLink} viewLink={viewLink} dataArr={dataArr} remove={removeFunc} />
                         </div>
                     </div>
                 </div>

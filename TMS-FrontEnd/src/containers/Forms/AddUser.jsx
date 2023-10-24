@@ -7,10 +7,10 @@ import { useUserData } from '../../context/UserProvider';
 
 export default function AddUser() {
     // Get User Id 
-    const { id } = useParams()
+    const { UserId } = useParams()
     const navigate = useNavigate()
     //Check is ID there or not
-    const isID = !!id
+    const isID = !!UserId
     //User Provider
     const { selectedUser, create, update, getUserById } = useUserData()
     // User Types
@@ -35,13 +35,13 @@ export default function AddUser() {
 
     useEffect(() => {
         if (isID) {
-            getUserById(id)
+            getUserById(UserId)
                 .catch(err => {
                     navigate('/user')
                 })
         }
         // eslint-disable-next-line
-    }, [isID, id]);
+    }, [isID, UserId]);
 
     useEffect(() => {
         // If id set form
@@ -70,7 +70,7 @@ export default function AddUser() {
         else {
             isID ?
                 // Update User
-                update(id, Form)
+                update(UserId, Form)
                     .then(res => {
                         alert(res)
                         navigate('/user')

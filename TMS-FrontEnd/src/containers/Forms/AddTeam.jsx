@@ -7,9 +7,9 @@ import { useTeamData } from '../../context/TeamProvider';
 export default function AddTeam() {
     const navigate = useNavigate()
     // Get Team ID
-    const { id } = useParams()
+    const { TeamId } = useParams()
     //Check is ID there or not
-    const isID = !!id
+    const isID = !!TeamId
     // Get Data from Team Provider
     const { selectedTeam, create, update, getTeamById } = useTeamData()
     // Form State
@@ -17,7 +17,7 @@ export default function AddTeam() {
 
     useEffect(() => {
         if (isID) {
-            getTeamById(id)
+            getTeamById(TeamId)
                 .catch(err => {
                     console.log(err)
                     alert(err)
@@ -44,7 +44,7 @@ export default function AddTeam() {
         e.preventDefault()
         isID ?
             // Update Team
-            update(id, Form)
+            update(TeamId, Form)
                 .then(res => {
                     alert(res)
                     navigate('/team')

@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthProvider';
 export default function AddComment() {
     const navigate = useNavigate()
     // get projectId, TaskId & CommentId
-    const { Pid, Tid, id } = useParams()
+    const { ProjectId, taskId, id } = useParams()
     //Check is Comment ID there or not
     const isID = !!id
     // Get data from Providers
@@ -32,15 +32,15 @@ export default function AddComment() {
             update(id, newForm)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${Pid}/task/${Tid}`)
+                    navigate(`/project/${ProjectId}/${taskId}`)
                 })
                 .catch(err => alert(err))
             :
             // Create Comment
-            create(Tid, newForm)
+            create(taskId, newForm)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${Pid}/task/${Tid}`)
+                    navigate(`/project/${ProjectId}/${taskId}`)
                 })
                 .catch(err => alert(err))
     }
@@ -48,7 +48,7 @@ export default function AddComment() {
         if (isID) {
             getCommentById(id)
             .catch(err => {
-                navigate(`/project/${Pid}/task/${Tid}`)
+                navigate(`/project/${ProjectId}/${taskId}`)
             })
         }
         // eslint-disable-next-line

@@ -23,6 +23,7 @@ import UserDashboard from '../containers/MainPages/UserDashboard'
 
 export default function AppRoutes({ role }) {
     const routes = [
+        // Admin Dashboard Routes
         {
             path: '/',
             element: <Dashboard />,
@@ -33,53 +34,55 @@ export default function AppRoutes({ role }) {
             element: <UserDashboard />,
             isAdmin: false
         },
-        {
-            path: '/team',
-            element: <Teams />,
-            isAdmin: true
-        },
-        {
-            path: '/team/:id/edit',
-            element: <AddTeam />,
-            isAdmin: true
-        },
+        // Team Routes
         {
             path: '/team/create',
             element: <AddTeam />,
             isAdmin: true
         },
         {
-            path: '/team/:id',
+            path: '/team',
+            element: <Teams />,
+            isAdmin: false
+        },
+        {
+            path: '/team/:TeamId',
             element: <TeamDetail />,
+            isAdmin: false
+        },
+        {
+            path: '/team/:TeamId/user/:UserId',
+            element: <UserDetail />,
+            isAdmin: false
+        },
+        {
+            path: '/team/:TeamId/edit',
+            element: <AddTeam />,
             isAdmin: true
         },
         {
-            path: '/team/:id/enroll',
+            path: '/team/:TeamId/enroll',
             element: <EnrollUser />,
             isAdmin: true
         },
+        // Project Routes
         {
             path: '/project',
             element: <Project />,
             isAdmin: true
         },
         {
-            path: '/project/:id/edit',
+            path: '/project/:ProjectId/edit',
             element: <AddProject />,
             isAdmin: true
         },
         {
-            path: '/project/:id/assign',
+            path: '/project/:ProjectId/assign',
             element: <AssignProject />,
             isAdmin: true
         },
         {
-            path: '/project/:Pid/task/:Tid/assign',
-            element: <AssignTask />,
-            isAdmin: true
-        },
-        {
-            path: '/project/:id',
+            path: '/project/:ProjectId',
             element: <ProjectDetail />,
             isAdmin: false
         },
@@ -88,6 +91,40 @@ export default function AppRoutes({ role }) {
             element: <AddProject />,
             isAdmin: true
         },
+        // Task Routes
+        {
+            path: '/project/:ProjectId/:taskId/assign',
+            element: <AssignTask />,
+            isAdmin: true
+        },
+        {
+            path: '/project/:ProjectId/task/create',
+            element: <AddTask />,
+            isAdmin: true
+        },
+        {
+            path: '/project/:ProjectId/:taskId/edit',
+            element: <AddTask />,
+            isAdmin: true
+        },
+        {
+            path: '/project/:ProjectId/:taskId',
+            element: <TaskDetail />,
+            isAdmin: false
+        },
+        //  Comment Routes
+        {
+            path: '/project/:ProjectId/:taskId/comment/create',
+            element: <AddComment />,
+            isAdmin: true
+        },
+
+        {
+            path: '/project/:ProjectId/:taskId/comment/:id/edit',
+            element: <AddComment />,
+            isAdmin: true
+        },
+        // User Routes
         {
             path: '/user',
             element: <Users />,
@@ -99,39 +136,14 @@ export default function AppRoutes({ role }) {
             isAdmin: true
         },
         {
-            path: '/user/:id/edit',
+            path: '/user/:UserId/edit',
             element: <AddUser />,
             isAdmin: true
         },
         {
-            path: '/user/:id',
+            path: '/user/:UserId',
             element: <UserDetail />,
             isAdmin: false
-        },
-        {
-            path: '/project/:Pid/task/create',
-            element: <AddTask />,
-            isAdmin: true
-        },
-        {
-            path: '/project/:Pid/task/:id/edit',
-            element: <AddTask />,
-            isAdmin: true
-        },
-        {
-            path: '/project/:Pid/task/:id',
-            element: <TaskDetail />,
-            isAdmin: false
-        },
-        {
-            path: '/project/:Pid/task/:Tid/comment/create',
-            element: <AddComment />,
-            isAdmin: true
-        },
-        {
-            path: '/project/:Pid/task/:Tid/comment/:id/edit',
-            element: <AddComment />,
-            isAdmin: true
         }
     ]
     return (

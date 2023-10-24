@@ -6,12 +6,12 @@ import { useUserData } from '../../context/UserProvider'
 
 export default function UserDetail() {
     // Get User ID
-    const { id } = useParams()
+    const { UserId } = useParams()
     // Get Data from Provider
     const { selectedUser, getUserById } = useUserData()
 
     useEffect(() => {
-        getUserById(id)
+        getUserById(UserId)
         // eslint-disable-next-line 
     }, [])
 

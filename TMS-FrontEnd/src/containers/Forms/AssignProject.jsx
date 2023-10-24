@@ -9,13 +9,13 @@ import { useTeamData } from '../../context/TeamProvider';
 export default function AssignProject() {
     const navigate = useNavigate()
     // Get Project Id
-    const { id } = useParams()
+    const { ProjectId } = useParams()
     // Get Data from Providers
     const { assignProject } = useProjectData()
     const { team, getTeam } = useTeamData()
     // Form State
     const [Form, setForm] = useState({
-        projectId: Number(id),
+        projectId: Number(ProjectId),
         teamId: ``,
     })
 
@@ -45,7 +45,7 @@ export default function AssignProject() {
         assignProject(Form)
             .then(res => {
                 alert(res)
-                navigate(`/project/${id}`)
+                navigate(`/project/${ProjectId}`)
             })
             .catch(err => alert(err))
     }

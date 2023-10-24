@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Modal({ ID, name, remove }) {
+export default function Modal({ ID, editLink, viewLink, remove }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(true);
@@ -14,34 +14,26 @@ export default function Modal({ ID, name, remove }) {
     return (
         <>
             {
-                name === 'task' ?
-                    (
+                editLink && viewLink ?
+                    <>
+                        <Link to={`${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+                        <Link to={`${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+                        <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                    </> :
+                    editLink ?
                         <>
-                            <Link to={`${name}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                            <Link to={`${name}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+                            <Link to={`${editLink ? `${editLink}/` : ''}${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+                            <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
                         </>
-                    ) :
-                    name === 'comment' ?
-                        (
+
+                        :
+                        viewLink ?
                             <>
-                                <Link to={`${name}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+                                <Link to={`${viewLink ? `${viewLink}/` : ''}${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+                                <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
                             </>
-                        ) :
-                        name ?
-                            (
-                                <>
-                                    <Link to={`/${name}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                                    <Link to={`/${name}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                                </>
-                            ) :
-                            (
-                                <>
-                                    <Link to={`${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                                    <Link to={`${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                                </>
-                            )
+                            : null
             }
-            <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
             {isOpen &&
                 <div className="fixed inset-0 z-50 overflow-y-auto">
                     <div className="relative flex items-center justify-center min-h-screen w-full">

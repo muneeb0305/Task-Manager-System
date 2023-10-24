@@ -5,22 +5,26 @@ import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
 import { useTeamData } from '../../context/TeamProvider'
+import { useAuth } from '../../context/AuthProvider'
 
 export default function TeamDetail() {
     // Get Team ID
-    const { id } = useParams()
+    const { TeamId } = useParams()
     //Get data from providers
     const { teamUsers, selectedTeam, getTeamById, getTeamUsersById, unassignTeam } = useTeamData()
+    const { userDetail } = useAuth()
+    const role = userDetail.role
 
     // Data For Table
     const Headers = ["User Name", "Email", "Action"]
     const tableData = teamUsers
     const dataArr = ['userName', 'email']
     const removeFunc = unassignTeam
+    const viewLink = 'user'
 
     useEffect(() => {
-        getTeamById(id)
-        getTeamUsersById(id)
+        getTeamById(TeamId)
+        getTeamUsersById(TeamId)
         // eslint-disable-next-line
     }, [])
 
@@ -44,9 +48,12 @@ export default function TeamDetail() {
                                         <ListBulletIcon className={`h-7 w-7 text-blue-500 `} />
                                         <h2 className='text-xl pl-3'>Users Working in this Team</h2>
                                     </div>
-                                    <Link to="enroll"><Button label={'Enroll User'} /></Link>
+                                    {
+                                        role === 'admin' ? <Link to="enroll"><Button label={'Enroll User'} /></Link>
+                                            : null
+                                    }
                                 </div>
-                                <Table tableData={tableData} tableHeader={Headers} name="user" dataArr={dataArr} remove={removeFunc} />
+                                <Table tableData={tableData} tableHeader={Headers} viewLink={viewLink} dataArr={dataArr} remove={removeFunc} />
                             </div>
                         </div>
                     </div>

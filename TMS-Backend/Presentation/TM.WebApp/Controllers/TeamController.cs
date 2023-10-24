@@ -24,6 +24,15 @@ namespace TM.WebApp.Controllers
             return Ok(team);
         }
 
+        /// <summary>User can Get his Team</summary>
+        // GET: /api/team
+        [HttpGet("user/{UserId}"), Authorize(Roles = "user")]
+        public async Task<IActionResult> GetUserTeam(int UserId)
+        {
+            var team = await teamService.GetUserTeam(UserId);
+            return Ok(team);
+        }
+
         /// <summary>Get Team by TeamId</summary>
         //GET: /api/team/5
         [HttpGet("{TeamId}")]

@@ -8,11 +8,11 @@ import { useTaskData } from '../../context/TaskProvider';
 export default function AddTask() {
     const navigate = useNavigate()
     // Get Task id
-    const { id } = useParams()
+    const { taskId } = useParams()
     //Check is ID there or not
-    const isID = !!id
+    const isID = !!taskId
     // Get Project Id
-    const { Pid } = useParams()
+    const { ProjectId } = useParams()
     // Get Data from Provider
     const { selectedTask, create, update, getTaskById } = useTaskData()
     // Task Status
@@ -36,14 +36,14 @@ export default function AddTask() {
         taskDescription: 'N/A',
         dueDate: '',
         status: taskStatus[0].id,
-        projectId: Number(Pid)
+        projectId: Number(ProjectId)
     })
 
     useEffect(() => {
         if (isID) {
-            getTaskById(id)
+            getTaskById(taskId)
             .catch(err => {
-                navigate(`/project/${Pid}`)
+                navigate(`/project/${ProjectId}`)
             })
         }
         // eslint-disable-next-line
@@ -75,10 +75,10 @@ export default function AddTask() {
         e.preventDefault()
         isID ?
             // Update Task
-            update(id, Form)
+            update(taskId, Form)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${Pid}`)
+                    navigate(`/project/${ProjectId}`)
                 })
                 .catch(err => alert(err))
             :
@@ -86,7 +86,7 @@ export default function AddTask() {
             create(Form)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${Pid}`)
+                    navigate(`/project/${ProjectId}`)
                 })
                 .catch(err => alert(err))
     }

@@ -67,6 +67,9 @@
         <member name="M:TM.WebApp.Controllers.TeamController.GetAllTeam">
             <summary>Admin can Get All Teams</summary>
         </member>
+        <member name="M:TM.WebApp.Controllers.TeamController.GetUserTeam(System.Int32)">
+            <summary>User can Get his Team</summary>
+        </member>
         <member name="M:TM.WebApp.Controllers.TeamController.GetTeam(System.Int32)">
             <summary>Get Team by TeamId</summary>
         </member>

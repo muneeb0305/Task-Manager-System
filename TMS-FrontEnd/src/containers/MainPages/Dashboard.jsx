@@ -21,7 +21,7 @@ export default function Dashboard() {
   }, []);
 
   //Data for table
-  const Headers = ["Project Name", "Assigned to", "Action"]
+  const Headers = ["Project Name", "Assigned to"]
   const removeFunc = remove
   const dataArr = ['projectName', 'assignedTo']
 
@@ -71,7 +71,7 @@ export default function Dashboard() {
               <ClipboardDocumentCheckIcon className={`h-7 w-7 text-blue-500 `} />
               <h2 className='text-xl pl-3'>On Going Projects</h2>
             </div>
-            <Table tableData={project} tableHeader={Headers} name="project" dataArr={dataArr} remove={removeFunc} />
+            <Table tableData={project} tableHeader={Headers} dataArr={dataArr} remove={removeFunc} />
           </div>
         </div>
       </div>

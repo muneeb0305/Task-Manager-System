@@ -12,7 +12,7 @@ import { useAuth } from '../../context/AuthProvider'
 export default function TaskDetail() {
     const navigate = useNavigate()
     // Get Project & task id
-    const { Pid, id } = useParams()
+    const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
     const { selectedTask, getTaskById } = useTaskData()
     const { comment, remove, getComment } = useCommentData()
@@ -26,11 +26,12 @@ export default function TaskDetail() {
     const tableData = comment
     const removeFunc = remove
     const dataArr = ['comment', 'createdAt', 'createdBy']
+    const editLink = 'comment'
 
     useEffect(() => {
-        getTaskById(id)
+        getTaskById(taskId)
             .then(() => setIsLoading(true))
-        getComment(id)
+        getComment(taskId)
         // eslint-disable-next-line
     }, [])
     useEffect(() => {
@@ -58,12 +59,12 @@ export default function TaskDetail() {
         else if (teamUsers.length === 0) {
             alert("User not added in Team")
         } else {
-            navigate(`/project/${Pid}/task/${id}/assign?team=${selectedTask.teamId}`)
+            navigate(`/project/${ProjectId}/${taskId}/assign?team=${selectedTask.teamId}`)
         }
     }
     return (
-        <section className='min-h-screen pt-20'>
-            <div className='bg-gray-50 min-h-screen'>
+        <section>
+            <div className='bg-gray-100 min-h-screen pt-20'>
                 <div className="container mx-auto p-5">
                     <h1 className="text-4xl font-medium py-5">Task</h1>
                     <div className="md:flex no-wrap md:-mx-2 ">
@@ -84,7 +85,7 @@ export default function TaskDetail() {
                                     </div>
                                     <Link to="comment/create"><Button label={'Add Comment'} /></Link>
                                 </div>
-                                <Table tableData={tableData} tableHeader={Headers} name="comment" dataArr={dataArr} remove={removeFunc} />
+                                <Table tableData={tableData} tableHeader={Headers} editLink={editLink} dataArr={dataArr} remove={removeFunc} />
                             </div>
                         </div>
                     </div>

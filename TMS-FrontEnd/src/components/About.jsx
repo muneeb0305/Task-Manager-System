@@ -1,13 +1,15 @@
 import React from 'react'
 
 export default function About(props) {
+
     const dataArr = Object.entries(props.data).map(([key, value]) => ({
         key: key,
         value: value,
     }));
+
     return (
-        <div className="bg-white p-3 shadow-lg rounded-sm border-2">
-            <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+        <div className="bg-white p-5 shadow-lg rounded-sm border-2">
+            <div className="flex items-center space-x-2 font-semibold text-gray-900  mb-3">
                 <span className="text-blue-500">
                     <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

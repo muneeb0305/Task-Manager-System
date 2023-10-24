@@ -141,5 +141,20 @@ namespace TM.Buisness.DataServices
             });
             return users!;
         }
+
+        public async Task<object> GetUserTeam(int UserId)
+        {
+            var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw=>uw.UserId == UserId)).Include(t => t.Project).FirstOrDefaultAsync();
+            //Not Found
+            NotFound(team == null, "Invalid Team ID");
+            var _team =  new
+            {
+                Id = team!.TeamId,
+                teamName = team.TeamName,
+                assignedProject = team.Project?.Name
+
+            };
+            return _team!;
+        }
     }
 }

@@ -3,22 +3,28 @@ import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Table from './Table'
 import Button from './Button'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthProvider'
 
-export default function TableView({ Heading, ButtonName, TableHeaders, TableData, dataArr, remove }) {
+export default function TableView({ Heading, ButtonName, TableHeaders, editLink, viewLink, TableData, dataArr, remove }) {
+    const { userDetail } = useAuth()
+    const role = userDetail.role
     return (
         <section>
             <div className={'bg-gray-100 min-h-screen pb-4 pt-20'}>
                 <div className='container mx-auto px-5 pt-5'>
-                    <h1 className='text-4xl font-semibold mb-5'>{Heading}</h1>
-                    <div className={`bg-white border-2 rounded-lg  shadow-lg p-5`}>
+                    <div className={`bg-white border-2 rounded-lg  shadow-lg p-4`}>
                         <div className='flex justify-between px-4'>
                             <div className='flex items-center'>
                                 <ListBulletIcon className={`h-7 w-7 text-blue-500 `} />
-                                <h2 className='text-xl pl-3'>List Of {Heading}</h2>
+                                <h2 className='text-2xl font-semibold pl-3'>{Heading}</h2>
                             </div>
-                            <Link to={`create`}><Button label={`Add ${ButtonName}`} /></Link>
+                            {
+                                role === 'admin' ? <Link to={`create`}><Button label={`Add ${ButtonName}`} /></Link>
+                                    : null
+                            }
+
                         </div>
-                        <Table tableData={TableData} tableHeader={TableHeaders} dataArr={dataArr} remove={remove}/>
+                        <Table tableData={TableData} tableHeader={TableHeaders} editLink={editLink} viewLink={viewLink} dataArr={dataArr} remove={remove} />
                     </div>
                 </div>
             </div>

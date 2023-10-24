@@ -9,7 +9,7 @@ import { useTaskData } from '../../context/TaskProvider';
 export default function AssignTask() {
     const navigate = useNavigate()
     // Get Project and Task Id
-    const { Pid, Tid } = useParams()
+    const { ProjectId, taskId } = useParams()
     // Get Team id from url
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -19,7 +19,7 @@ export default function AssignTask() {
     const { assignTask } = useTaskData()
     // Form State
     const [Form, setForm] = useState({
-        taskId: Number(Tid),
+        taskId: Number(taskId),
         userId: '',
     })
     useEffect(() => {
@@ -47,7 +47,7 @@ export default function AssignTask() {
         assignTask(Form)
             .then(res => {
                 alert(res)
-                navigate(`/project/${Pid}/task/${Tid}`)
+                navigate(`/project/${ProjectId}/${taskId}`)
             })
             .catch(err => alert(err))
     }

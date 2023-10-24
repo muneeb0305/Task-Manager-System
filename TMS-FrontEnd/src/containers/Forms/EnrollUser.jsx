@@ -8,7 +8,7 @@ import { useTeamData } from '../../context/TeamProvider';
 
 export default function EnrollUser() {
     // Get Team Id
-    const { id } = useParams()
+    const { TeamId } = useParams()
     const navigate = useNavigate()
 
     // Get Data from providers
@@ -17,7 +17,7 @@ export default function EnrollUser() {
     // States
     const [Form, setForm] = useState({
         userId: '',
-        teamId: Number(id)
+        teamId: Number(TeamId)
     })
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export default function EnrollUser() {
         assignTeam(Form)
             .then((res) => {
                 alert(res)
-                navigate(`/team/${id}`)
+                navigate(`/team/${TeamId}`)
             })
             .catch(err => alert(err))
     }

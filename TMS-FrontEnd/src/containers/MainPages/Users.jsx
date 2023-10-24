@@ -19,9 +19,11 @@ export default function Users() {
     const ButtonName = "User"
     const dataArr = ['userName', 'email']
     const removeFunc = remove
+    const editLink = 'user'
+    const viewLink = 'user'
 
     return (
-        <TableView Heading={Heading} ButtonName={ButtonName} TableHeaders={TableHeaders}
+        <TableView Heading={Heading} ButtonName={ButtonName} TableHeaders={TableHeaders} editLink={editLink} viewLink={viewLink}
             TableData={TableData} dataArr={dataArr} remove={removeFunc} />
     )
 }

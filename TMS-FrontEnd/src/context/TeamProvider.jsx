@@ -13,8 +13,8 @@ export function TeamProvider({ children }) {
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [teamUsers, setTeamUsers] = useState([]);
     // Get Token
-    const { token } = useAuth()
-    
+    const { token, userDetail } = useAuth()
+
     // Get All Teams
     const getTeam = async () => {
         const TeamApi = 'https://localhost:7174/api/Team'
@@ -26,6 +26,12 @@ export function TeamProvider({ children }) {
         const TeamApi = `https://localhost:7174/api/Team/${id}`;
         const res = await FetchData(TeamApi, token);
         setSelectedTeam(res)
+    }
+    // Get User Team 
+    const getUserTeam = async () => {
+        const TeamApi = `https://localhost:7174/api/Team/user/${userDetail.ID}`;
+        const res = await FetchData(TeamApi, token);
+        setTeam([res])
     }
     // Delete Team
     const remove = async (id) => {
@@ -68,7 +74,7 @@ export function TeamProvider({ children }) {
     };
 
     return (
-        <TeamContext.Provider value={{ selectedTeam, teamUsers, team, create, remove, update, getTeamById, getTeam, getTeamUsersById, unassignTeam, assignTeam }}>
+        <TeamContext.Provider value={{ getUserTeam, selectedTeam, teamUsers, team, create, remove, update, getTeamById, getTeam, getTeamUsersById, unassignTeam, assignTeam }}>
             {children}
         </TeamContext.Provider>
     );

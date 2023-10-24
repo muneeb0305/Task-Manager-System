@@ -7,9 +7,9 @@ import { useProjectData } from '../../context/ProjectProvider';
 export default function AddProject() {
     const navigate = useNavigate()
     // Get Project Id
-    const { id } = useParams()
+    const { ProjectId } = useParams()
     //Check is ID there or not
-    const isID = !!id
+    const isID = !!ProjectId
     // Get Data from Providers
     const { selectedProject, create, update, getProjectById } = useProjectData()
     // Form State
@@ -20,13 +20,13 @@ export default function AddProject() {
 
     useEffect(() => {
         if (isID) {
-            getProjectById(id)
+            getProjectById(ProjectId)
                 .catch(err => {
                     navigate('/project')
                 })
         }
         // eslint-disable-next-line
-    }, [id, isID])
+    }, [ProjectId, isID])
 
     useEffect(() => {
         if (selectedProject && isID) {
@@ -47,7 +47,7 @@ export default function AddProject() {
         e.preventDefault()
         isID ?
             // Update Project
-            update(id, Form)
+            update(ProjectId, Form)
                 .then(res => {
                     alert(res)
                     navigate('/project')
