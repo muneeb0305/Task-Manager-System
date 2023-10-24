@@ -69,13 +69,23 @@ namespace TM.Buisness.DataServices
         public async Task Delete(int TeamId)
         {
             var removeTeam = await unitOfWork.TeamRepository.Get(TeamId);
+            var _teamTaks = await unitOfWork.TeamRepository.Find(t => t.TeamId == TeamId).Include(t=>t.Project).ThenInclude(p=>p.Tasks).FirstOrDefaultAsync();
+            var tasks = _teamTaks?.Project?.Tasks;
             //Not Found
             NotFound(removeTeam == null, "Invalid Team ID");
-
+            if (tasks?.Count >0 && tasks != null)
+            {
+                foreach (var _tasks in tasks!)
+                {
+                    _tasks.AssignedUserID = null;
+                }
+            }
+            
             //Delete team
             var team = unitOfWork.TeamRepository.Remove(removeTeam!);
             if (team)
             {
+
                 await unitOfWork.Commit();
             }
             else

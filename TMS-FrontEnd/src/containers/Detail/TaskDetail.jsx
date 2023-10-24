@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
@@ -16,6 +16,8 @@ export default function TaskDetail() {
     const { selectedTask, getTaskById } = useTaskData()
     const { comment, remove, getComment } = useCommentData()
     const { teamUsers, getTeamUsersById } = useTeamData()
+    // State
+    const [Loading, setIsLoading] = useState(false)
     // Data For table
     const Headers = ["Comment", "Created At", "Created By", "Action"]
     const tableData = comment
@@ -24,15 +26,17 @@ export default function TaskDetail() {
 
     useEffect(() => {
         getTaskById(id)
+        .then(()=>setIsLoading(true))
         getComment(id)
         // eslint-disable-next-line
     }, [])
     useEffect(() => {
-        if (selectedTask && selectedTask.teamId) {
+        if (Loading && selectedTask.teamId) {
             getTeamUsersById(selectedTask.teamId)
+            .catch(err=>console.log(err))
         }
         // eslint-disable-next-line
-    }, [selectedTask])
+    }, [selectedTask,Loading])
 
     const aboutData = {
         "Task ID": selectedTask && selectedTask.id,

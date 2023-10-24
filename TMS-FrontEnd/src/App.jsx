@@ -1,7 +1,7 @@
 import Authentication from './Auth/Authentication';
 import AppProviders from './context/AppProviders';
-function App() {
 
+function App() {
   return (
     <AppProviders>
       <Authentication />

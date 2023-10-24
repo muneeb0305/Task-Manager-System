@@ -46,7 +46,6 @@ export default function AssignTask() {
         e.preventDefault()
         assignTask(Form)
             .then(res => {
-                console.log(res)
                 alert(res)
                 navigate(`/project/${Pid}/task/${Tid}`)
             })
