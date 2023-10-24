@@ -1,16 +1,32 @@
 import AppRoutes from '../Routes';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from '../containers/MainPages/Login';
 import { useAuth } from '../context/AuthProvider';
+import { useEffect } from 'react';
 
 export default function Authentication() {
     // Get Token
-    const {token} = useAuth()   
+    const { userDetail, token, clearToken } = useAuth()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (token) {
+            navigate('/')
+        }
+        else {
+            clearToken()
+        }
+         // eslint-disable-next-line
+    }, [])
     return (
         <Routes>
             {
-                token ? <Route path="/*" element={<AppRoutes />} /> :
-                    <Route path="/*" element={<Login />} />
+                token && userDetail.role === 'admin' ?
+                    <Route path="/*" element={<AppRoutes role={'admin'} />} />
+                    :
+                    token && userDetail.role === 'user' ?
+                        <Route path="/*" element={<AppRoutes role={'user'} />} />
+                        :
+                        <Route path="/*" element={<Login />} />
             }
         </Routes >
     );

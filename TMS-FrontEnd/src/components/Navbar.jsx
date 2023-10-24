@@ -9,7 +9,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [open] = useState(false)
-  const { clearToken } = useAuth()
+  const { clearToken, userDetail } = useAuth()
 
   const handleLogout = () => {
     clearToken()
@@ -46,7 +46,7 @@ export default function Navbar() {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          to="/user/1"
+                          to={`/user/${userDetail.ID}`}
                           className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                         >
                           Your Profile

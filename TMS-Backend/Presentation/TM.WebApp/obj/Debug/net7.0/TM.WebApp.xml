@@ -25,6 +25,9 @@
         <member name="M:TM.WebApp.Controllers.ProjectController.GetProject">
             <summary>Admin can Get all Projects</summary>
         </member>
+        <member name="M:TM.WebApp.Controllers.ProjectController.GetUserProject(System.Int32)">
+            <summary>User can Get his Project</summary>
+        </member>
         <member name="M:TM.WebApp.Controllers.ProjectController.GetProject(System.Int32)">
             <summary>Get Project by ProjectId</summary>
         </member>
@@ -42,6 +45,9 @@
         </member>
         <member name="M:TM.WebApp.Controllers.TasksController.GetTask(System.Int32)">
             <summary>Admin can Get Task by TaskId</summary>
+        </member>
+        <member name="M:TM.WebApp.Controllers.TasksController.GetUserTasks(System.Int32)">
+            <summary>User can Get His by UserId</summary>
         </member>
         <member name="M:TM.WebApp.Controllers.TasksController.GetAllTasks(System.Int32)">
             <summary>Get Task by ProjectId</summary>

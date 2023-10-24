@@ -13,7 +13,7 @@ export default function AddComment() {
     const isID = !!id
     // Get data from Providers
     const { selectedComment, create, update, getCommentById } = useCommentData()
-    const { user } = useAuth()
+    const { userDetail } = useAuth()
     // Form State
     const [Form, setForm] = useState({
         commentText: '',
@@ -26,7 +26,7 @@ export default function AddComment() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const newForm = { ...Form, userId: Number(user.ID) }
+        const newForm = { ...Form, userId: Number(userDetail.ID) }
         isID ?
             // Update Comment
             update(id, newForm)

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import DashboardCardData from '../../data/DashboardCardData'
+import { AdminCardData } from '../../data/DashboardCardData'
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/24/solid'
 import Card from '../../components/Card'
 import Table from '../../components/Table'
@@ -33,7 +33,7 @@ export default function Dashboard() {
           {/* Dashboard Cards */}
           <div className='grid gap-6 mb-5 md:grid-cols-3'>
             {
-              DashboardCardData.map(({ title, icon }) => {
+              AdminCardData.map(({ title, icon }) => {
                 if (title === 'Teams') {
                   return (<Card
                     key={title}

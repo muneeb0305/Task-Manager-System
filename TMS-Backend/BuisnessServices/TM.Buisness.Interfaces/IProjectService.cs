@@ -5,5 +5,6 @@ namespace TM.Buisness.Interfaces
     public interface IProjectService : IServices<ProjectModel>
     {
         Task AssignProject(TeamProject teamProject);
+        Task<object> GetUserProject(int UserId);
     }
 }

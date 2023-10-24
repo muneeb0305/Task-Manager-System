@@ -10,6 +10,7 @@ export async function FetchData(apiUrl, token) {
         return response.data
     }
     catch (err) {
-        throw (err.response.data)
+        const error = 'Error in fetchiing'
+        throw error
     }
 }

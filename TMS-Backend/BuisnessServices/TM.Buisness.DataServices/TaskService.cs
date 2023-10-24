@@ -192,5 +192,25 @@ namespace TM.Buisness.DataServices
         {
             throw new NotImplementedException();
         }
+
+        public async Task<object> GetUserTasks(int UserId)
+        {
+            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).Include(u=>u.AssignedTask)!.ThenInclude(t=>t.Project).FirstOrDefaultAsync();
+            NotFound(user == null, "User Not Found");
+
+            var userTasks = user!.AssignedTask?.Select(t => new
+            {
+                id = t.TaskId,
+                teamId = t.Project.TeamId,
+                projectName = t.Project.Name,
+                taskName = t.TaskName,
+                description = t.TaskDescription,
+                status = t.Status.ToString(),
+                assignedTo = t.AssignedUser?.UserName,
+                assinedTeam = t.Project.Team?.TeamName,
+                dueDate = t.DueDate.ToString("yyyy-MM-dd"),
+            });
+            return userTasks!;
+        }
     }
 }

@@ -11,11 +11,17 @@ export function TaskProvider({ children }) {
 
     const [task, setTask] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
-    const { token } = useAuth()
+    const { token, userDetail } = useAuth()
 
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {
         const TaskApi = `https://localhost:7174/api/Tasks/project/${id}`;
+        const res = await FetchData(TaskApi, token);
+        setTask(res)
+    }
+    // Get all tasks of User by UserId
+    const getUserTask = async () => {
+        const TaskApi = `https://localhost:7174/api/Tasks/user/${userDetail.ID}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
     }
@@ -52,7 +58,7 @@ export function TaskProvider({ children }) {
         return res
     };
     return (
-        <TaskContext.Provider value={{ selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
+        <TaskContext.Provider value={{ getUserTask, selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
             {children}
         </TaskContext.Provider>
     );

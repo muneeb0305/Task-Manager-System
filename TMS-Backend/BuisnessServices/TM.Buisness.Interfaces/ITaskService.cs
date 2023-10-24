@@ -6,5 +6,6 @@ namespace TM.Buisness.Interfaces
     {
         public Task AssignTask(UserTask userTask);
         public Task<object> GetByProject(int ProjectId);
+        Task<object> GetUserTasks(int UserId);
     }
 }

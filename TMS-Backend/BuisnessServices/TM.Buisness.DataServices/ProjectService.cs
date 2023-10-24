@@ -142,5 +142,31 @@ namespace TM.Buisness.DataServices
             };
             return projectInfo;
         }
+
+        public async Task<object> GetUserProject(int UserId)
+        {          
+            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).FirstOrDefaultAsync();
+            //Not Found
+            NotFound(user == null, "User Not Found");
+
+            var userTeam = await unitOfWork.TeamRepository.Find(t => t.TeamId == user!.TeamId).FirstOrDefaultAsync();
+            //Not Found
+            NotFound(userTeam == null, "Team is not assigned");
+
+            var project = await unitOfWork.ProjectRepository.Find(p => p.TeamId == userTeam!.TeamId).Include(p => p.Tasks).Include(p => p.Team).ToArrayAsync();
+
+            var projectInfo = project.Select(project => new
+            {
+                Id = project!.ProjectId,
+                projectName = project.Name,
+                description = project.Description,
+                assignedTo = project.Team == null ? "No Team Assigned" : project.Team.TeamName,
+                totalTasks = project.Tasks.Count,
+                taskPending = project.Tasks.Count(t => t.Status == Status.Pending),
+                taskInProcess = project.Tasks.Count(t => t.Status == Status.InProcess),
+                taskCompleted = project.Tasks.Count(t => t.Status == Status.Completed),
+            });
+            return projectInfo;
+        }
     }
 }

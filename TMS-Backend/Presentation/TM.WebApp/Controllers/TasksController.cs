@@ -17,10 +17,19 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Admin can Get Task by TaskId</summary>
         // GET: /api/task/5
-        [HttpGet("{TaskId}"), Authorize(Roles = "admin")]
+        [HttpGet("{TaskId}")]
         public async Task<IActionResult> GetTask(int TaskId)
         {
             var task = await taskService.Get(TaskId);
+            return Ok(task);
+        }
+
+        /// <summary>User can Get His by UserId</summary>
+        // GET: /api/task/user/5
+        [HttpGet("user/{UserId}"), Authorize(Roles = "user")]
+        public async Task<IActionResult> GetUserTasks(int UserId)
+        {
+            var task = await taskService.GetUserTasks(UserId);
             return Ok(task);
         }
 

@@ -12,19 +12,30 @@ export function ProjectProvider({ children }) {
     const [project, setProject] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
     // Get Token
-    const { token } = useAuth()
+    const { token, userDetail } = useAuth()
 
     // Get Project
     const getProject = async () => {
         const projectApi = 'https://localhost:7174/api/Project'
-        const res = await FetchData(projectApi, token)
-        setProject(res)
+        try{
+            const res = await FetchData(projectApi, token)
+            setProject(res)
+        }
+        catch(err){
+            console.log(err)
+        }
     }
     //Get Project by Project Id
     const getProjectById = async (id) => {
         const projectApi = `https://localhost:7174/api/Project/${id}`;
         const res = await FetchData(projectApi, token);
         setSelectedProject(res)
+    }
+    //Get User Project by User Id
+    const getUserProjectById = async () => {
+        const projectApi = `https://localhost:7174/api/Project/user/${userDetail.ID}`;
+        const res = await FetchData(projectApi, token);
+        setProject(res)
     }
     // Delete Project
     const remove = async (id) => {
@@ -53,7 +64,7 @@ export function ProjectProvider({ children }) {
         return res
     };
     return (
-        <ProjectContext.Provider value={{  selectedProject, project, create, remove, update, getProjectById, getProject, assignProject }}>
+        <ProjectContext.Provider value={{ getUserProjectById, selectedProject, project, create, remove, update, getProjectById, getProject, assignProject }}>
             {children}
         </ProjectContext.Provider>
     );

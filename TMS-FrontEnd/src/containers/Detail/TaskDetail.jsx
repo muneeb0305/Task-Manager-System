@@ -7,6 +7,7 @@ import { useTaskData } from '../../context/TaskProvider'
 import { useCommentData } from '../../context/CommentProvider'
 import Table from '../../components/Table'
 import { useTeamData } from '../../context/TeamProvider'
+import { useAuth } from '../../context/AuthProvider'
 
 export default function TaskDetail() {
     const navigate = useNavigate()
@@ -16,6 +17,8 @@ export default function TaskDetail() {
     const { selectedTask, getTaskById } = useTaskData()
     const { comment, remove, getComment } = useCommentData()
     const { teamUsers, getTeamUsersById } = useTeamData()
+    const { userDetail } = useAuth()
+    const role = userDetail.role
     // State
     const [Loading, setIsLoading] = useState(false)
     // Data For table
@@ -26,17 +29,17 @@ export default function TaskDetail() {
 
     useEffect(() => {
         getTaskById(id)
-        .then(()=>setIsLoading(true))
+            .then(() => setIsLoading(true))
         getComment(id)
         // eslint-disable-next-line
     }, [])
     useEffect(() => {
-        if (Loading && selectedTask.teamId) {
+        if (Loading && selectedTask.teamId && role === 'admin') {
             getTeamUsersById(selectedTask.teamId)
-            .catch(err=>console.log(err))
+                .catch(err => console.log(err))
         }
         // eslint-disable-next-line
-    }, [selectedTask,Loading])
+    }, [selectedTask, Loading])
 
     const aboutData = {
         "Task ID": selectedTask && selectedTask.id,
@@ -65,9 +68,13 @@ export default function TaskDetail() {
                     <h1 className="text-4xl font-medium py-5">Task</h1>
                     <div className="md:flex no-wrap md:-mx-2 ">
                         <div className="w-full">
-                            <div className='flex justify-end mb-3'>
-                                <Button label={'Assign Task'} onClick={handleClick} />
-                            </div>
+                            {
+                                role === 'admin' ?
+                                    <div className='flex justify-end mb-3'>
+                                        <Button label={'Assign Task'} onClick={handleClick} />
+                                    </div>
+                                    : null
+                            }
                             <About data={aboutData} />
                             <div className={`bg-white border-2 rounded-lg  shadow-lg p-5 mt-5`}>
                                 <div className='flex justify-between px-4'>

@@ -24,6 +24,15 @@ namespace TM.WebApp.Controllers
             return Ok(project);
         }
 
+        /// <summary>User can Get his Project</summary>
+        //Get: /api/user/project
+        [HttpGet("user/{UserId}"), Authorize(Roles = "user")]
+        public async Task<IActionResult> GetUserProject(int UserId)
+        {
+            var project = await projectService.GetUserProject(UserId);
+            return Ok(project);
+        }
+
         /// <summary>Get Project by ProjectId</summary>
         //Get: /api/project/5
         [HttpGet("{ProjectId}")]
