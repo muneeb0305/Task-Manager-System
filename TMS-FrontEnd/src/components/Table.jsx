@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from './Modal'
 
-export default function Table({ tableData, tableHeader, dataArr, editLink, viewLink, remove }) {
+export default function Table({ tableData, tableHeader, dataArr, editLink, viewLink, removeFunc }) {
   return (
     <section >
       <div className='w-full'>
@@ -34,7 +34,7 @@ export default function Table({ tableData, tableHeader, dataArr, editLink, viewL
                             {
                               tableHeader && tableHeader.includes('Action') && (
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                  <Modal ID={data.id} editLink={editLink} viewLink={viewLink} remove={remove} />
+                                  <Modal ID={data.id} editLink={editLink} viewLink={viewLink} remove={removeFunc} />
                                 </td>
                               )}
                           </tr>
