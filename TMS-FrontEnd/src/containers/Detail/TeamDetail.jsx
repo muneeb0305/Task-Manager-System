@@ -24,6 +24,7 @@ export default function TeamDetail() {
         viewLink: 'user',
     }
 
+    // Retrive Data
     useEffect(() => {
         getTeamById(TeamId)
         getTeamUsersById(TeamId)

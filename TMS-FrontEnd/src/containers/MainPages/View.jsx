@@ -12,7 +12,26 @@ export default function View({ display }) {
     const { project, getProject, removeProject } = useProjectData()
     const { team, getTeam, removeTeam, getUserTeam } = useTeamData()
     const { userDetail } = useAuth()
-    // Table Configuration
+
+    //Retrive all Data
+    useEffect(() => {
+        if (display === 'user') {
+            getUser()
+        }
+        else if (display === 'project') {
+            getProject()
+        }
+        else if (display === 'team') {
+            userDetail.role === 'admin' ?
+                getTeam()
+                    .catch((err) => { Alert({ icon: 'error', title: err }) }) :
+                getUserTeam()
+                    .catch((err) => { Alert({ icon: 'error', title: err }) })
+        }
+        // eslint-disable-next-line
+    }, [display])
+
+    // Table Configurations of User, Team, Project and Task
     const tableConfigs = {
         user: {
             tableHeader: ["User Name", "Email", "Action"],
@@ -55,26 +74,8 @@ export default function View({ display }) {
             viewLink: '/team',
         }
     }
+    // Table Configured
     const tableConfig = tableConfigs[display]
-
-    //Retrive all Data
-    useEffect(() => {
-        if (display === 'user') {
-            getUser()
-        }
-        else if (display === 'project') {
-            getProject()
-        }
-        else if (display === 'team') {
-            userDetail.role === 'admin' ?
-                getTeam()
-                    .catch((err) => { Alert({ icon: 'error', title: err }) }) :
-                getUserTeam()
-                    .catch((err) => { Alert({ icon: 'error', title: err }) })
-        }
-        // eslint-disable-next-line
-    }, [display])
-
     
     return (
         <TableView {...tableConfig} />
