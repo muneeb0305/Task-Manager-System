@@ -14,6 +14,7 @@ export default function Authentication() {
         }
         else {
             clearToken()
+            navigate('/')
         }
         // eslint-disable-next-line
     }, [])
