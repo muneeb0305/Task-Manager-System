@@ -20,13 +20,16 @@ export default function ProjectDetail() {
     const { team, getTeam } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
-    //  Data for table 
-    const Headers = ["Task Name", "Status", "Due Date", "Action"]
-    const tableData = task
-    const dataArr = ['taskName', 'status', 'dueDate']
-    const removeFunc = remove
-    const editLink = 'task'
-    const viewLink = 'task'
+
+    //table Configuration
+    const tableConfig = {
+        tableHeader: ["Task Name", "Status", "Due Date", "Action"],
+        tableData: task,
+        removeFunc: remove,
+        dataArr: ['taskName', 'status', 'dueDate'],
+        editLink: 'task',
+        viewLink: 'task',
+    }
 
     useEffect(() => {
         getProjectById(ProjectId)
@@ -86,7 +89,7 @@ export default function ProjectDetail() {
                                         : null
                                 }
                             </div>
-                            <Table tableData={tableData} tableHeader={Headers} editLink={editLink} viewLink={viewLink} dataArr={dataArr} remove={removeFunc} />
+                            <Table {...tableConfig} />
                         </div>
                     </div>
                 </div>

@@ -20,10 +20,13 @@ export default function Dashboard() {
     // eslint-disable-next-line
   }, []);
 
-  //Data for table
-  const Headers = ["Project Name", "Assigned to"]
-  const removeFunc = remove
-  const dataArr = ['projectName', 'assignedTo']
+  //table Configuration
+  const tableConfig = {
+    tableHeader: ["Project Name", "Assigned to"],
+    tableData: project,
+    removeFunc: remove,
+    dataArr: ['projectName', 'assignedTo'],
+  }
 
   return (
     <section>
@@ -71,7 +74,7 @@ export default function Dashboard() {
               <ClipboardDocumentCheckIcon className={`h-7 w-7 text-blue-500 `} />
               <h2 className='text-xl pl-3'>On Going Projects</h2>
             </div>
-            <Table tableData={project} tableHeader={Headers} dataArr={dataArr} remove={removeFunc} />
+            <Table {...tableConfig} />
           </div>
         </div>
       </div>

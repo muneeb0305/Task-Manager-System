@@ -9,7 +9,7 @@ import Alert from '../../components/Alert'
 
 export default function UserDashboard() {
     //Get Data from Providers
-    const { project, getUserProjectById, remove } = useProjectData()
+    const { project, getUserProjectById } = useProjectData()
     const { task, getUserTask } = useTaskData()
 
     useEffect(() => {
@@ -40,11 +40,13 @@ export default function UserDashboard() {
         }
     });
 
-    //Data for table
-    const Headers = ["Project Name", "Assigned to", "Action"]
-    const dataArr = ['projectName', 'assignedTo']
-    const tableData = project
-    const viewLink = 'project'
+    //table Configuration
+    const tableConfig = {
+        tableHeader: ["Project Name", "Assigned to", "Action"],
+        tableData: project,
+        dataArr: ['projectName', 'assignedTo'],
+        viewLink: 'project',
+    }
 
     return (
         <section>
@@ -92,7 +94,7 @@ export default function UserDashboard() {
                             <ClipboardDocumentCheckIcon className={`h-7 w-7 text-blue-500 `} />
                             <h2 className='text-xl pl-3'>On Going Project</h2>
                         </div>
-                        <Table tableData={tableData} tableHeader={Headers} viewLink={viewLink} dataArr={dataArr} remove={remove} />
+                        <Table {...tableConfig} />
                     </div>
                 </div>
             </div>

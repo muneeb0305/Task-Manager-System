@@ -5,7 +5,7 @@ import Button from './Button'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
 
-export default function TableView({ Heading, ButtonName, TableHeaders, editLink, viewLink, TableData, dataArr, remove }) {
+export default function TableView(props) {
     // get User Detail from Provider
     const { userDetail } = useAuth()
     const role = userDetail.role
@@ -18,14 +18,14 @@ export default function TableView({ Heading, ButtonName, TableHeaders, editLink,
                         <div className='flex justify-between px-4'>
                             <div className='flex items-center'>
                                 <ListBulletIcon className={`h-7 w-7 text-blue-500 `} />
-                                <h2 className='text-2xl font-semibold pl-3'>{Heading}</h2>
+                                <h2 className='text-2xl font-semibold pl-3'>{props.Heading}</h2>
                             </div>
                             {
-                                role === 'admin' ? <Link to={`create`}><Button label={`Add ${ButtonName}`} /></Link>
+                                role === 'admin' ? <Link to={`create`}><Button label={`Add ${props.ButtonName}`} /></Link>
                                     : null
                             }
                         </div>
-                        <Table tableData={TableData} tableHeader={TableHeaders} editLink={editLink} viewLink={viewLink} dataArr={dataArr} remove={remove} />
+                        <Table {...props} />
                     </div>
                 </div>
             </div>

@@ -15,12 +15,14 @@ export default function TeamDetail() {
     const { userDetail } = useAuth()
     const role = userDetail.role
 
-    // Data For Table
-    const Headers = ["User Name", "Email", "Action"]
-    const tableData = teamUsers
-    const dataArr = ['userName', 'email']
-    const removeFunc = unassignTeam
-    const viewLink = 'user'
+    //table Configuration
+    const tableConfig = {
+        tableHeader: ["User Name", "Email", "Action"],
+        tableData: teamUsers,
+        removeFunc: unassignTeam,
+        dataArr: ['userName', 'email'],
+        viewLink: 'user',
+    }
 
     useEffect(() => {
         getTeamById(TeamId)
@@ -53,7 +55,7 @@ export default function TeamDetail() {
                                             : null
                                     }
                                 </div>
-                                <Table tableData={tableData} tableHeader={Headers} viewLink={viewLink} dataArr={dataArr} remove={removeFunc} />
+                                <Table {...tableConfig} />
                             </div>
                         </div>
                     </div>

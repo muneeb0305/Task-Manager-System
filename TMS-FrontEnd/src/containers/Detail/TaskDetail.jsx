@@ -22,12 +22,15 @@ export default function TaskDetail() {
     const role = userDetail.role
     // State
     const [Loading, setIsLoading] = useState(false)
-    // Data For table
-    const Headers = role === 'admin' ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"]
-    const tableData = comment
-    const removeFunc = remove
-    const dataArr = ['comment', 'createdAt', 'createdBy']
-    const editLink = 'comment'
+
+    //table Configuration
+    const tableConfig = {
+        tableHeader: role === 'admin' ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"],
+        tableData: comment,
+        removeFunc: remove,
+        dataArr: ['comment', 'createdAt', 'createdBy'],
+        editLink: 'comment',
+    }
 
     useEffect(() => {
         getTaskById(taskId)
@@ -37,6 +40,7 @@ export default function TaskDetail() {
             .catch((err) => { Alert({ icon: 'error', title: err }) })
         // eslint-disable-next-line
     }, [])
+
     useEffect(() => {
         if (Loading && selectedTask.teamId && role === 'admin') {
             getTeamUsersById(selectedTask.teamId)
@@ -88,7 +92,7 @@ export default function TaskDetail() {
                                     </div>
                                     <Link to="comment/create"><Button label={'Add Comment'} /></Link>
                                 </div>
-                                <Table tableData={tableData} tableHeader={Headers} editLink={editLink} dataArr={dataArr} remove={removeFunc} />
+                                <Table {...tableConfig} />
                             </div>
                         </div>
                     </div>
