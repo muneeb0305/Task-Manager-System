@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2'
 
-export default function Alert(props) {
+export default function Alert({ icon, title }) {
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -9,7 +10,7 @@ export default function Alert(props) {
         timerProgressBar: true,
     })
     Toast.fire({
-        icon: props.icon,
-        title: props.title
+        icon: icon,
+        title: title
     })
 }

@@ -4,8 +4,9 @@ import { useAuth } from '../context/AuthProvider';
 import Alert from './Alert';
 
 export default function Modal({ ID, editLink, viewLink, remove }) {
-
+    // Get User Detail from Provide
     const { userDetail } = useAuth()
+    // States
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);

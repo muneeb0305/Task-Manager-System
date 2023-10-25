@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
 
 export default function TableView({ Heading, ButtonName, TableHeaders, editLink, viewLink, TableData, dataArr, remove }) {
+    // get User Detail from Provider
     const { userDetail } = useAuth()
     const role = userDetail.role
+    
     return (
         <section>
             <div className={'bg-gray-100 min-h-screen pb-4 pt-20'}>
@@ -22,7 +24,6 @@ export default function TableView({ Heading, ButtonName, TableHeaders, editLink,
                                 role === 'admin' ? <Link to={`create`}><Button label={`Add ${ButtonName}`} /></Link>
                                     : null
                             }
-
                         </div>
                         <Table tableData={TableData} tableHeader={TableHeaders} editLink={editLink} viewLink={viewLink} dataArr={dataArr} remove={remove} />
                     </div>

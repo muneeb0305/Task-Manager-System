@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function About(props) {
-
-    const dataArr = Object.entries(props.data).map(([key, value]) => ({
+export default function About({ data }) {
+    // Make props into key value pair
+    const dataArr = Object.entries(data).map(([key, value]) => ({
         key: key,
         value: value,
     }));

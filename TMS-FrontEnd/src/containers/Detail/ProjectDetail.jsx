@@ -41,7 +41,6 @@ export default function ProjectDetail() {
             getUserTask()
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
-
         // eslint-disable-next-line
     }, [])
 

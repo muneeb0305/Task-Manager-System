@@ -5,9 +5,9 @@ import { useAuth } from '../context/AuthProvider';
 import { useEffect } from 'react';
 
 export default function Authentication() {
-    // Get Token
-    const { userDetail, token, clearToken } = useAuth()
     const navigate = useNavigate()
+    // Get User Details from Provider
+    const { userDetail, token, clearToken } = useAuth()
     useEffect(() => {
         if (token) {
             navigate('/')
@@ -15,8 +15,9 @@ export default function Authentication() {
         else {
             clearToken()
         }
-         // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [])
+
     return (
         <Routes>
             {
