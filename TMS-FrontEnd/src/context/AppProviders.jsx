@@ -14,9 +14,7 @@ export default function AppProviders({ children }) {
                     <TeamProvider>
                         <TaskProvider>
                             <CommentProvider>
-
                                 {children}
-
                             </CommentProvider>
                         </TaskProvider>
                     </TeamProvider>

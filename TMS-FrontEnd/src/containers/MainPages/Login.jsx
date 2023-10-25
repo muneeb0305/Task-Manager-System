@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import Alert from "../../components/Alert";
 
@@ -48,9 +48,6 @@ export default function Login() {
                             <Input type="password" value={Form.password} onChange={handleChange} name="password" placeholder="Password" title={'Password'} />
                             <Button type="submit" label={'Submit'} />
                         </form>
-                        <div className='mt-5 text-gray-500 hover:text-dark2 hover:cursor-pointer '>
-                            <Link to='/registration'><p className='text-sm '>Register Your Self</p></Link>
-                        </div>
                     </div>
                 </div>
             </div>
