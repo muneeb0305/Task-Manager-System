@@ -62,7 +62,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Admin can Update Task</summary>
         // Put: /api/task/5
-        [HttpPut("{TaskId}"), Authorize(Roles = "admin")]
+        [HttpPut("{TaskId}")]
         public async Task<IActionResult> Update(int TaskId, [FromBody] TaskModel taskModel)
         {
             await taskService.Update(TaskId, taskModel);

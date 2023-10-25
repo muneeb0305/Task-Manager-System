@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
 
 export default function Modal({ ID, editLink, viewLink, remove }) {
 
+    const { userDetail } = useAuth()
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
@@ -11,30 +13,43 @@ export default function Modal({ ID, editLink, viewLink, remove }) {
         remove(ID)
         closeModal()
     }
+    console.log(editLink)
     return (
         <>
             {
                 editLink && viewLink ?
                     <>
-                        <Link to={`${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                        <Link to={`${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                        <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                        <Link to={`${editLink}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+                        <Link to={`${viewLink}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+                        {
+                            userDetail.role === 'admin' ?
+                                <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                                : null
+                        }
                     </> :
                     editLink ?
                         <>
-                            <Link to={`${editLink ? `${editLink}/` : ''}${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                            <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                            <Link to={`${editLink}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+                            {
+                                userDetail.role === 'admin' ?
+                                    <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                                    : null
+                            }
                         </>
-
                         :
                         viewLink ?
                             <>
-                                <Link to={`${viewLink ? `${viewLink}/` : ''}${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                                <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                                <Link to={`${viewLink}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+                                {
+                                    userDetail.role === 'admin' ?
+                                        <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+                                        : null
+                                }
                             </>
                             : null
             }
-            {isOpen &&
+            {
+                isOpen &&
                 <div className="fixed inset-0 z-50 overflow-y-auto">
                     <div className="relative flex items-center justify-center min-h-screen w-full">
                         <div className="absolute inset-0 bg-black opacity-50"></div>

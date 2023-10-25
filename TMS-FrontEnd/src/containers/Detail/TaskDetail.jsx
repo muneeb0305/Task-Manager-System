@@ -22,7 +22,7 @@ export default function TaskDetail() {
     // State
     const [Loading, setIsLoading] = useState(false)
     // Data For table
-    const Headers = ["Comment", "Created At", "Created By", "Action"]
+    const Headers = role === 'admin' ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"]
     const tableData = comment
     const removeFunc = remove
     const dataArr = ['comment', 'createdAt', 'createdBy']
@@ -59,7 +59,7 @@ export default function TaskDetail() {
         else if (teamUsers.length === 0) {
             alert("User not added in Team")
         } else {
-            navigate(`/project/${ProjectId}/${taskId}/assign?team=${selectedTask.teamId}`)
+            navigate(`/project/${ProjectId}/task/${taskId}/assign?team=${selectedTask.teamId}`)
         }
     }
     return (

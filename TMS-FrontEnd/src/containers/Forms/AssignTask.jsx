@@ -47,7 +47,7 @@ export default function AssignTask() {
         assignTask(Form)
             .then(res => {
                 alert(res)
-                navigate(`/project/${ProjectId}/${taskId}`)
+                navigate(`/project/${ProjectId}/task/${taskId}`)
             })
             .catch(err => alert(err))
     }

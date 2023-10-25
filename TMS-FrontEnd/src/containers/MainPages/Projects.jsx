@@ -19,8 +19,8 @@ export default function Projects() {
     const Tabledata = project
     const dataArr = ['projectName', 'assignedTo']
     const removeFunc = remove
-    const editLink = 'project'
-    const viewLink = 'project'
+    const editLink = '/project'
+    const viewLink = '/project'
 
     return (
         <TableView Heading={Heading} ButtonName={ButtonName} TableHeaders={TableHeaders} editLink={editLink} viewLink={viewLink}

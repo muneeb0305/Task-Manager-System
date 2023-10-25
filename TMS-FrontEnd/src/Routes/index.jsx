@@ -29,6 +29,7 @@ export default function AppRoutes({ role }) {
             element: <Dashboard />,
             isAdmin: true
         },
+        // User Dashboard
         {
             path: '/',
             element: <UserDashboard />,
@@ -93,7 +94,7 @@ export default function AppRoutes({ role }) {
         },
         // Task Routes
         {
-            path: '/project/:ProjectId/:taskId/assign',
+            path: '/project/:ProjectId/task/:taskId/assign',
             element: <AssignTask />,
             isAdmin: true
         },
@@ -103,26 +104,26 @@ export default function AppRoutes({ role }) {
             isAdmin: true
         },
         {
-            path: '/project/:ProjectId/:taskId/edit',
+            path: '/project/:ProjectId/task/:taskId/edit',
             element: <AddTask />,
-            isAdmin: true
+            isAdmin: false
         },
         {
-            path: '/project/:ProjectId/:taskId',
+            path: '/project/:ProjectId/task/:taskId',
             element: <TaskDetail />,
             isAdmin: false
         },
         //  Comment Routes
         {
-            path: '/project/:ProjectId/:taskId/comment/create',
+            path: '/project/:ProjectId/task/:taskId/comment/create',
             element: <AddComment />,
-            isAdmin: true
+            isAdmin: false
         },
 
         {
-            path: '/project/:ProjectId/:taskId/comment/:id/edit',
+            path: '/project/:ProjectId/task/:taskId/comment/:id/edit',
             element: <AddComment />,
-            isAdmin: true
+            isAdmin: false
         },
         // User Routes
         {

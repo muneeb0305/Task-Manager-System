@@ -32,7 +32,7 @@ export default function AddComment() {
             update(id, newForm)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${ProjectId}/${taskId}`)
+                    navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
                 .catch(err => alert(err))
             :
@@ -40,7 +40,7 @@ export default function AddComment() {
             create(taskId, newForm)
                 .then(res => {
                     alert(res)
-                    navigate(`/project/${ProjectId}/${taskId}`)
+                    navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
                 .catch(err => alert(err))
     }
@@ -48,7 +48,7 @@ export default function AddComment() {
         if (isID) {
             getCommentById(id)
             .catch(err => {
-                navigate(`/project/${ProjectId}/${taskId}`)
+                navigate(`/project/${ProjectId}/task/${taskId}`)
             })
         }
         // eslint-disable-next-line

@@ -73,7 +73,6 @@ namespace TM.Buisness.DataServices
             Validate(!string.IsNullOrEmpty(task.TaskName) && task.TaskName.Length > 50, "Task Name should be less than 50 character");
             Validate(!string.IsNullOrEmpty(task.TaskDescription) && task.TaskDescription.Length > 200, "Task Description should be less than 200 character");
             Validate(task.Status != Status.Pending && task.Status != Status.InProcess && task.Status != Status.Completed, $"Status Should be:\n{Status.InProcess}\n{Status.Pending}\n{Status.Completed}");
-            Validate(task.DueDate != DateTime.MinValue && task.DueDate < DateTime.Now, "Invalid Date");
 
             if (!string.IsNullOrEmpty(task.TaskName))
             {

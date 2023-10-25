@@ -17,6 +17,7 @@ export default function UserDashboard() {
         getUserTask()
         // eslint-disable-next-line
     }, []);
+
     // Card Data for pending, inprocess, and completed
     let pendingCount = 0;
     let inProcessCount = 0;
@@ -42,6 +43,7 @@ export default function UserDashboard() {
     const Headers = ["Project Name", "Assigned to", "Action"]
     const dataArr = ['projectName', 'assignedTo']
     const tableData = project
+    const viewLink = 'project'
 
     return (
         <section>
@@ -89,7 +91,7 @@ export default function UserDashboard() {
                             <ClipboardDocumentCheckIcon className={`h-7 w-7 text-blue-500 `} />
                             <h2 className='text-xl pl-3'>On Going Project</h2>
                         </div>
-                        <Table tableData={tableData} tableHeader={Headers} name="project" dataArr={dataArr} remove={remove} />
+                        <Table tableData={tableData} tableHeader={Headers} viewLink={viewLink} dataArr={dataArr} remove={remove} />
                     </div>
                 </div>
             </div>
