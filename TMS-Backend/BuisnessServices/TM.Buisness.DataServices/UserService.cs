@@ -50,7 +50,7 @@ namespace TM.Buisness.DataServices
                 claims: claims,
                 audience: config["Audience"],
                 issuer: config["Issuer"],
-                expires: DateTime.Now.AddHours(20),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: cred
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);

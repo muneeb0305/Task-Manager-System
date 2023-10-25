@@ -38,7 +38,6 @@ export function TaskProvider({ children }) {
         const newData = task.filter(d => d.id !== id)
         setTask(newData);
         return res
-
     };
     // Create task
     const create = async (newTask) => {

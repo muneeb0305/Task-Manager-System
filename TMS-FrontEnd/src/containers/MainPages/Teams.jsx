@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import TableView from '../../components/TableView'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
+import Alert from '../../components/Alert'
 
 export default function Teams() {
     // Get Team from Team Provider
@@ -13,7 +14,10 @@ export default function Teams() {
     //Retrive all Teams
     useEffect(() => {
         role === 'admin' ?
-            getTeam() : getUserTeam()
+            getTeam()
+                .catch((err) => { Alert({ icon: 'error', title: err }) }) :
+            getUserTeam()
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
         // eslint-disable-next-line
     }, [])
 

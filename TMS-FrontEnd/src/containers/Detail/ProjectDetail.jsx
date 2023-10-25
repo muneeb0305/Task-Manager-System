@@ -30,12 +30,16 @@ export default function ProjectDetail() {
 
     useEffect(() => {
         getProjectById(ProjectId)
+            .catch((err) => { Alert({ icon: 'error', title: err }) })
         if (role === 'admin') {
             getTaskByProjectId(ProjectId)
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
             getTeam()
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
         if (role === 'user') {
             getUserTask()
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
 
         // eslint-disable-next-line

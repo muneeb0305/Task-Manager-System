@@ -5,6 +5,7 @@ import Card from '../../components/Card'
 import Table from '../../components/Table'
 import { useProjectData } from '../../context/ProjectProvider'
 import { useTaskData } from '../../context/TaskProvider'
+import Alert from '../../components/Alert'
 
 export default function UserDashboard() {
     //Get Data from Providers
@@ -13,8 +14,8 @@ export default function UserDashboard() {
 
     useEffect(() => {
         getUserProjectById()
-            .catch((err)=>{})
         getUserTask()
+            .catch((err) => { Alert({ icon: 'error', title: err }) })
         // eslint-disable-next-line
     }, []);
 

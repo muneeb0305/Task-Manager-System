@@ -147,7 +147,7 @@ namespace TM.Buisness.DataServices
             var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw=>uw.UserId == UserId)).Include(t => t.Project).FirstOrDefaultAsync();
             if (team == null)
             {
-                return new object[] { }; ;
+                return new object[] { };
             }
             var _team =  new
             {

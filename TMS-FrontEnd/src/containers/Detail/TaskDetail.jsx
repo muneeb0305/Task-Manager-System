@@ -32,7 +32,9 @@ export default function TaskDetail() {
     useEffect(() => {
         getTaskById(taskId)
             .then(() => setIsLoading(true))
+            .catch((err) => { Alert({ icon: 'error', title: err }) })
         getComment(taskId)
+            .catch((err) => { Alert({ icon: 'error', title: err }) })
         // eslint-disable-next-line
     }, [])
     useEffect(() => {

@@ -151,10 +151,16 @@ namespace TM.Buisness.DataServices
 
             var userTeam = await unitOfWork.TeamRepository.Find(t => t.TeamId == user!.TeamId).FirstOrDefaultAsync();
             //Not Found
-            NotFound(userTeam == null, "Team is not assigned");
+            if(userTeam == null)
+            {
+                return new object[] { };
+            }
 
             var project = await unitOfWork.ProjectRepository.Find(p => p.TeamId == userTeam!.TeamId).Include(p => p.Tasks).Include(p => p.Team).ToArrayAsync();
-
+            if (project == null)
+            {
+                return new object[] { };
+            }
             var projectInfo = project.Select(project => new
             {
                 Id = project!.ProjectId,
