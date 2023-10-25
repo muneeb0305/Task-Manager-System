@@ -8,6 +8,7 @@ import { useAuth } from './AuthProvider';
 const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
+    const host = `https://localhost:7174`
     // States
     const [team, setTeam] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
@@ -17,52 +18,52 @@ export function TeamProvider({ children }) {
 
     // Get All Teams
     const getTeam = async () => {
-        const TeamApi = 'https://localhost:7174/api/Team'
+        const TeamApi = `${host}/api/Team`
         const res = await FetchData(TeamApi, token)
         setTeam(res)
     }
     // Get Team by Team ID
     const getTeamById = async (id) => {
-        const TeamApi = `https://localhost:7174/api/Team/${id}`;
+        const TeamApi = `${host}/api/Team/${id}`;
         const res = await FetchData(TeamApi, token);
         setSelectedTeam(res)
     }
     // Get User Team 
     const getUserTeam = async () => {
-        const TeamApi = `https://localhost:7174/api/Team/user/${userDetail.ID}`;
+        const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
         const res = await FetchData(TeamApi, token);
         setTeam(res)
     }
     // Delete Team
     const removeTeam = async (id) => {
-        const deleteAPI = `https://localhost:7174/api/Team/${id}`
+        const deleteAPI = `${host}/api/Team/${id}`
         const res = await DeleteData(deleteAPI, token)
         getTeam()
         return res
     };
     // Create Team
     const create = async (newProject) => {
-        const CreateApi = `https://localhost:7174/api/Team`
+        const CreateApi = `${host}/api/Team`
         const res = await PostData(CreateApi, newProject, token)
         getTeam()
         return res
     };
     // Update Team
     const update = async (id, editProject) => {
-        const UpdateApi = `https://localhost:7174/api/Team/${id}`
+        const UpdateApi = `${host}/api/Team/${id}`
         const res = await PutData(UpdateApi, editProject, token)
         getTeam()
         return res
     };
     // Get All users of team by Team ID
     const getTeamUsersById = async (id) => {
-        const TeamApi = `https://localhost:7174/api/Team/users/${id}`;
+        const TeamApi = `${host}/api/Team/users/${id}`;
         const result = await FetchData(TeamApi, token);
         setTeamUsers(result)
     }
     // Unassign Team
     const unassignTeam = async (id) => {
-        const deleteAPI = `https://localhost:7174/api/Users/remove_team/${id}`
+        const deleteAPI = `${host}/api/Users/remove_team/${id}`
         const res = await DeleteData(deleteAPI, token)
         const newData = teamUsers.filter(u => u.id !== id)
         setTeamUsers(newData)
@@ -70,7 +71,7 @@ export function TeamProvider({ children }) {
     };
     // Assign Team to User
     const assignTeam = async (form) => {
-        const AssignTeamApi = `https://localhost:7174/api/Users/assign_team`
+        const AssignTeamApi = `${host}/api/Users/assign_team`
         const res = await PutData(AssignTeamApi, form, token)
         return res
     };

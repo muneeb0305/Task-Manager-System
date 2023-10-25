@@ -8,6 +8,7 @@ import { useAuth } from './AuthProvider';
 const ProjectContext = createContext();
 
 export function ProjectProvider({ children }) {
+    const host = `https://localhost:7174`
     // States
     const [project, setProject] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
@@ -16,7 +17,7 @@ export function ProjectProvider({ children }) {
 
     // Get Project
     const getProject = async () => {
-        const projectApi = 'https://localhost:7174/api/Project'
+        const projectApi = `${host}/api/Project`
         try {
             const res = await FetchData(projectApi, token)
             setProject(res)
@@ -27,40 +28,40 @@ export function ProjectProvider({ children }) {
     }
     //Get Project by Project Id
     const getProjectById = async (id) => {
-        const projectApi = `https://localhost:7174/api/Project/${id}`;
+        const projectApi = `${host}/api/Project/${id}`;
         const res = await FetchData(projectApi, token);
         setSelectedProject(res)
     }
     //Get User Project by User Id
     const getUserProjectById = async () => {
-        const projectApi = `https://localhost:7174/api/Project/user/${userDetail.ID}`;
+        const projectApi = `${host}/api/Project/user/${userDetail.ID}`;
         const res = await FetchData(projectApi, token);
         setProject(res)
     }
     // Delete Project
     const removeProject = async (id) => {
-        const deleteAPI = `https://localhost:7174/api/Project/${id}`
+        const deleteAPI = `${host}/api/Project/${id}`
         const res = await DeleteData(deleteAPI, token)
         getProject()
         return res
     };
     // Create Project
     const create = async (newProject) => {
-        const CreateApi = `https://localhost:7174/api/Project`
+        const CreateApi = `${host}/api/Project`
         const res = await PostData(CreateApi, newProject, token)
         getProject()
         return res
     };
     // Update Project
     const update = async (id, editProject) => {
-        const UpdateApi = `https://localhost:7174/api/Project/${id}`
+        const UpdateApi = `${host}/api/Project/${id}`
         const res = await PutData(UpdateApi, editProject, token)
         getProject()
         return res
     };
     // Assign Project
     const assignProject = async (data) => {
-        const AssignApi = `https://localhost:7174/api/Project/assign_project`
+        const AssignApi = `${host}/api/Project/assign_project`
         const res = await PutData(AssignApi, data, token)
         return res
     };

@@ -7,15 +7,9 @@ import { useEffect } from 'react';
 export default function Authentication() {
     const navigate = useNavigate()
     // Get User Details from Provider
-    const { userDetail, token, clearToken } = useAuth()
+    const { userDetail, token } = useAuth()
     useEffect(() => {
-        if (token) {
             navigate('/')
-        }
-        else {
-            clearToken()
-            navigate('/')
-        }
         // eslint-disable-next-line
     }, [])
 

@@ -8,6 +8,7 @@ import { useAuth } from './AuthProvider';
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
+    const host = `https://localhost:7174`
     // User State
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -16,32 +17,32 @@ export function UserProvider({ children }) {
 
     //Get All Users
     const getUser = async () => {
-        const UserApi = 'https://localhost:7174/api/Users'
+        const UserApi = `${host}/api/Users`
         const res = await FetchData(UserApi, token)
         setUser(res)
     }
     //Get User By ID
     const getUserById = async (id) => {
-        const UserApi = `https://localhost:7174/api/Users/${id}`;
+        const UserApi = `${host}/api/Users/${id}`;
         const res = await FetchData(UserApi, token);
         setSelectedUser(res)
     }
     // Delete User
     const removeUser = async (id) => {
-        const deleteAPI = `https://localhost:7174/api/Users/${id}`
+        const deleteAPI = `${host}/api/Users/${id}`
         const res = await DeleteData(deleteAPI, token)
         getUser();
         return res
     };
     // Create User
     const create = async (newUser) => {
-        const CreateApi = `https://localhost:7174/api/Users`
+        const CreateApi = `${host}/api/Users`
         const res = await PostData(CreateApi, newUser, token)
         return res
     };
     // Update User
     const update = async (id, updatedUser) => {
-        const UpdateApi = `https://localhost:7174/api/Users/${id}`
+        const UpdateApi = `${host}/api/Users/${id}`
         const res = await PutData(UpdateApi, updatedUser, token)
         return res
     };

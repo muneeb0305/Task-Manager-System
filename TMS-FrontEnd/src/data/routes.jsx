@@ -15,7 +15,7 @@ import UserDashboard from "../containers/MainPages/UserDashboard";
 import View from "../containers/MainPages/View";
 
 export const routes = [
-    // Admin Dashboard Routes
+    // Admin Dashboard
     {
         path: '/',
         element: <Dashboard />,

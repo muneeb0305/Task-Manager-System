@@ -8,32 +8,34 @@ import { useAuth } from './AuthProvider';
 const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
-
+    const host = `https://localhost:7174`
+    // States
     const [task, setTask] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
+    // Get Token
     const { token, userDetail } = useAuth()
 
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {
-        const TaskApi = `https://localhost:7174/api/Tasks/project/${id}`;
+        const TaskApi = `${host}/api/Tasks/project/${id}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
     }
     // Get all tasks of User by UserId
     const getUserTask = async () => {
-        const TaskApi = `https://localhost:7174/api/Tasks/user/${userDetail.ID}`;
+        const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
     }
     // Get task by Task id
     const getTaskById = async (id) => {
-        const TaskApi = `https://localhost:7174/api/Tasks/${id}`;
+        const TaskApi = `${host}/api/Tasks/${id}`;
         const res = await FetchData(TaskApi, token);
         setSelectedTask(res)
     }
     // remove task
     const remove = async (id) => {
-        const deleteAPI = `https://localhost:7174/api/Tasks/${id}`
+        const deleteAPI = `${host}/api/Tasks/${id}`
         const res = await DeleteData(deleteAPI, token)
         const newData = task.filter(d => d.id !== id)
         setTask(newData);
@@ -41,19 +43,19 @@ export function TaskProvider({ children }) {
     };
     // Create task
     const create = async (newTask) => {
-        const CreateApi = `https://localhost:7174/api/Tasks`
+        const CreateApi = `${host}/api/Tasks`
         const res = await PostData(CreateApi, newTask, token)
         return res
     };
     // Update task
     const update = async (id, updatedTask) => {
-        const UpdateApi = `https://localhost:7174/api/Tasks/${id}`
+        const UpdateApi = `${host}/api/Tasks/${id}`
         const res = await PutData(UpdateApi, updatedTask, token)
         return res
     };
     // Assign task
     const assignTask = async (data) => {
-        const UpdateApi = `https://localhost:7174/api/Tasks/assign_task`
+        const UpdateApi = `${host}/api/Tasks/assign_task`
         const res = await PutData(UpdateApi, data, token)
         return res
     };

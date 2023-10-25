@@ -5,6 +5,8 @@ import { PostData } from '../utils/PostData';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const host = `https://localhost:7174`
+  // States
   const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [userDetail, setUserDetail] = useState({});
 
@@ -22,7 +24,7 @@ export function AuthProvider({ children }) {
 
   // Login
   const Login = async (userForm) => {
-    const LoginApi = `https://localhost:7174/api/Login`
+    const LoginApi = `${host}/api/Login`
     const res = await PostData(LoginApi, userForm, token)
     SetToken(res)
   };
