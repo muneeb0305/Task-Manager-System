@@ -6,6 +6,7 @@ import Button from '../../components/Button'
 import About from '../../components/About'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
+import Alert from '../../components/Alert'
 
 export default function TeamDetail() {
     // Get Team ID
@@ -27,7 +28,9 @@ export default function TeamDetail() {
     // Retrive Data
     useEffect(() => {
         getTeamById(TeamId)
+            .catch((err) => Alert({ icon: 'error', title: err }))
         getTeamUsersById(TeamId)
+            .catch((err) => Alert({ icon: 'error', title: err }))
         // eslint-disable-next-line
     }, [])
 

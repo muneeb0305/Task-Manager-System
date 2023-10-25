@@ -10,6 +10,10 @@ export async function PostData(apiUrl, data, token) {
         return response.data
     }
     catch (err) {
-        throw (err.response.data)
+        if(err.response.status === 401){
+            throw (err.response.data.message)
+        } else{
+            throw (err.response.data)
+        }
     }
 }

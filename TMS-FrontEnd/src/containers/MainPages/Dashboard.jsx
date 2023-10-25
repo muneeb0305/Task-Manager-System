@@ -6,6 +6,7 @@ import Table from '../../components/Table'
 import { useProjectData } from '../../context/ProjectProvider'
 import { useUserData } from '../../context/UserProvider'
 import { useTeamData } from '../../context/TeamProvider'
+import Alert from '../../components/Alert'
 
 export default function Dashboard() {
   //Get Data from Providers
@@ -16,8 +17,11 @@ export default function Dashboard() {
   // Retrive Data
   useEffect(() => {
     getProject()
+      .catch((err) => Alert({ icon: 'error', title: err }))
     getUser()
+      .catch((err) => { Alert({ icon: 'error', title: err }) })
     getTeam()
+      .catch((err) => { Alert({ icon: 'error', title: err }) })
     // eslint-disable-next-line
   }, []);
 

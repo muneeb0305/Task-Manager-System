@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TM.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Commit : Migration
+    public partial class CreateDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -129,7 +129,7 @@ namespace TM.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "Email", "Password", "Role", "TeamId", "UserName" },
-                values: new object[] { 1, "muneeb@gmail.com", "$2a$11$Y0ywyKct0oE7IcGofyyISuIcJDthB.dxanGQD3j3PRVzCX2PNWGtW", "admin", null, "Muneeb Ahmed" });
+                values: new object[] { 1, "muneeb@gmail.com", "$2a$11$4HlOzLW9kKBZBT6axzPtm.Xl6QPEhgaVYTXooydjbbbz8n751JeWa", "admin", null, "Muneeb Ahmed" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TaskId",

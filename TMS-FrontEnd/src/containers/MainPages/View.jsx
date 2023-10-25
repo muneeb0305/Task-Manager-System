@@ -17,9 +17,11 @@ export default function View({ display }) {
     useEffect(() => {
         if (display === 'user') {
             getUser()
+                .catch((err) => Alert({ icon: 'error', title: err }))
         }
         else if (display === 'project') {
             getProject()
+                .catch((err) => Alert({ icon: 'error', title: err }))
         }
         else if (display === 'team') {
             userDetail.role === 'admin' ?
@@ -76,7 +78,7 @@ export default function View({ display }) {
     }
     // Table Configured
     const tableConfig = tableConfigs[display]
-    
+
     return (
         <TableView {...tableConfig} />
     )

@@ -175,7 +175,7 @@ namespace TM.Data.Migrations
                         {
                             UserId = 1,
                             Email = "muneeb@gmail.com",
-                            Password = "$2a$11$Y0ywyKct0oE7IcGofyyISuIcJDthB.dxanGQD3j3PRVzCX2PNWGtW",
+                            Password = "$2a$11$4HlOzLW9kKBZBT6axzPtm.Xl6QPEhgaVYTXooydjbbbz8n751JeWa",
                             Role = "admin",
                             UserName = "Muneeb Ahmed"
                         });

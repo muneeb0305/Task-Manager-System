@@ -3,6 +3,7 @@ import userPNG from '../../assets/user.png'
 import About from '../../components/About'
 import { useParams } from 'react-router-dom'
 import { useUserData } from '../../context/UserProvider'
+import Alert from '../../components/Alert'
 
 export default function UserDetail() {
     // Get User ID
@@ -12,6 +13,7 @@ export default function UserDetail() {
 
     useEffect(() => {
         getUserById(UserId)
+            .catch((err) => Alert({ icon: 'error', title: err }))
         // eslint-disable-next-line 
     }, [])
 

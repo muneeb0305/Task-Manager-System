@@ -18,13 +18,8 @@ export function ProjectProvider({ children }) {
     // Get Project
     const getProject = async () => {
         const projectApi = `${host}/api/Project`
-        try {
-            const res = await FetchData(projectApi, token)
-            setProject(res)
-        }
-        catch (err) {
-            console.log(err)
-        }
+        const res = await FetchData(projectApi, token)
+        setProject(res)
     }
     //Get Project by Project Id
     const getProjectById = async (id) => {

@@ -53,7 +53,7 @@ export default function AddProject() {
                     Alert({ icon: 'success', title: res })
                     navigate('/project')
                 })
-                .catch(err => alert(err))
+                .catch((err) => Alert({ icon: 'error', title: err }))
             :
             // Create Project
             create(Form)
@@ -61,7 +61,7 @@ export default function AddProject() {
                     Alert({ icon: 'success', title: res })
                     navigate('/project')
                 })
-                .catch(err => alert(err))
+                .catch((err) => Alert({ icon: 'error', title: err }))
     }
 
     return (
