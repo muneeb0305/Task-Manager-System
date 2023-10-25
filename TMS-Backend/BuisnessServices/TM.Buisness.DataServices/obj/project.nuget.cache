@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1ZSw8YwyycfJqx+eKm4nrSlJGK9YWMA1BA8lu82DZBCkZP+nZlFCJZ/HWM/Mlam1Lc19+h1crnJ0SbDBd2ESeQ==",
+  "dgSpecHash": "GRnib+2Mk+l0qfPtCtHaMZdVumH1o2Hw8QU9rJubluO4F7qWfWScaDTQenK4L7jGZGps8q+qxBgIdiR0IvLxOg==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\Task-Manager-System\\TMS-Backend\\BuisnessServices\\TM.Buisness.DataServices\\TM.Buisness.DataServices.csproj",
   "expectedPackageFiles": [
@@ -29,10 +29,7 @@
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.15.1\\microsoft.identitymodel.protocols.6.15.1.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.15.1\\microsoft.identitymodel.protocols.openidconnect.6.15.1.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.0\\microsoft.identitymodel.tokens.7.0.0.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.15.1\\system.identitymodel.tokens.jwt.6.15.1.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.9\\microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.9\\microsoft.windowsdesktop.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.9\\microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512"
+    "C:\\Users\\ahmefmun\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.15.1\\system.identitymodel.tokens.jwt.6.15.1.nupkg.sha512"
   ],
   "logs": []
 }

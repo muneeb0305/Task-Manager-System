@@ -13,7 +13,7 @@ export default function UserDashboard() {
 
     useEffect(() => {
         getUserProjectById()
-            .catch((err)=>console.log(err))
+            .catch((err)=>{})
         getUserTask()
         // eslint-disable-next-line
     }, []);

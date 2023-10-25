@@ -3,6 +3,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
+import Alert from "../../components/Alert";
 
 export default function Login() {
     const navigate = useNavigate()
@@ -13,15 +14,16 @@ export default function Login() {
         email: "",
         password: ""
     })
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         Login(Form)
             .then(() => {
-               navigate('/')
+                Alert({ icon: 'success', title: 'Logged in' })
+                navigate('/')
             })
             .catch(err => {
-                alert(err)
+                Alert({ icon: 'error', title: err })
             })
     }
 

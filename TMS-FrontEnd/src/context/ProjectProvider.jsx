@@ -17,11 +17,11 @@ export function ProjectProvider({ children }) {
     // Get Project
     const getProject = async () => {
         const projectApi = 'https://localhost:7174/api/Project'
-        try{
+        try {
             const res = await FetchData(projectApi, token)
             setProject(res)
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
     }
@@ -40,8 +40,9 @@ export function ProjectProvider({ children }) {
     // Delete Project
     const remove = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Project/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         getProject()
+        return res
     };
     // Create Project
     const create = async (newProject) => {

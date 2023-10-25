@@ -3,6 +3,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProjectData } from '../../context/ProjectProvider';
+import Alert from '../../components/Alert';
 
 export default function AddProject() {
     const navigate = useNavigate()
@@ -49,7 +50,7 @@ export default function AddProject() {
             // Update Project
             update(ProjectId, Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate('/project')
                 })
                 .catch(err => alert(err))
@@ -57,7 +58,7 @@ export default function AddProject() {
             // Create Project
             create(Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate('/project')
                 })
                 .catch(err => alert(err))

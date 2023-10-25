@@ -8,6 +8,7 @@ import { useCommentData } from '../../context/CommentProvider'
 import Table from '../../components/Table'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
+import Alert from '../../components/Alert'
 
 export default function TaskDetail() {
     const navigate = useNavigate()
@@ -54,10 +55,10 @@ export default function TaskDetail() {
     }
     const handleClick = () => {
         if (selectedTask.teamId === null) {
-            alert("Team is not assigned")
+            Alert({ icon: 'error', title: "Team is not assigned" })
         }
         else if (teamUsers.length === 0) {
-            alert("User not added in Team")
+            Alert({ icon: 'error', title: "User not added in Team" })
         } else {
             navigate(`/project/${ProjectId}/task/${taskId}/assign?team=${selectedTask.teamId}`)
         }

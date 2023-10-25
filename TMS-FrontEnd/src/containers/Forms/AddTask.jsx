@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Select from '../../components/Select';
 import { useTaskData } from '../../context/TaskProvider';
 import { useAuth } from '../../context/AuthProvider';
+import Alert from '../../components/Alert';
 
 export default function AddTask() {
     const navigate = useNavigate()
@@ -50,7 +51,7 @@ export default function AddTask() {
                     navigate(`/project/${ProjectId}`)
                 })
         }
-        if(role === 'admin'){
+        if (role === 'admin') {
             setIsBool(false)
         }
         // eslint-disable-next-line
@@ -84,18 +85,18 @@ export default function AddTask() {
             // Update Task
             update(taskId, Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}`)
                 })
-                .catch(err => alert(err))
+                .catch(err =>  Alert({ icon: 'error', title: err }))
             :
             // Create Task
             create(Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}`)
                 })
-                .catch(err => alert(err))
+                .catch(err => Alert({ icon: 'error', title: err }))
     }
 
     const getTodatDate = () => {

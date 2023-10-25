@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
+import Alert from './Alert'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -12,6 +13,7 @@ export default function Navbar() {
   const { clearToken, userDetail } = useAuth()
 
   const handleLogout = () => {
+    Alert({ icon: 'success', title: 'Log Out Successfully' })
     clearToken()
   }
   return (

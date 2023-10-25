@@ -29,8 +29,9 @@ export function UserProvider({ children }) {
     // Delete User
     const remove = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Users/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         getUser();
+        return res
     };
     // Create User
     const create = async (newUser) => {

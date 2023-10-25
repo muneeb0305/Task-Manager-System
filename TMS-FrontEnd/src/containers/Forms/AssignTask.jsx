@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
 import { useTeamData } from '../../context/TeamProvider';
 import { useTaskData } from '../../context/TaskProvider';
+import Alert from '../../components/Alert';
 
 export default function AssignTask() {
     const navigate = useNavigate()
@@ -46,10 +47,10 @@ export default function AssignTask() {
         e.preventDefault()
         assignTask(Form)
             .then(res => {
-                alert(res)
+                Alert({ icon: 'success', title: res })
                 navigate(`/project/${ProjectId}/task/${taskId}`)
             })
-            .catch(err => alert(err))
+            .catch(err =>  Alert({ icon: 'error', title: err }))
     }
 
     return (

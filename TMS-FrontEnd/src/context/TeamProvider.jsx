@@ -36,8 +36,9 @@ export function TeamProvider({ children }) {
     // Delete Team
     const remove = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Team/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         getTeam()
+        return res
     };
     // Create Team
     const create = async (newProject) => {
@@ -62,9 +63,10 @@ export function TeamProvider({ children }) {
     // Unassign Team
     const unassignTeam = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Users/remove_team/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         const newData = teamUsers.filter(u => u.id !== id)
         setTeamUsers(newData)
+        return res
     };
     // Assign Team to User
     const assignTeam = async (form) => {

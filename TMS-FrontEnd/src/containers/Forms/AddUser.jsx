@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUserData } from '../../context/UserProvider';
+import Alert from '../../components/Alert';
 
 export default function AddUser() {
     // Get User Id 
@@ -65,25 +66,25 @@ export default function AddUser() {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (Form.password !== Form.retype_password) {
-            alert("Password not match")
+            Alert({ icon: 'error', title: "Password not match" })
         }
         else {
             isID ?
                 // Update User
                 update(UserId, Form)
                     .then(res => {
-                        alert(res)
+                        Alert({ icon: 'success', title: res })
                         navigate('/user')
                     })
-                    .catch(err => alert(err))
+                    .catch(err => Alert({ icon: 'error', title: err }))
                 :
                 //Create User
                 create(Form)
                     .then(res => {
-                        alert(res)
+                        Alert({ icon: 'success', title: res })
                         navigate('/user')
                     })
-                    .catch(err => alert(err))
+                    .catch(err => Alert({ icon: 'error', title: err }))
         }
     }
 
@@ -96,14 +97,14 @@ export default function AddUser() {
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Input type="text" name="userName" value={Form.userName} onChange={handleChange} maxLength={50} title={'User Name'} required />
-                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} required/>
+                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} title={'Password'} required/>
+                                <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} title={'Password'} required />
                                 <Input type="password" name="retype_password" value={Form.retype_password} minLength={8} onChange={handleChange} title={'Confirm Password'} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Select label={'User Typr'} data={userType} name='role' value={Form.role} onChange={handleChange} required/>
+                                <Select label={'User Typr'} data={userType} name='role' value={Form.role} onChange={handleChange} required />
                             </div>
                             <Button type="submit" label={'Submit'} />
                         </form>

@@ -3,6 +3,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTeamData } from '../../context/TeamProvider';
+import Alert from '../../components/Alert';
 
 export default function AddTeam() {
     const navigate = useNavigate()
@@ -46,18 +47,18 @@ export default function AddTeam() {
             // Update Team
             update(TeamId, Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate('/team')
                 })
-                .catch(err => alert(err))
+                .catch(err => Alert({ icon: 'error', title: err }))
             :
             // Create Team
             create(Form)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate('/team')
                 })
-                .catch(err => alert(err))
+                .catch(err =>  Alert({ icon: 'error', title: err }))
     }
 
     return (

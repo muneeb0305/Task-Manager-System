@@ -8,6 +8,7 @@ import { useProjectData } from '../../context/ProjectProvider'
 import { useTaskData } from '../../context/TaskProvider'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
+import Alert from '../../components/Alert'
 
 export default function ProjectDetail() {
     const navigate = useNavigate()
@@ -52,7 +53,7 @@ export default function ProjectDetail() {
     }
     const handleClick = () => {
         if (team.length === 0) {
-            alert("First Add Team")
+            Alert({ icon: 'error', title: 'Add Team First' })
         }
         else {
             navigate(`assign`)

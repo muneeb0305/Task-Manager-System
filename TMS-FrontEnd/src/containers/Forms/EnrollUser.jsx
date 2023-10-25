@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
 import { useUserData } from '../../context/UserProvider';
 import { useTeamData } from '../../context/TeamProvider';
+import Alert from '../../components/Alert';
 
 export default function EnrollUser() {
     // Get Team Id
@@ -45,10 +46,10 @@ export default function EnrollUser() {
         e.preventDefault()
         assignTeam(Form)
             .then((res) => {
-                alert(res)
+                Alert({ icon: 'success', title: res })
                 navigate(`/team/${TeamId}`)
             })
-            .catch(err => alert(err))
+            .catch(err => Alert({ icon: 'success', title: err }))
     }
 
     return (

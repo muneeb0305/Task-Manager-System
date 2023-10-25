@@ -29,9 +29,10 @@ export function CommentProvider({ children }) {
     // Delete Comment
     const remove = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Comment/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         const newData = comment.filter(c => c.id !== id)
         setComment(newData)
+        return res
     };
     // Create Comment
     const create = async (id, newComment) => {

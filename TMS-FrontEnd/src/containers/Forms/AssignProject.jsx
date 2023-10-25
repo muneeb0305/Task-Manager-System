@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
 import { useProjectData } from '../../context/ProjectProvider';
 import { useTeamData } from '../../context/TeamProvider';
+import Alert from '../../components/Alert';
 
 export default function AssignProject() {
     const navigate = useNavigate()
@@ -44,7 +45,7 @@ export default function AssignProject() {
         e.preventDefault()
         assignProject(Form)
             .then(res => {
-                alert(res)
+                Alert({ icon: 'success', title: res })
                 navigate(`/project/${ProjectId}`)
             })
             .catch(err => alert(err))

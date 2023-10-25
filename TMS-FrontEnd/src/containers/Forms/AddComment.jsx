@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCommentData } from '../../context/CommentProvider';
 import { useAuth } from '../../context/AuthProvider';
+import Alert from '../../components/Alert';
 
 export default function AddComment() {
     const navigate = useNavigate()
@@ -31,18 +32,18 @@ export default function AddComment() {
             // Update Comment
             update(id, newForm)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
-                .catch(err => alert(err))
+                .catch(err =>  Alert({ icon: 'error', title: err }))
             :
             // Create Comment
             create(taskId, newForm)
                 .then(res => {
-                    alert(res)
+                    Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
-                .catch(err => alert(err))
+                .catch(err =>  Alert({ icon: 'error', title: err }))
     }
     useEffect(() => {
         if (isID) {

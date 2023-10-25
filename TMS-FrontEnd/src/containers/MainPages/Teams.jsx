@@ -16,7 +16,7 @@ export default function Teams() {
             getTeam() : getUserTeam()
         // eslint-disable-next-line
     }, [])
-    console.log(team)
+
     // Data for table view
     const TableHeaders = ["Team Name", "Assigned Project", "Action"]
     const Tabledata = team

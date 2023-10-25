@@ -34,9 +34,10 @@ export function TaskProvider({ children }) {
     // remove task
     const remove = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Tasks/${id}`
-        await DeleteData(deleteAPI, token)
+        const res = await DeleteData(deleteAPI, token)
         const newData = task.filter(d => d.id !== id)
         setTask(newData);
+        return res
 
     };
     // Create task
