@@ -34,7 +34,7 @@ export function TeamProvider({ children }) {
         setTeam(res)
     }
     // Delete Team
-    const remove = async (id) => {
+    const removeTeam = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Team/${id}`
         const res = await DeleteData(deleteAPI, token)
         getTeam()
@@ -76,7 +76,7 @@ export function TeamProvider({ children }) {
     };
 
     return (
-        <TeamContext.Provider value={{ getUserTeam, selectedTeam, teamUsers, team, create, remove, update, getTeamById, getTeam, getTeamUsersById, unassignTeam, assignTeam }}>
+        <TeamContext.Provider value={{ getUserTeam, selectedTeam, teamUsers, team, create, removeTeam, update, getTeamById, getTeam, getTeamUsersById, unassignTeam, assignTeam }}>
             {children}
         </TeamContext.Provider>
     );

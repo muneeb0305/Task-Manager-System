@@ -27,7 +27,7 @@ export function UserProvider({ children }) {
         setSelectedUser(res)
     }
     // Delete User
-    const remove = async (id) => {
+    const removeUser = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Users/${id}`
         const res = await DeleteData(deleteAPI, token)
         getUser();
@@ -47,7 +47,7 @@ export function UserProvider({ children }) {
     };
 
     return (
-        <UserContext.Provider value={{ selectedUser, user, create, remove, update, getUserById, getUser }}>
+        <UserContext.Provider value={{ selectedUser, user, create, removeUser, update, getUserById, getUser }}>
             {children}
         </UserContext.Provider>
     );

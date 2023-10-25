@@ -38,7 +38,7 @@ export function ProjectProvider({ children }) {
         setProject(res)
     }
     // Delete Project
-    const remove = async (id) => {
+    const removeProject = async (id) => {
         const deleteAPI = `https://localhost:7174/api/Project/${id}`
         const res = await DeleteData(deleteAPI, token)
         getProject()
@@ -65,7 +65,7 @@ export function ProjectProvider({ children }) {
         return res
     };
     return (
-        <ProjectContext.Provider value={{ getUserProjectById, selectedProject, project, create, remove, update, getProjectById, getProject, assignProject }}>
+        <ProjectContext.Provider value={{ getUserProjectById, selectedProject, project, create, removeProject, update, getProjectById, getProject, assignProject }}>
             {children}
         </ProjectContext.Provider>
     );

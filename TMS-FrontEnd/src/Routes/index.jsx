@@ -1,9 +1,7 @@
 import React from 'react'
 import Dashboard from '../containers/MainPages/Dashboard'
-import Teams from '../containers/MainPages/Teams'
 import AddTeam from '../containers/Forms/AddTeam'
 import EnrollUser from '../containers/Forms/EnrollUser'
-import Project from '../containers/MainPages/Projects'
 import AddProject from '../containers/Forms/AddProject'
 import AssignProject from '../containers/Forms/AssignProject'
 import AssignTask from '../containers/Forms/AssignTask'
@@ -17,9 +15,9 @@ import Navbar from '../components/Navbar'
 import SideBar from '../components/Sidebar'
 import { adminMenu, userMenu } from '../data/Menu'
 import { Route, Routes } from 'react-router-dom'
-import Users from '../containers/MainPages/Users'
 import TeamDetail from '../containers/Detail/TeamDetail'
 import UserDashboard from '../containers/MainPages/UserDashboard'
+import View from '../containers/MainPages/View'
 
 export default function AppRoutes({ role }) {
     const routes = [
@@ -43,7 +41,7 @@ export default function AppRoutes({ role }) {
         },
         {
             path: '/team',
-            element: <Teams />,
+            element: <View display={'team'} />,
             isAdmin: false
         },
         {
@@ -69,7 +67,7 @@ export default function AppRoutes({ role }) {
         // Project Routes
         {
             path: '/project',
-            element: <Project />,
+            element: <View display={'project'} />,
             isAdmin: true
         },
         {
@@ -128,7 +126,7 @@ export default function AppRoutes({ role }) {
         // User Routes
         {
             path: '/user',
-            element: <Users />,
+            element: <View display={'user'} />,
             isAdmin: true
         },
         {
