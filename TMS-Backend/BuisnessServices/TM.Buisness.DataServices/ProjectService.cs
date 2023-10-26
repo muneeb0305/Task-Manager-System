@@ -89,12 +89,13 @@ namespace TM.Buisness.DataServices
         //Assign Project
         public async Task AssignProject(TeamProject teamProject)
         {
-            var team = await unitOfWork.TeamRepository.Get(teamProject.TeamId);
-            var project = await unitOfWork.ProjectRepository.Get(teamProject.ProjectId);
+            var team = await unitOfWork.TeamRepository.Find(t=>t.TeamId==teamProject.TeamId).Include(t=>t.Project).FirstOrDefaultAsync();
+            var project = await unitOfWork.ProjectRepository.Find(p=>p.ProjectId==teamProject.ProjectId).Include(p=>p.Tasks).FirstOrDefaultAsync();
 
             //Not Found
             NotFound(team == null, "Team Not Found");
             NotFound(project == null, "Project Not Found");
+            Validate(team!.Project?.TeamId != null, "Team is already working with another project");
 
             //Assign project to team
             project!.Team = team;

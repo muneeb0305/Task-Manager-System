@@ -11,20 +11,19 @@ import AssignProject from "../containers/Forms/AssignProject";
 import AssignTask from "../containers/Forms/AssignTask";
 import EnrollUser from "../containers/Forms/EnrollUser";
 import Dashboard from "../containers/MainPages/Dashboard";
-import UserDashboard from "../containers/MainPages/UserDashboard";
 import View from "../containers/MainPages/View";
 
 export const routes = [
     // Admin Dashboard
     {
         path: '/',
-        element: <Dashboard />,
+        element: <Dashboard role={'admin'} />,
         isAdmin: true
     },
     //User Dashboard
     {
         path: '/',
-        element: <UserDashboard />,
+        element: <Dashboard role={'user'} />,
         isAdmin: false
     },
     // Team Routes
