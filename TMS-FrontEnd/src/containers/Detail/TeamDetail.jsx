@@ -18,7 +18,7 @@ export default function TeamDetail() {
 
     //table Configuration
     const tableConfig = {
-        tableHeader: ["User Name", "Email", "Action"],
+        tableHeader: role === 'admin' ? ["User Name", "Email", "Action"] : ["User Name", "Email"],
         tableData: teamUsers,
         removeFunc: unassignTeam,
         dataArr: ['userName', 'email'],

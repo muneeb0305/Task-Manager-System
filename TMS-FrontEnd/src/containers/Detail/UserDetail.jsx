@@ -4,16 +4,24 @@ import About from '../../components/About'
 import { useParams } from 'react-router-dom'
 import { useUserData } from '../../context/UserProvider'
 import Alert from '../../components/Alert'
+import { useAuth } from '../../context/AuthProvider'
 
 export default function UserDetail() {
     // Get User ID
     const { UserId } = useParams()
     // Get Data from Provider
     const { selectedUser, getUserById } = useUserData()
+    const { userDetail } = useAuth()
 
     useEffect(() => {
-        getUserById(UserId)
-            .catch((err) => Alert({ icon: 'error', title: err }))
+        if (userDetail.role === 'user') {
+            getUserById(userDetail.ID)
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        else {
+            getUserById(UserId)
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
         // eslint-disable-next-line 
     }, [])
 

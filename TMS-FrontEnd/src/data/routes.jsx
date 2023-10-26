@@ -39,7 +39,7 @@ export const routes = [
     {
         path: '/team/:TeamId/user/:UserId',
         element: <UserDetail />,
-        isAdmin: false
+        isAdmin: true
     },
     {
         path: '/team/:TeamId/edit',
