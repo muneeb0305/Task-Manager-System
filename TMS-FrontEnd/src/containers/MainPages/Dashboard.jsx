@@ -64,7 +64,24 @@ export default function Dashboard({ role }) {
         }
     }
     const tableConfig = tableConfigs[role]
+
+    // Card Configuration
     const cardData = role === 'admin' ? AdminCardData : UserCardData
+    const cardConfigs = {
+        admin: {
+            'Projects': project.length,
+            'Teams': team.length,
+            'Users': user.length,
+        },
+        user: {
+            'Task Pending': statusCounts.Pending,
+            'Task In Process': statusCounts.InProcess,
+            'Task Completed': statusCounts.Completed
+        }
+    }
+    const cardConfig = cardConfigs[role]
+    const keys = Object.keys(cardConfig)
+    const values = Object.values(cardConfig)
 
     return (
         <section>
@@ -75,34 +92,37 @@ export default function Dashboard({ role }) {
                     <div className='grid gap-6 mb-5 md:grid-cols-3'>
                         {
                             cardData.map(({ title, icon }) => {
-                                if (role === 'admin' ? title === 'Teams' : title === 'Task Pending') {
+                                if (title === keys[0]) {
                                     return (<Card
                                         key={title}
                                         textColor={'text-blue-500'}
                                         bgColor={'bg-blue-100'}
                                         icon={icon}
                                         title={title}
-                                        value={role === 'admin' ? team.length : statusCounts.Pending}
+                                        value={values[0]}
                                     />)
                                 }
-                                else if (role === ' admin' ? title === 'Projects' : title === 'Task In Process') {
+                                else if (title === keys[1]) {
                                     return (<Card
                                         key={title}
                                         textColor={'text-orange-500'}
                                         bgColor={'bg-orange-100'}
                                         icon={icon}
                                         title={title}
-                                        value={role === 'admin' ? project.length : statusCounts.InProcess}
+                                        value={values[1]}
                                     />)
                                 }
-                                return (<Card
-                                    key={title}
-                                    textColor={'text-green-500'}
-                                    bgColor={'bg-green-100'}
-                                    icon={icon}
-                                    title={title}
-                                    value={role === 'admin' ? user.length : statusCounts.Completed}
-                                />)
+                                else if (title === keys[2]) {
+                                    return (<Card
+                                        key={title}
+                                        textColor={'text-orange-500'}
+                                        bgColor={'bg-orange-100'}
+                                        icon={icon}
+                                        title={title}
+                                        value={values[2]}
+                                    />)
+                                }
+                                return null
                             })
                         }
                     </div>
