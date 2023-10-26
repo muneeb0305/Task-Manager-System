@@ -76,7 +76,7 @@ export default function Dashboard({ role }) {
         user: {
             'Task Pending': statusCounts.Pending,
             'Task In Process': statusCounts.InProcess,
-            'Task Completed': statusCounts.Completed
+            'Task Completed': statusCounts.Completed,
         }
     }
     const cardConfig = cardConfigs[role]
@@ -91,35 +91,16 @@ export default function Dashboard({ role }) {
                     {/* Dashboard Cards */}
                     <div className='grid gap-6 mb-5 md:grid-cols-3'>
                         {
-                            cardData.map(({ title, icon }) => {
-                                if (title === keys[0]) {
+                            cardData.map(({ title, icon, textColor, bgColor }) => {
+                                const keyIndex = keys.indexOf(title);
+                                if (keyIndex !== -1) {
                                     return (<Card
                                         key={title}
-                                        textColor={'text-blue-500'}
-                                        bgColor={'bg-blue-100'}
+                                        textColor={textColor}
+                                        bgColor={bgColor}
                                         icon={icon}
                                         title={title}
-                                        value={values[0]}
-                                    />)
-                                }
-                                else if (title === keys[1]) {
-                                    return (<Card
-                                        key={title}
-                                        textColor={'text-orange-500'}
-                                        bgColor={'bg-orange-100'}
-                                        icon={icon}
-                                        title={title}
-                                        value={values[1]}
-                                    />)
-                                }
-                                else if (title === keys[2]) {
-                                    return (<Card
-                                        key={title}
-                                        textColor={'text-orange-500'}
-                                        bgColor={'bg-orange-100'}
-                                        icon={icon}
-                                        title={title}
-                                        value={values[2]}
+                                        value={values[keyIndex]}
                                     />)
                                 }
                                 return null
