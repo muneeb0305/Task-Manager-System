@@ -36,23 +36,14 @@ export default function Dashboard({ role }) {
     }, []);
 
     // User Card Data
-    let pendingCount = 0, inProcessCount = 0, completedCount = 0;
-
+    const statusCounts = {
+        InProcess: 0,
+        Pending: 0,
+        Completed: 0,
+    };
     if (role === 'user') {
         task.forEach((task) => {
-            switch (task.status) {
-                case 'InProcess':
-                    inProcessCount++;
-                    break;
-                case 'Pending':
-                    pendingCount++;
-                    break;
-                case 'Completed':
-                    completedCount++;
-                    break;
-                default:
-                    break;
-            }
+            statusCounts[task.status]++;
         });
     }
 
@@ -91,7 +82,7 @@ export default function Dashboard({ role }) {
                                         bgColor={'bg-blue-100'}
                                         icon={icon}
                                         title={title}
-                                        value={role === 'admin' ? team.length : pendingCount}
+                                        value={role === 'admin' ? team.length : statusCounts.Pending}
                                     />)
                                 }
                                 else if (role === ' admin' ? title === 'Projects' : title === 'Task In Process') {
@@ -101,7 +92,7 @@ export default function Dashboard({ role }) {
                                         bgColor={'bg-orange-100'}
                                         icon={icon}
                                         title={title}
-                                        value={role === 'admin' ? project.length : inProcessCount}
+                                        value={role === 'admin' ? project.length : statusCounts.InProcess}
                                     />)
                                 }
                                 return (<Card
@@ -110,7 +101,7 @@ export default function Dashboard({ role }) {
                                     bgColor={'bg-green-100'}
                                     icon={icon}
                                     title={title}
-                                    value={role === 'admin' ? user.length : completedCount}
+                                    value={role === 'admin' ? user.length : statusCounts.Completed}
                                 />)
                             })
                         }
