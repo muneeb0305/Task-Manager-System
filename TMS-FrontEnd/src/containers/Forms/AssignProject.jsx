@@ -32,7 +32,6 @@ export default function AssignProject() {
                 teamId: team[0].id
             }))
         }
-        // eslint-disable-next-line
     }, [team])
 
     const handleChange = (e) => {

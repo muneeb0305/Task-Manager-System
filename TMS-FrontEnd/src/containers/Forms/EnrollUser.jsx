@@ -33,7 +33,6 @@ export default function EnrollUser() {
                 userId: user[0].id
             }))
         }
-        // eslint-disable-next-line
     }, [user])
 
     const handleChange = (e) => {
