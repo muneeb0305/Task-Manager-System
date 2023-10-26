@@ -25,8 +25,8 @@ export default function Dashboard() {
         Completed: 0,
     };
     if (role === 'user') {
-        task.forEach((task) => {
-            statusCounts[task.status]++;
+        task.forEach((taskItem) => {
+            statusCounts[taskItem.status]++;
         });
     }
 
