@@ -58,7 +58,7 @@ export default function AddTeam() {
                     Alert({ icon: 'success', title: res })
                     navigate('/team')
                 })
-                .catch(err =>  Alert({ icon: 'error', title: err }))
+                .catch(err => Alert({ icon: 'error', title: err }))
     }
 
     return (

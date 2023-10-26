@@ -6,23 +6,22 @@ import { useEffect } from 'react';
 
 export default function Authentication() {
     const navigate = useNavigate()
-    // Get User Details from Provider
-    const { userDetail, token } = useAuth()
+    // Get Token from Provider
+    const { token } = useAuth()
+
+    // If user tries to change or reload the page
     useEffect(() => {
-            navigate('/')
+        navigate('/')
         // eslint-disable-next-line
     }, [])
 
     return (
         <Routes>
             {
-                token && userDetail.role === 'admin' ?
-                    <Route path="/*" element={<AppRoutes role={'admin'} />} />
+                token ?
+                    <Route path="/*" element={<AppRoutes />} />
                     :
-                    token && userDetail.role === 'user' ?
-                        <Route path="/*" element={<AppRoutes role={'user'} />} />
-                        :
-                        <Route path="/*" element={<Login />} />
+                    <Route path="/*" element={<Login />} />
             }
         </Routes >
     );

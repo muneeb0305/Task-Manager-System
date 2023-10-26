@@ -9,7 +9,7 @@ export default function TableView(props) {
     // get User Detail from Provider
     const { userDetail } = useAuth()
     const role = userDetail.role
-    
+
     return (
         <section>
             <div className={'bg-gray-100 min-h-screen pb-4 pt-20'}>

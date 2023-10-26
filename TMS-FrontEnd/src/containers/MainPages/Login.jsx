@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 import Alert from "../../components/Alert";
 
 export default function Login() {
-    const navigate = useNavigate()
     //Get Login Function From Provider
     const { Login } = useAuth()
     // Form State
@@ -20,7 +18,6 @@ export default function Login() {
         Login(Form)
             .then(() => {
                 Alert({ icon: 'success', title: 'Logged in' })
-                navigate('/')
             })
             .catch(err => {
                 Alert({ icon: 'error', title: err })

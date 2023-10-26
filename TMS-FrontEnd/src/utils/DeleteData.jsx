@@ -10,9 +10,9 @@ export async function DeleteData(apiUrl, token) {
         return response.data
     }
     catch (err) {
-        if(err.response.status === 401){
+        if (err.response.status === 401) {
             throw (err.response.data.message)
-        } else{
+        } else {
             throw (err.response.data)
         }
     }

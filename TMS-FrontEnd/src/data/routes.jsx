@@ -14,16 +14,10 @@ import Dashboard from "../containers/MainPages/Dashboard";
 import View from "../containers/MainPages/View";
 
 export const routes = [
-    // Admin Dashboard
+    // Dashboard
     {
         path: '/',
-        element: <Dashboard role={'admin'} />,
-        isAdmin: true
-    },
-    //User Dashboard
-    {
-        path: '/',
-        element: <Dashboard role={'user'} />,
+        element: <Dashboard />,
         isAdmin: false
     },
     // Team Routes

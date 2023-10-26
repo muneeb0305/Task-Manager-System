@@ -88,7 +88,7 @@ export default function AddTask() {
                     Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}`)
                 })
-                .catch(err =>  Alert({ icon: 'error', title: err }))
+                .catch(err => Alert({ icon: 'error', title: err }))
             :
             // Create Task
             create(Form)

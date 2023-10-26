@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
 const SideBar = ({ children, Menus }) => {
-  
+
   const [open, setOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(Menus[0]);
   const handleMenuClick = (menu) => {

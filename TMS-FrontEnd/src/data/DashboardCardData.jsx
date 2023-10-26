@@ -18,6 +18,7 @@ export const AdminCardData = [
     title: "Users",
   },
 ];
+
 export const UserCardData = [
   {
     textColor: "text-blue-500",

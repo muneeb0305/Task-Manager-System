@@ -4,8 +4,11 @@ import SideBar from '../components/Sidebar'
 import { adminMenu, userMenu } from '../data/Menu'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from '../data/routes'
+import { useAuth } from '../context/AuthProvider'
 
-export default function AppRoutes({ role }) {
+export default function AppRoutes() {
+    const { userDetail } = useAuth()
+    const role = userDetail.role
     return (
         <SideBar Menus={role === 'admin' ? adminMenu : userMenu}>
             <Navbar />

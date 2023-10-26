@@ -50,7 +50,7 @@ export default function AssignTask() {
                 Alert({ icon: 'success', title: res })
                 navigate(`/project/${ProjectId}/task/${taskId}`)
             })
-            .catch(err =>  Alert({ icon: 'error', title: err }))
+            .catch(err => Alert({ icon: 'error', title: err }))
     }
 
     return (

@@ -35,7 +35,7 @@ export default function AddComment() {
                     Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
-                .catch(err =>  Alert({ icon: 'error', title: err }))
+                .catch(err => Alert({ icon: 'error', title: err }))
             :
             // Create Comment
             create(taskId, newForm)
@@ -43,14 +43,14 @@ export default function AddComment() {
                     Alert({ icon: 'success', title: res })
                     navigate(`/project/${ProjectId}/task/${taskId}`)
                 })
-                .catch(err =>  Alert({ icon: 'error', title: err }))
+                .catch(err => Alert({ icon: 'error', title: err }))
     }
     useEffect(() => {
         if (isID) {
             getCommentById(id)
-            .catch(err => {
-                navigate(`/project/${ProjectId}/task/${taskId}`)
-            })
+                .catch(err => {
+                    navigate(`/project/${ProjectId}/task/${taskId}`)
+                })
         }
         // eslint-disable-next-line
     }, [isID, id]);

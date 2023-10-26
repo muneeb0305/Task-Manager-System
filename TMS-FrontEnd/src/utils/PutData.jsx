@@ -10,9 +10,9 @@ export async function PutData(apiUrl, data, token) {
         return response.data
     }
     catch (err) {
-        if(err.response.status === 401){
+        if (err.response.status === 401) {
             throw (err.response.data.message)
-        } else{
+        } else {
             throw (err.response.data)
         }
     }

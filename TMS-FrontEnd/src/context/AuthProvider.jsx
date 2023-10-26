@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
       const role = decode["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
       setUserDetail({ ID, role })
     }
-    else{
+    else {
       clearToken()
     }
     // eslint-disable-next-line

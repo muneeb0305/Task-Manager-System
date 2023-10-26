@@ -8,13 +8,16 @@ import { useUserData } from '../../context/UserProvider'
 import { useTeamData } from '../../context/TeamProvider'
 import Alert from '../../components/Alert'
 import { useTaskData } from '../../context/TaskProvider'
+import { useAuth } from '../../context/AuthProvider'
 
-export default function Dashboard({ role }) {
+export default function Dashboard() {
     //Get Data from Providers
     const { project, getProject, remove, getUserProjectById } = useProjectData()
     const { task, getUserTask } = useTaskData()
     const { user, getUser } = useUserData()
     const { team, getTeam } = useTeamData()
+    const { userDetail } = useAuth()
+    const role = userDetail.role
 
     // Retrive Data
     useEffect(() => {
