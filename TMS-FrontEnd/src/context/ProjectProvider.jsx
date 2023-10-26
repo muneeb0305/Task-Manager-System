@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
+import Alert from '../components/Alert';
 
 const ProjectContext = createContext();
 
@@ -14,6 +15,20 @@ export function ProjectProvider({ children }) {
     const [selectedProject, setSelectedProject] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
+    const role = userDetail && userDetail.role
+
+    useEffect(() => {
+        if (role === 'admin') {
+            getProject()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        else if (role === 'user') {
+            getUserProjectById()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        // eslint-disable-next-line
+    }, [role])
+
 
     // Get Project
     const getProject = async () => {

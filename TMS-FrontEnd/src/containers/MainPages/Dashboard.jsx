@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AdminCardData, UserCardData } from '../../data/DashboardCardData'
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/24/solid'
 import Card from '../../components/Card'
@@ -6,37 +6,17 @@ import Table from '../../components/Table'
 import { useProjectData } from '../../context/ProjectProvider'
 import { useUserData } from '../../context/UserProvider'
 import { useTeamData } from '../../context/TeamProvider'
-import Alert from '../../components/Alert'
 import { useTaskData } from '../../context/TaskProvider'
 import { useAuth } from '../../context/AuthProvider'
 
 export default function Dashboard() {
     //Get Data from Providers
-    const { project, getProject, remove, getUserProjectById } = useProjectData()
-    const { task, getUserTask } = useTaskData()
-    const { user, getUser } = useUserData()
-    const { team, getTeam } = useTeamData()
+    const { project, remove } = useProjectData()
+    const { task } = useTaskData()
+    const { user } = useUserData()
+    const { team } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
-
-    // Retrive Data
-    useEffect(() => {
-        if (role === 'admin') {
-            getProject()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-            getUser()
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
-            getTeam()
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
-        }
-        else if (role === 'user') {
-            getUserProjectById()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-            getUserTask()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        }
-        // eslint-disable-next-line
-    }, []);
 
     // User Card Data
     const statusCounts = {

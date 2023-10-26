@@ -13,17 +13,12 @@ export default function AssignProject() {
     const { ProjectId } = useParams()
     // Get Data from Providers
     const { assignProject } = useProjectData()
-    const { team, getTeam } = useTeamData()
+    const { team } = useTeamData()
     // Form State
     const [Form, setForm] = useState({
         projectId: Number(ProjectId),
         teamId: ``,
     })
-
-    useEffect(() => {
-        getTeam()
-        // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         if (team.length !== 0) {

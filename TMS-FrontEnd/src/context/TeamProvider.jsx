@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
+import Alert from '../components/Alert';
 
 const TeamContext = createContext();
 
@@ -15,6 +16,19 @@ export function TeamProvider({ children }) {
     const [teamUsers, setTeamUsers] = useState([]);
     // Get Token
     const { token, userDetail } = useAuth()
+    const role = userDetail && userDetail.role
+
+    useEffect(() => {
+        if (role === 'admin') {
+            getTeam()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        else if (role === 'user') {
+            getUserTeam()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        // eslint-disable-next-line
+    }, [role])
 
     // Get All Teams
     const getTeam = async () => {

@@ -16,8 +16,8 @@ export default function ProjectDetail() {
     const { ProjectId } = useParams()
     // Get data from providers
     const { selectedProject, getProjectById } = useProjectData()
-    const { task, getTaskByProjectId, remove, getUserTask } = useTaskData()
-    const { team, getTeam } = useTeamData()
+    const { task, getTaskByProjectId, remove } = useTaskData()
+    const { team } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
 
@@ -36,12 +36,6 @@ export default function ProjectDetail() {
             .catch((err) => { Alert({ icon: 'error', title: err }) })
         if (role === 'admin') {
             getTaskByProjectId(ProjectId)
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
-            getTeam()
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
-        }
-        if (role === 'user') {
-            getUserTask()
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
         // eslint-disable-next-line

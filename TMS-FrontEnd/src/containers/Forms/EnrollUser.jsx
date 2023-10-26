@@ -14,17 +14,12 @@ export default function EnrollUser() {
 
     // Get Data from providers
     const { assignTeam } = useTeamData()
-    const { user, getUser } = useUserData()
+    const { user } = useUserData()
     // States
     const [Form, setForm] = useState({
         userId: '',
         teamId: Number(TeamId)
     })
-
-    useEffect(() => {
-        getUser()
-        // eslint-disable-next-line
-    }, [])
 
     useEffect(() => {
         if (user.length !== 0) {

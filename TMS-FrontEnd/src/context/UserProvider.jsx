@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
+import Alert from '../components/Alert';
 
 const UserContext = createContext();
 
@@ -13,8 +14,16 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     // Get Token from Token Provider
-    const { token } = useAuth()
+    const { token, userDetail } = useAuth()
+    const role = userDetail && userDetail.role
 
+    useEffect(() => {
+        if (role === 'admin') {
+            getUser()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        // eslint-disable-next-line
+    }, [role])
     //Get All Users
     const getUser = async () => {
         const UserApi = `${host}/api/Users`
