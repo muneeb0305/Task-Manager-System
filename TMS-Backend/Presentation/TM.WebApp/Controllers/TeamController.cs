@@ -35,7 +35,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Get Team by TeamId</summary>
         //GET: /api/team/5
-        [HttpGet("{TeamId}")]
+        [HttpGet("{TeamId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetTeam(int TeamId)
         {
             var team = await teamService.Get(TeamId);

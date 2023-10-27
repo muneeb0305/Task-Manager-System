@@ -144,7 +144,7 @@ namespace TM.Buisness.DataServices
 
         public async Task<object> GetUserTeam(int UserId)
         {
-            var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw=>uw.UserId == UserId)).Include(t => t.Project).FirstOrDefaultAsync();
+            var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw=>uw.UserId == UserId)).Include(t => t.Project).Include(t=>t.UsersWorking).FirstOrDefaultAsync();
             if (team == null)
             {
                 return new object[] { };
@@ -153,6 +153,7 @@ namespace TM.Buisness.DataServices
             {
                 Id = team!.TeamId,
                 teamName = team.TeamName,
+                users = team.UsersWorking != null ? team.UsersWorking.Count : 0,
                 assignedProject = team.Project?.Name == null ? "No Project Assigned" : team.Project.Name
 
             };

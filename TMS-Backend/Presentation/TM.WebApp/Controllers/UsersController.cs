@@ -45,7 +45,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Update User</summary>
         // Put: /api/user/5
-        [HttpPut("{UserId}")]
+        [HttpPut("{UserId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int UserId, [FromBody] UserModel user)
         {
             await userService.Update(UserId, user);

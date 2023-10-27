@@ -10,10 +10,11 @@ import Alert from '../../components/Alert'
 
 export default function TeamDetail() {
     const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_USER = 'user';
     // Get Team ID
     const { TeamId } = useParams()
     //Get data from providers
-    const { teamUsers, selectedTeam, getTeamById, getTeamUsersById, unassignTeam } = useTeamData()
+    const { teamUsers, selectedTeam, getTeamById, getTeamUsersById, unassignTeam, getUserTeam } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
 
@@ -28,10 +29,21 @@ export default function TeamDetail() {
 
     // Retrive Data
     useEffect(() => {
-        getTeamById(TeamId)
-            .catch((err) => Alert({ icon: 'error', title: err }))
-        getTeamUsersById(TeamId)
-            .catch((err) => Alert({ icon: 'error', title: err }))
+        if (role === USER_ROLE_ADMIN) {
+            getTeamById(TeamId)
+                .catch((err) => Alert({ icon: 'error', title: err }))
+            getTeamUsersById(TeamId)
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        }
+        else if (role === USER_ROLE_USER) {
+            getUserTeam()
+                .then(res => {
+                    getTeamUsersById(res.id)
+                        .catch((err) => Alert({ icon: 'error', title: err }))
+                })
+                .catch((err) => Alert({ icon: 'error', title: err }))
+
+        }
         // eslint-disable-next-line
     }, [])
 

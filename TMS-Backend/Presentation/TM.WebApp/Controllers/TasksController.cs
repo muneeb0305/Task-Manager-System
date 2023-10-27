@@ -35,7 +35,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Get Task by ProjectId</summary>
         // GET: /api/task/project/5
-        [HttpGet("project/{ProjectId}")]
+        [HttpGet("project/{ProjectId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllTasks(int ProjectId)
         {
             var task = await taskService.GetByProject(ProjectId);
@@ -44,7 +44,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Admin can Create Task</summary>
         // POST: /api/task
-        [HttpPost, Authorize(Roles = "admin"), ModelStateFilter]
+        [HttpPost, Authorize(Roles = "admin"), ModelStateFilter, Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([FromBody] TaskModel taskModel)
         {
             await taskService.Create(taskModel);

@@ -13,6 +13,7 @@ import Alert from '../../components/Alert'
 export default function TaskDetail() {
     const navigate = useNavigate()
     const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_USER = 'user';
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
@@ -34,9 +35,16 @@ export default function TaskDetail() {
     }
 
     useEffect(() => {
-        getTaskById(taskId)
-            .then(() => setIsLoading(true))
-            .catch((err) => { Alert({ icon: 'error', title: err }) })
+        if (role === USER_ROLE_ADMIN) {
+            getTaskById(taskId)
+                .then(() => setIsLoading(true))
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
+        }
+        else if (role === USER_ROLE_USER) {
+            getTaskById(taskId)
+                .then(() => setIsLoading(true))
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
+        }
         getComment(taskId)
             .catch((err) => { Alert({ icon: 'error', title: err }) })
         // eslint-disable-next-line

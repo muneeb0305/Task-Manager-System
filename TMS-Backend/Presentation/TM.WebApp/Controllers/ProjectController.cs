@@ -35,7 +35,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Get Project by ProjectId</summary>
         //Get: /api/project/5
-        [HttpGet("{ProjectId}")]
+        [HttpGet("{ProjectId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetProject(int ProjectId)
         {
             var project = await projectService.Get(ProjectId);

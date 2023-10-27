@@ -13,11 +13,12 @@ import Alert from '../../components/Alert'
 export default function ProjectDetail() {
     const navigate = useNavigate()
     const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_USER = 'user';
 
     // Get Project id from Url
     const { ProjectId } = useParams()
     // Get data from providers
-    const { selectedProject, getProjectById } = useProjectData()
+    const { selectedProject, getProjectById, getUserProjectById } = useProjectData()
     const { task, getTaskByProjectId, remove } = useTaskData()
     const { team } = useTeamData()
     const { userDetail } = useAuth()
@@ -34,9 +35,13 @@ export default function ProjectDetail() {
     }
 
     useEffect(() => {
-        getProjectById(ProjectId)
-            .catch((err) => { Alert({ icon: 'error', title: err }) })
-        if (role === USER_ROLE_ADMIN) {
+        if (role === USER_ROLE_USER) {
+            getUserProjectById()
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
+        } 
+        else if (role === USER_ROLE_ADMIN) {
+            getProjectById(ProjectId)
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
             getTaskByProjectId(ProjectId)
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }

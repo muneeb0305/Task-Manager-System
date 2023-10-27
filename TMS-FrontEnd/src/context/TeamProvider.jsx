@@ -49,6 +49,8 @@ export function TeamProvider({ children }) {
         const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
         const res = await FetchData(TeamApi, token);
         setTeam(res)
+        setSelectedTeam(res[0])
+        return res[0]
     }
     // Delete Team
     const removeTeam = async (id) => {

@@ -46,7 +46,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Delete Comment</summary>
         // Delete: api/comment/5
-        [HttpDelete("{commentId}")]
+        [HttpDelete("{commentId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int CommentId)
         {
             await commentService.Delete(CommentId);
@@ -55,7 +55,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Update Comment</summary>
         // Put: /api/comment/5
-        [HttpPut("{commentId}"), ModelStateFilter]
+        [HttpPut("{commentId}"), ModelStateFilter, Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int commentId, [FromBody] CommentModel commentModel)
         {
             await commentService.Update(commentId, commentModel);

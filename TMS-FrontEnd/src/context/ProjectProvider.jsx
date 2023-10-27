@@ -48,6 +48,7 @@ export function ProjectProvider({ children }) {
     const getUserProjectById = async () => {
         const projectApi = `${host}/api/Project/user/${userDetail.ID}`;
         const res = await FetchData(projectApi, token);
+        setSelectedProject(res[0])
         setProject(res)
     }
     // Delete Project
