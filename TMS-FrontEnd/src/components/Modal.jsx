@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthProvider';
 import Alert from './Alert';
 
 export default function Modal({ ID, editLink, viewLink, remove }) {
+    const USER_ROLE_ADMIN = 'admin';
     // Get User Detail from Provide
     const { userDetail } = useAuth()
     // States
@@ -13,43 +14,26 @@ export default function Modal({ ID, editLink, viewLink, remove }) {
 
     const handleDelete = () => {
         remove(ID)
-            .then((res) => Alert({ icon: 'success', title: res }))
+            .then(res => Alert({ icon: 'success', title: res }))
+            .catch(err => Alert({ icon: 'error', title: err }))
         closeModal()
     }
 
     return (
         <>
             {
-                editLink && viewLink ?
-                    <>
-                        <Link to={`${editLink}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                        <Link to={`${viewLink}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                        {
-                            userDetail.role === 'admin' ?
-                                <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
-                                : null
-                        }
-                    </> :
-                    editLink ?
-                        <>
-                            <Link to={`${editLink}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
-                            {
-                                userDetail.role === 'admin' ?
-                                    <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
-                                    : null
-                            }
-                        </>
-                        :
-                        viewLink ?
-                            <>
-                                <Link to={`${viewLink}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
-                                {
-                                    userDetail.role === 'admin' ?
-                                        <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
-                                        : null
-                                }
-                            </>
-                            : null
+                editLink &&
+                <Link to={`${editLink}/${ID}/edit`}><span className='mx-3 text-blue-500'><i className="fa-solid fa-pen-to-square"></i></span></Link>
+
+            }
+            {
+                viewLink &&
+                <Link to={`${viewLink}/${ID}`}><span className='mx-3 text-green-500'><i className="fa-solid fa-eye"></i></span></Link>
+            }
+            {
+                userDetail.role === USER_ROLE_ADMIN &&
+                <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
+
             }
             {
                 isOpen &&

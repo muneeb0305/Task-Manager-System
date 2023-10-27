@@ -56,8 +56,7 @@ export default function TeamDetail() {
                                         <h2 className='text-xl pl-3'>Users Working in this Team</h2>
                                     </div>
                                     {
-                                        role === USER_ROLE_ADMIN ? <Link to="enroll"><Button label={'Enroll User'} /></Link>
-                                            : null
+                                        role === USER_ROLE_ADMIN && <Link to="enroll"><Button label={'Enroll User'} /></Link>
                                     }
                                 </div>
                                 <Table {...tableConfig} />

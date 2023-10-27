@@ -10,8 +10,10 @@ export default function Authentication() {
         <Routes>
             {
                 token ?
+                    // User is authenticated, render AppRoutes
                     <Route path="/*" element={<AppRoutes />} />
                     :
+                    // User is not authenticated, render the login page
                     <Route path="/*" element={<Login />} />
             }
         </Routes >

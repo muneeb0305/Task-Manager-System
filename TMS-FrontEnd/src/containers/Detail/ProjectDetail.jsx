@@ -68,9 +68,10 @@ export default function ProjectDetail() {
                 <div className="md:flex no-wrap md:-mx-2 ">
                     <div className="w-full">
                         {
-                            role === USER_ROLE_ADMIN ? <div className='flex justify-end mb-3'>
+                            role === USER_ROLE_ADMIN &&
+                            <div className='flex justify-end mb-3'>
                                 <Button label={'Assign project'} onClick={handleClick} />
-                            </div> : null
+                            </div>
                         }
                         <About data={aboutData} />
                         <div className={`bg-white border-2 rounded-lg  shadow-lg p-5 mt-5`}>
@@ -80,9 +81,8 @@ export default function ProjectDetail() {
                                     <h2 className='text-xl pl-3'>{role === USER_ROLE_ADMIN ? '' : 'Your'} Tasks</h2>
                                 </div>
                                 {
-                                    role === USER_ROLE_ADMIN ?
-                                        <Link to="task/create"><Button label={'Add Task'} /></Link>
-                                        : null
+                                    role === USER_ROLE_ADMIN &&
+                                    <Link to="task/create"><Button label={'Add Task'} /></Link>
                                 }
                             </div>
                             <Table {...tableConfig} />

@@ -96,12 +96,12 @@ export default function AddUser() {
                     <div className='bg-white p-5 shadow-lg rounded-lg'>
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="text" name="userName" value={Form.userName} onChange={handleChange} maxLength={50} title={'User Name'} required />
-                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} required />
+                                <Input type="text" name="userName" value={Form.userName} onChange={handleChange} maxLength={50} autoComplete="username" title={'User Name'} required />
+                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'}autoComplete="email" required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} title={'Password'} required />
-                                <Input type="password" name="retype_password" value={Form.retype_password} minLength={8} onChange={handleChange} title={'Confirm Password'} required />
+                                <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} autoComplete="new-password" title={'Password'} required />
+                                <Input type="password" name="retype_password" value={Form.retype_password} minLength={8} autoComplete="new-password" onChange={handleChange} title={'Confirm Password'} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Select label={'User Typr'} data={userType} name='role' value={Form.role} onChange={handleChange} required />

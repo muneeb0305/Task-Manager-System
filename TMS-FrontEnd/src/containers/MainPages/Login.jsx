@@ -40,9 +40,9 @@ export default function Login() {
                         <h3 className={`text-blue-600 text-3xl font-bold  mb-4`}>
                             LOGIN
                         </h3>
-                        <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit} autoComplete='off'>
-                            <Input type="email" value={Form.email} onChange={handleChange} name="email" placeholder="Email" title={'Email'} />
-                            <Input type="password" value={Form.password} onChange={handleChange} name="password" placeholder="Password" title={'Password'} />
+                        <form className="w-full flex flex-col justify-center" onSubmit={handleSubmit} >
+                            <Input type="email" value={Form.email} onChange={handleChange} name="email" autoComplete="email" title={'Email'} />
+                            <Input type="password" value={Form.password} onChange={handleChange} name="password" autoComplete="current-password" title={'Password'} />
                             <Button type="submit" label={'Submit'} />
                         </form>
                     </div>

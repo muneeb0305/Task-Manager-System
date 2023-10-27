@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function Input(props) {
-
     const title = props.title
 
     return (

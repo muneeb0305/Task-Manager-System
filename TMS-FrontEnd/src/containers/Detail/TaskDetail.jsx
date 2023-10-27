@@ -78,11 +78,10 @@ export default function TaskDetail() {
                     <div className="md:flex no-wrap md:-mx-2 ">
                         <div className="w-full">
                             {
-                                role === USER_ROLE_ADMIN ?
-                                    <div className='flex justify-end mb-3'>
-                                        <Button label={'Assign Task'} onClick={handleClick} />
-                                    </div>
-                                    : null
+                                role === USER_ROLE_ADMIN &&
+                                <div className='flex justify-end mb-3'>
+                                    <Button label={'Assign Task'} onClick={handleClick} />
+                                </div>
                             }
                             <About data={aboutData} />
                             <div className={`bg-white border-2 rounded-lg  shadow-lg p-5 mt-5`}>

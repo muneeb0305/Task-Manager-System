@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
 
 export default function TableView(props) {
+    const USER_ROLE_ADMIN = 'admin';
     // get User Detail from Provider
     const { userDetail } = useAuth()
     const role = userDetail.role
@@ -21,8 +22,7 @@ export default function TableView(props) {
                                 <h2 className='text-2xl font-semibold pl-3'>{props.Heading}</h2>
                             </div>
                             {
-                                role === 'admin' ? <Link to={`create`}><Button label={`Add ${props.ButtonName}`} /></Link>
-                                    : null
+                                role === USER_ROLE_ADMIN && <Link to={`create`}><Button label={`Add ${props.ButtonName}`} /></Link>
                             }
                         </div>
                         <Table {...props} />
