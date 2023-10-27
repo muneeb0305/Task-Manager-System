@@ -45,8 +45,8 @@ export function TeamProvider({ children }) {
         setSelectedTeam(res)
     }
     // Get User Team 
-    const getUserTeam = async () => {
-        const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
+    const getUserTeam = async (id) => {
+        const TeamApi = `${host}/api/Team/user/${id}`;
         const res = await FetchData(TeamApi, token);
         setTeam(res)
         setSelectedTeam(res[0])

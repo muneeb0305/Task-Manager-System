@@ -5,11 +5,13 @@ import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
+import { useNavigate } from 'react-router-dom';
 
 const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
     const host = `https://localhost:7174`
+    const navigate = useNavigate()
     const USER_ROLE_USER = 'user';
     // States
     const [task, setTask] = useState([]);
@@ -38,6 +40,19 @@ export function TaskProvider({ children }) {
         const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
+    }
+    // Get all User tasks by taskId
+    const getUserTaskById = async (id) => {
+        const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
+        const res = await FetchData(TaskApi, token);
+        const userTask = res.find(t => t.id === Number(id))
+        if (userTask) {
+            setSelectedTask(userTask)
+        }
+        else {
+            navigate(-1)
+            throw Error()
+        }
     }
     // Get task by Task id
     const getTaskById = async (id) => {
@@ -72,7 +87,7 @@ export function TaskProvider({ children }) {
         return res
     };
     return (
-        <TaskContext.Provider value={{ getUserTask, selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
+        <TaskContext.Provider value={{ getUserTaskById, getUserTask, selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
             {children}
         </TaskContext.Provider>
     );

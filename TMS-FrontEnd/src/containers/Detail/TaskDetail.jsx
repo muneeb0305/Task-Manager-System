@@ -17,7 +17,7 @@ export default function TaskDetail() {
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
-    const { selectedTask, getTaskById } = useTaskData()
+    const { selectedTask, getTaskById ,getUserTaskById} = useTaskData()
     const { comment, remove, getComment } = useCommentData()
     const { teamUsers, getTeamUsersById } = useTeamData()
     const { userDetail } = useAuth()
@@ -41,7 +41,7 @@ export default function TaskDetail() {
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
         else if (role === USER_ROLE_USER) {
-            getTaskById(taskId)
+            getUserTaskById(taskId)
                 .then(() => setIsLoading(true))
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }

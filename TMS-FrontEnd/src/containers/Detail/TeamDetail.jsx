@@ -36,7 +36,7 @@ export default function TeamDetail() {
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }
         else if (role === USER_ROLE_USER) {
-            getUserTeam()
+            getUserTeam(userDetail.ID)
                 .then(res => {
                     getTeamUsersById(res.id)
                         .catch((err) => Alert({ icon: 'error', title: err }))
