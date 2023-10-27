@@ -10,6 +10,8 @@ const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
     const host = `https://localhost:7174`
+    const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_USER = 'user';
     // States
     const [team, setTeam] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
@@ -19,11 +21,11 @@ export function TeamProvider({ children }) {
     const role = userDetail && userDetail.role
 
     useEffect(() => {
-        if (role === 'admin') {
+        if (role === USER_ROLE_ADMIN) {
             getTeam()
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }
-        else if (role === 'user') {
+        else if (role === USER_ROLE_USER) {
             getUserTeam()
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }

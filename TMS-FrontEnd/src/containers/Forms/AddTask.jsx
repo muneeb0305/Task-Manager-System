@@ -9,6 +9,7 @@ import Alert from '../../components/Alert';
 
 export default function AddTask() {
     const navigate = useNavigate()
+    const USER_ROLE_ADMIN = 'admin';
     // Get Task id
     const { taskId } = useParams()
     //Check is ID there or not
@@ -51,7 +52,7 @@ export default function AddTask() {
                     navigate(`/project/${ProjectId}`)
                 })
         }
-        if (role === 'admin') {
+        if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
         }
         // eslint-disable-next-line

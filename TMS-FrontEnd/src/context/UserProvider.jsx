@@ -10,6 +10,7 @@ const UserContext = createContext();
 
 export function UserProvider({ children }) {
     const host = `https://localhost:7174`
+    const USER_ROLE_ADMIN = 'admin';
     // User State
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -18,7 +19,7 @@ export function UserProvider({ children }) {
     const role = userDetail && userDetail.role
 
     useEffect(() => {
-        if (role === 'admin') {
+        if (role === USER_ROLE_ADMIN) {
             getUser()
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }

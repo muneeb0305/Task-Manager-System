@@ -10,6 +10,7 @@ const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
     const host = `https://localhost:7174`
+    const USER_ROLE_USER = 'user';
     // States
     const [task, setTask] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
@@ -19,10 +20,7 @@ export function TaskProvider({ children }) {
     const role = userDetail && userDetail.role
 
     useEffect(() => {
-        if (role === 'admin') {
-
-        }
-        else if (role === 'user') {
+        if (role === USER_ROLE_USER) {
             getUserTask()
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }

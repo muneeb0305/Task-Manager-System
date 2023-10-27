@@ -12,19 +12,19 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-      try {
+    try {
+      if (storedToken) {
+        setToken(storedToken);
         const decode = jwtDecode(token)
         const ID = decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
         const role = decode["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
         setUserDetail({ ID, role })
-
-      } catch (err) {
+      }
+      else {
         clearToken()
       }
     }
-    else {
+    catch (err) {
       clearToken()
     }
     // eslint-disable-next-line

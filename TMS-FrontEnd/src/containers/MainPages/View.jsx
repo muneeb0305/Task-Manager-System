@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthProvider'
 import { useTeamData } from '../../context/TeamProvider'
 
 export default function View({ display }) {
+    const USER_ROLE_ADMIN = 'admin';
     // Get Data from Provider
     const { user, removeUser } = useUserData()
     const { project, removeProject } = useProjectData()
@@ -41,7 +42,7 @@ export default function View({ display }) {
             ButtonName: "Team",
             dataArr: ['teamName', 'assignedProject'],
             removeFunc: removeTeam,
-            editLink: userDetail.role === 'admin' ? '/team' : null,
+            editLink: userDetail.role === USER_ROLE_ADMIN ? '/team' : null,
             viewLink: '/team',
         },
         team: {
@@ -51,7 +52,7 @@ export default function View({ display }) {
             ButtonName: "Team",
             dataArr: ['teamName', 'assignedProject'],
             removeFunc: removeTeam,
-            editLink: userDetail.role === 'admin' ? '/team' : null,
+            editLink: userDetail.role === USER_ROLE_ADMIN ? '/team' : null,
             viewLink: '/team',
         }
     }

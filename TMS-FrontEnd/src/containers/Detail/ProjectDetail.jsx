@@ -12,6 +12,8 @@ import Alert from '../../components/Alert'
 
 export default function ProjectDetail() {
     const navigate = useNavigate()
+    const USER_ROLE_ADMIN = 'admin';
+
     // Get Project id from Url
     const { ProjectId } = useParams()
     // Get data from providers
@@ -34,7 +36,7 @@ export default function ProjectDetail() {
     useEffect(() => {
         getProjectById(ProjectId)
             .catch((err) => { Alert({ icon: 'error', title: err }) })
-        if (role === 'admin') {
+        if (role === USER_ROLE_ADMIN) {
             getTaskByProjectId(ProjectId)
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
@@ -66,7 +68,7 @@ export default function ProjectDetail() {
                 <div className="md:flex no-wrap md:-mx-2 ">
                     <div className="w-full">
                         {
-                            role === 'admin' ? <div className='flex justify-end mb-3'>
+                            role === USER_ROLE_ADMIN ? <div className='flex justify-end mb-3'>
                                 <Button label={'Assign project'} onClick={handleClick} />
                             </div> : null
                         }
@@ -75,10 +77,10 @@ export default function ProjectDetail() {
                             <div className='flex justify-between px-4'>
                                 <div className='flex items-center'>
                                     <ListBulletIcon className={`h-7 w-7 text-blue-500 `} />
-                                    <h2 className='text-xl pl-3'>{role === 'admin' ? '' : 'Your'} Tasks</h2>
+                                    <h2 className='text-xl pl-3'>{role === USER_ROLE_ADMIN ? '' : 'Your'} Tasks</h2>
                                 </div>
                                 {
-                                    role === 'admin' ?
+                                    role === USER_ROLE_ADMIN ?
                                         <Link to="task/create"><Button label={'Add Task'} /></Link>
                                         : null
                                 }

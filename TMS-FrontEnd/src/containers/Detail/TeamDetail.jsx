@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
 
 export default function TeamDetail() {
+    const USER_ROLE_ADMIN = 'admin';
     // Get Team ID
     const { TeamId } = useParams()
     //Get data from providers
@@ -18,7 +19,7 @@ export default function TeamDetail() {
 
     //table Configuration
     const tableConfig = {
-        tableHeader: role === 'admin' ? ["User Name", "Email", "Action"] : ["User Name", "Email"],
+        tableHeader: role === USER_ROLE_ADMIN ? ["User Name", "Email", "Action"] : ["User Name", "Email"],
         tableData: teamUsers,
         removeFunc: unassignTeam,
         dataArr: ['userName', 'email'],
@@ -55,7 +56,7 @@ export default function TeamDetail() {
                                         <h2 className='text-xl pl-3'>Users Working in this Team</h2>
                                     </div>
                                     {
-                                        role === 'admin' ? <Link to="enroll"><Button label={'Enroll User'} /></Link>
+                                        role === USER_ROLE_ADMIN ? <Link to="enroll"><Button label={'Enroll User'} /></Link>
                                             : null
                                     }
                                 </div>

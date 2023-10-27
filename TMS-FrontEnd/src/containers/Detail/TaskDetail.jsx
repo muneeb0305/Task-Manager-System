@@ -12,6 +12,7 @@ import Alert from '../../components/Alert'
 
 export default function TaskDetail() {
     const navigate = useNavigate()
+    const USER_ROLE_ADMIN = 'admin';
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
@@ -25,7 +26,7 @@ export default function TaskDetail() {
 
     //table Configuration
     const tableConfig = {
-        tableHeader: role === 'admin' ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"],
+        tableHeader: role === USER_ROLE_ADMIN ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"],
         tableData: comment,
         removeFunc: remove,
         dataArr: ['comment', 'createdAt', 'createdBy'],
@@ -42,7 +43,7 @@ export default function TaskDetail() {
     }, [])
 
     useEffect(() => {
-        if (Loading && selectedTask.teamId && role === 'admin') {
+        if (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) {
             getTeamUsersById(selectedTask.teamId)
                 .catch(err => console.log(err))
         }
@@ -77,7 +78,7 @@ export default function TaskDetail() {
                     <div className="md:flex no-wrap md:-mx-2 ">
                         <div className="w-full">
                             {
-                                role === 'admin' ?
+                                role === USER_ROLE_ADMIN ?
                                     <div className='flex justify-end mb-3'>
                                         <Button label={'Assign Task'} onClick={handleClick} />
                                     </div>

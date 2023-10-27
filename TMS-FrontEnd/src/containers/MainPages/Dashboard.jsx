@@ -10,6 +10,9 @@ import { useTaskData } from '../../context/TaskProvider'
 import { useAuth } from '../../context/AuthProvider'
 
 export default function Dashboard() {
+    const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_USER = 'user';
+
     //Get Data from Providers
     const { project, remove } = useProjectData()
     const { task } = useTaskData()
@@ -24,7 +27,7 @@ export default function Dashboard() {
         Pending: 0,
         Completed: 0,
     };
-    if (role === 'user') {
+    if (role === USER_ROLE_USER) {
         task.forEach((taskItem) => {
             statusCounts[taskItem.status]++;
         });
@@ -49,7 +52,7 @@ export default function Dashboard() {
     const tableConfig = tableConfigs[role]
 
     // Card Configuration
-    const cardData = role === 'admin' ? AdminCardData : UserCardData
+    const cardData = role === USER_ROLE_ADMIN ? AdminCardData : UserCardData
     const cardConfigs = {
         admin: {
             'Projects': project.length,

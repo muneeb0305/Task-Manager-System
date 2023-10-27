@@ -7,6 +7,7 @@ import Alert from '../../components/Alert'
 import { useAuth } from '../../context/AuthProvider'
 
 export default function UserDetail() {
+    const USER_ROLE_USER = 'user';
     // Get User ID
     const { UserId } = useParams()
     // Get Data from Provider
@@ -14,7 +15,7 @@ export default function UserDetail() {
     const { userDetail } = useAuth()
 
     useEffect(() => {
-        if (userDetail.role === 'user') {
+        if (userDetail.role === USER_ROLE_USER) {
             getUserById(userDetail.ID)
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }
