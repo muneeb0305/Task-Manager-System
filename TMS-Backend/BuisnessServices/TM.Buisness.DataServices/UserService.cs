@@ -204,10 +204,19 @@ namespace TM.Buisness.DataServices
         public async Task UnassignTeam(int UserId)
         {
 
-            var user = await unitOfWork.UserRepository.Get(UserId);
+            var user = await unitOfWork.UserRepository.Find(u => u.UserId == UserId).Include(u=>u.AssignedTask).FirstOrDefaultAsync();
             NotFound(user == null, "User Not Found");
 
             user!.TeamId = null;
+            var tasks = user.AssignedTask;
+            if (tasks != null)
+            {
+
+                foreach (var task in user.AssignedTask!)
+                {
+                    task.AssignedUserID = null;
+                }
+            }
             var userEntity = mapper.Map<User>(user);
             var unassignTeam = unitOfWork.UserRepository.Update(userEntity);
             if (unassignTeam)
