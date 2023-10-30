@@ -194,7 +194,7 @@ namespace TM.Buisness.DataServices
 
         public async Task<object> GetUserTasks(int UserId)
         {
-            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).Include(u=>u.AssignedTask)!.ThenInclude(t=>t.Project).FirstOrDefaultAsync();
+            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).Include(u=>u.AssignedTask)!.ThenInclude(t=>t.Project).ThenInclude(p=>p.Team).FirstOrDefaultAsync();
             NotFound(user == null, "User Not Found");
 
             var userTasks = user!.AssignedTask?.Select(t => new

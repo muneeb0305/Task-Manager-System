@@ -19,7 +19,7 @@ export default function ProjectDetail() {
     const { ProjectId } = useParams()
     // Get data from providers
     const { selectedProject, getProjectById, getUserProjectById } = useProjectData()
-    const { task, getTaskByProjectId, remove } = useTaskData()
+    const { task, getTaskByProjectId, remove, getUserTaskById } = useTaskData()
     const { team } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
@@ -36,9 +36,11 @@ export default function ProjectDetail() {
 
     useEffect(() => {
         if (role === USER_ROLE_USER) {
-            getUserProjectById()
+            getUserProjectById(ProjectId)
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
-        } 
+            getUserTaskById()
+                .catch((err) => { Alert({ icon: 'error', title: err }) })
+        }
         else if (role === USER_ROLE_ADMIN) {
             getProjectById(ProjectId)
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
@@ -46,7 +48,7 @@ export default function ProjectDetail() {
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
         // eslint-disable-next-line
-    }, [])
+    }, [ProjectId])
 
     const aboutData = {
         "Project ID": selectedProject && selectedProject.id,

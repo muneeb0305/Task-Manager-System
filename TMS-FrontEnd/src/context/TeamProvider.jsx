@@ -5,11 +5,13 @@ import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
+import { useNavigate } from 'react-router-dom';
 
 const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
     const host = `https://localhost:7174`
+    const navigate = useNavigate()
     const USER_ROLE_ADMIN = 'admin';
     const USER_ROLE_USER = 'user';
     // States
@@ -46,10 +48,19 @@ export function TeamProvider({ children }) {
     }
     // Get User Team 
     const getUserTeam = async (id) => {
-        const TeamApi = `${host}/api/Team/user/${id}`;
+        const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
         const res = await FetchData(TeamApi, token);
+        const userTeam = res.find(t => t.id === Number(id))
         setTeam(res)
-        setSelectedTeam(res[0])
+        if (id) {
+            if (userTeam) {
+                setSelectedTeam(userTeam)
+            }
+            else {
+                navigate(- 1)
+                throw Error()
+            }
+        }
         return res[0]
     }
     // Delete Team

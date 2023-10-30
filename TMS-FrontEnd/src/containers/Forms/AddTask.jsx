@@ -10,6 +10,7 @@ import Alert from '../../components/Alert';
 export default function AddTask() {
     const navigate = useNavigate()
     const USER_ROLE_ADMIN = 'admin';
+    const USER_ROLE_User = 'user';
     // Get Task id
     const { taskId } = useParams()
     //Check is ID there or not
@@ -17,7 +18,7 @@ export default function AddTask() {
     // Get Project Id
     const { ProjectId } = useParams()
     // Get Data from Provider
-    const { selectedTask, create, update, getTaskById } = useTaskData()
+    const { selectedTask, create, update, getTaskById, getUserTaskById } = useTaskData()
     const { userDetail } = useAuth()
     const role = userDetail.role
     // Task Status
@@ -46,14 +47,20 @@ export default function AddTask() {
     const [bool, setIsBool] = useState(true)
 
     useEffect(() => {
-        if (isID) {
-            getTaskById(taskId)
-                .catch(err => {
+        if (isID && role === USER_ROLE_User) {
+            getUserTaskById(taskId)
+                .catch((err) => {
                     navigate(`/project/${ProjectId}`)
                 })
         }
-        if (role === USER_ROLE_ADMIN) {
+        else if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
+            if (isID) {
+                getTaskById(taskId)
+                    .catch(() => {
+                        navigate(`/project/${ProjectId}`)
+                    })
+            }
         }
         // eslint-disable-next-line
     }, [isID]);

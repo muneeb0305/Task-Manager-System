@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
-import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
 const TaskContext = createContext();
@@ -12,23 +11,11 @@ const TaskContext = createContext();
 export function TaskProvider({ children }) {
     const host = `https://localhost:7174`
     const navigate = useNavigate()
-    const USER_ROLE_USER = 'user';
     // States
     const [task, setTask] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
-
-    const role = userDetail && userDetail.role
-
-    useEffect(() => {
-        if (role === USER_ROLE_USER) {
-            getUserTask()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        }
-        // eslint-disable-next-line
-    }, [role])
-
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {
         const TaskApi = `${host}/api/Tasks/project/${id}`;
@@ -45,13 +32,16 @@ export function TaskProvider({ children }) {
     const getUserTaskById = async (id) => {
         const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
         const res = await FetchData(TaskApi, token);
+        setTask(res)
         const userTask = res.find(t => t.id === Number(id))
-        if (userTask) {
-            setSelectedTask(userTask)
-        }
-        else {
-            navigate(-1)
-            throw Error()
+        if (id) {
+            if (userTask) {
+                setSelectedTask(userTask)
+            }
+            else {
+                navigate(-1)
+                throw Error()
+            }
         }
     }
     // Get task by Task id

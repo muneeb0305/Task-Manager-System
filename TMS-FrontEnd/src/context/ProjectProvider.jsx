@@ -5,6 +5,7 @@ import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectContext = createContext();
 
@@ -12,6 +13,7 @@ export function ProjectProvider({ children }) {
     const host = `https://localhost:7174`
     const USER_ROLE_ADMIN = 'admin';
     const USER_ROLE_USER = 'user';
+    const navigate = useNavigate()
     // States
     const [project, setProject] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
@@ -45,11 +47,20 @@ export function ProjectProvider({ children }) {
         setSelectedProject(res)
     }
     //Get User Project by User Id
-    const getUserProjectById = async () => {
+    const getUserProjectById = async (id) => {
         const projectApi = `${host}/api/Project/user/${userDetail.ID}`;
         const res = await FetchData(projectApi, token);
-        setSelectedProject(res[0])
+        const userProjects = res.find(p => p.id === Number(id))
         setProject(res)
+        if (id) {
+            if (userProjects) {
+                setSelectedProject(userProjects)
+            }
+            else {
+                navigate(- 1)
+                throw Error()
+            }
+        }
     }
     // Delete Project
     const removeProject = async (id) => {

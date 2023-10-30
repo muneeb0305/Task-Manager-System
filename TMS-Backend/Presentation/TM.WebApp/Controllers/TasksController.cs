@@ -17,7 +17,7 @@ namespace TM.WebApp.Controllers
 
         /// <summary>Admin can Get Task by TaskId</summary>
         // GET: /api/task/5
-        [HttpGet("{TaskId}")]
+        [HttpGet("{TaskId}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetTask(int TaskId)
         {
             var task = await taskService.Get(TaskId);
