@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { FetchData } from '../utils/FetchData';
-import { DeleteData } from '../utils/DeleteData';
-import { PostData } from '../utils/PostData';
-import { PutData } from '../utils/PutData';
+import { FetchData } from '../../utils/FetchData';
+import { DeleteData } from '../../utils/DeleteData';
+import { PostData } from '../../utils/PostData';
+import { PutData } from '../../utils/PutData';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_USER, host } from '../data/AppConstants';
-import Alert from '../components/Alert';
-import { useAuth } from '.';
+import { USER_ROLE_USER, host } from '../../data/AppConstants';
+import Alert from '../../components/Alert';
+import { useAuth } from '..';
 
 export const TaskContext = createContext();
 
@@ -17,13 +17,14 @@ export function TaskProvider({ children }) {
     const [selectedTask, setSelectedTask] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
+    const role = userDetail && userDetail.role
 
     useEffect(() => {
-        userDetail.role === USER_ROLE_USER &&
+        role === USER_ROLE_USER &&
             getUserTaskById()
                 .catch((err) => Alert({ icon: 'error', title: err }))
         // eslint-disable-next-line
-    }, [userDetail.role])
+    }, [role])
 
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {

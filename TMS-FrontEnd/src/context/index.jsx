@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { UserContext } from "./UserProvider";
-import { TeamContext } from "./TeamProvider";
-import { TaskContext } from "./TaskProvider";
-import { ProjectContext } from "./ProjectProvider";
-import { AuthContext } from "./AuthProvider";
-import { CommentContext } from "./CommentProvider";
+import { UserContext } from "./Providers/UserProvider";
+import { TeamContext } from "./Providers/TeamProvider";
+import { TaskContext } from "./Providers/TaskProvider";
+import { ProjectContext } from "./Providers/ProjectProvider";
+import { AuthContext } from "./Providers/AuthProvider";
+import { CommentContext } from "./Providers/CommentProvider";
 
 // Export all the Contexts
 export function useUserData() {

@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useState, useEffect } from 'react';
-import { PostData } from '../utils/PostData';
-import { host } from '../data/AppConstants';
+import { PostData } from '../../utils/PostData';
+import { host } from '../../data/AppConstants';
 
 export const AuthContext = createContext();
 

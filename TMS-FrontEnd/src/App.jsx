@@ -1,5 +1,5 @@
 import Authentication from './Auth/Authentication';
-import AppProviders from './context/AppProviders';
+import AppProviders from './context/Providers/AppProviders';
 
 function App() {
   return (

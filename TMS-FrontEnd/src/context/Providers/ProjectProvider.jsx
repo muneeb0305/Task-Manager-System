@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { FetchData } from '../utils/FetchData';
-import { DeleteData } from '../utils/DeleteData';
-import { PostData } from '../utils/PostData';
-import { PutData } from '../utils/PutData';
-import { useAuth } from './';
-import Alert from '../components/Alert';
+import { FetchData } from '../../utils/FetchData';
+import { DeleteData } from '../../utils/DeleteData';
+import { PostData } from '../../utils/PostData';
+import { PutData } from '../../utils/PutData';
+import { useAuth } from '..';
+import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../data/AppConstants';
+import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../../data/AppConstants';
 
 export const ProjectContext = createContext();
 

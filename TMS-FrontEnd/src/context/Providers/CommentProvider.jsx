@@ -1,10 +1,10 @@
 import React, { createContext, useState } from 'react';
-import { FetchData } from '../utils/FetchData';
-import { DeleteData } from '../utils/DeleteData';
-import { PostData } from '../utils/PostData';
-import { PutData } from '../utils/PutData';
-import { useAuth } from './';
-import { host } from '../data/AppConstants';
+import { FetchData } from '../../utils/FetchData';
+import { DeleteData } from '../../utils/DeleteData';
+import { PostData } from '../../utils/PostData';
+import { PutData } from '../../utils/PutData';
+import { useAuth } from '..';
+import { host } from '../../data/AppConstants';
 
 export const CommentContext = createContext();
 

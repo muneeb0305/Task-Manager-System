@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { FetchData } from '../utils/FetchData';
-import { DeleteData } from '../utils/DeleteData';
-import { PostData } from '../utils/PostData';
-import { PutData } from '../utils/PutData';
-import Alert from '../components/Alert';
-import { USER_ROLE_ADMIN, host } from '../data/AppConstants';
-import { useAuth } from '.';
+import { FetchData } from '../../utils/FetchData';
+import { DeleteData } from '../../utils/DeleteData';
+import { PostData } from '../../utils/PostData';
+import { PutData } from '../../utils/PutData';
+import Alert from '../../components/Alert';
+import { USER_ROLE_ADMIN, host } from '../../data/AppConstants';
+import { useAuth } from '..';
 
 export const UserContext = createContext();
 
