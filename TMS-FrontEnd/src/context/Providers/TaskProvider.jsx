@@ -13,60 +13,39 @@ export const TaskContext = createContext();
 export function TaskProvider({ children }) {
     const navigate = useNavigate()
     // States
-    const [task, setTask] = useState([]);
+    const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
     // Get all tasks by project id
-    const getTaskByProjectId = useCallback(async (id) => {
+    const fetchTaskByProjectId = useCallback(async (projectId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/project/${id}`;
+            const TaskApi = `${host}/api/Tasks/project/${projectId}`;
             const res = await FetchData(TaskApi, token);
-            setTask(res)
+            setTaskList(res)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
 
-    // Get all tasks of User by UserId
-    const getUserTask = async () => {
-        try {
-            const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
-            const res = await FetchData(TaskApi, token);
-            setTask(res)
-        } catch (err) {
-            Alert({ icon: 'error', title: err })
-        }
-    }
-
     // Get all User tasks by UserId
-    const getUserTaskById = useCallback(async (id) => {
+    const fetchUserTaskById = useCallback(async (userId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
+            const TaskApi = `${host}/api/Tasks/user/${userId}`;
             const res = await FetchData(TaskApi, token);
-            setTask(res)
-            const userTask = res.find(t => t.id === Number(id))
-            if (id) {
-                if (userTask) {
-                    setSelectedTask(userTask)
-                }
-                else {
-                    navigate(-1)
-                    throw Error()
-                }
-            }
+            setTaskList(res)    // for table
+            setSelectedTask(res[0]) //for detail view
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
-        // eslint-disable-next-line
-    }, [token, userDetail])          //ignore navigate
+    }, [token])
 
     // Get task by Task id
-    const getTaskById = useCallback(async (id) => {
+    const fetchTaskById = useCallback(async (taskId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/${id}`;
+            const TaskApi = `${host}/api/Tasks/${taskId}`;
             const res = await FetchData(TaskApi, token);
             setSelectedTask(res)
         } catch (err) {
@@ -74,12 +53,12 @@ export function TaskProvider({ children }) {
         }
     }, [token])
     // remove task
-    const remove = async (id) => {
+    const remove = async (taskId) => {
         try {
-            const deleteAPI = `${host}/api/Tasks/${id}`
+            const deleteAPI = `${host}/api/Tasks/${taskId}`
             const res = await DeleteData(deleteAPI, token)
-            const newData = task.filter(d => d.id !== id)
-            setTask(newData);
+            const newData = taskList.filter(d => d.id !== taskId)
+            setTaskList(newData);
             Alert({ icon: 'success', title: res })
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -97,9 +76,9 @@ export function TaskProvider({ children }) {
         }
     };
     // Update task
-    const update = async (id, updatedTask) => {
+    const update = async (taskId, updatedTask) => {
         try {
-            const UpdateApi = `${host}/api/Tasks/${id}`
+            const UpdateApi = `${host}/api/Tasks/${taskId}`
             const res = await PutData(UpdateApi, updatedTask, token)
             Alert({ icon: 'success', title: res })
             navigate(-1)
@@ -122,11 +101,11 @@ export function TaskProvider({ children }) {
     // if role is user then update the task state with his/her tasks
     useEffect(() => {
         role === USER_ROLE_USER &&
-            getUserTaskById()
-    }, [role, getUserTaskById])
+            fetchUserTaskById(userDetail.ID)
+    }, [role, fetchUserTaskById, userDetail])
 
     return (
-        <TaskContext.Provider value={{ getUserTaskById, getUserTask, selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
+        <TaskContext.Provider value={{ fetchUserTaskById, selectedTask, taskList, create, remove, update, fetchTaskByProjectId, fetchTaskById, assignTask }}>
             {children}
         </TaskContext.Provider>
     );

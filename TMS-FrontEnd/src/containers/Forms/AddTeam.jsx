@@ -10,13 +10,13 @@ export default function AddTeam() {
     //Check is ID there or not
     const isID = !!TeamId
     // Get Data from Team Provider
-    const { selectedTeam, create, update, getTeamById } = useTeamData()
+    const { selectedTeam, create, update, fetchTeamById } = useTeamData()
     // Form State
     const [Form, setForm] = useState({ teamName: '' })
 
     useEffect(() => {
-        isID && getTeamById(TeamId)
-    }, [TeamId, getTeamById, isID]);
+        isID && fetchTeamById(TeamId)
+    }, [TeamId, fetchTeamById, isID]);
 
     useEffect(() => {
         // Set Form

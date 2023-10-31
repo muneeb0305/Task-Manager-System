@@ -11,7 +11,7 @@ export default function EnrollUser() {
 
     // Get Data from providers
     const { assignTeam } = useTeamData()
-    const { user } = useUserData()
+    const { userList } = useUserData()
     // States
     const [Form, setForm] = useState({
         userId: '',
@@ -19,17 +19,17 @@ export default function EnrollUser() {
     })
 
     useEffect(() => {
-        if (user.length !== 0) {
+        if (userList.length !== 0) {
             setForm(pre => ({
                 ...pre,
-                userId: user[0].id
+                userId: userList[0].id
             }))
         }
-    }, [user])
+    }, [userList])
 
     const handleChange = (e) => {
         const { value } = e.target;
-        const users = user.find(users => users.userName === value)
+        const users = userList.find(users => users.userName === value)
         setForm((prevState) => ({ ...prevState, userId: Number(users.id) }));
     };
 
@@ -47,7 +47,7 @@ export default function EnrollUser() {
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6 items-center">
                                 <Input type="number" name="userId" value={Form.userId} onChange={handleChange} minLength={8} title={'User Id'} disabled />
-                                <Select label={'User'} data={user && user.map((u) => ({ Id: u.id, value: u.userName }))} name='userName' value={Form.userName} onChange={handleChange} required />
+                                <Select label={'User'} data={userList && userList.map((u) => ({ Id: u.id, value: u.userName }))} name='userName' value={Form.userName} onChange={handleChange} required />
                             </div>
                             <div className="flex justify-center">
                                 <div className='flex items-baseline gap-3'>

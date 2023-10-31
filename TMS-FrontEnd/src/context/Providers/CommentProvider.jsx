@@ -13,24 +13,25 @@ export const CommentContext = createContext();
 export function CommentProvider({ children }) {
     const navigate = useNavigate()
     // States
-    const [comment, setComment] = useState([]);
+    const [commentList, setCommentList] = useState([]);
     const [selectedComment, setSelectedComment] = useState(null);
     // Get Token
     const { token } = useAuth()
 
     // Get All Comments by Task Id
-    const getComment = useCallback(async (id) => {
+    const fetchComment = useCallback(async (id) => {
         try {
             const CommentApi = `${host}/api/Comment/task/${id}`
             const res = await FetchData(CommentApi, token)
-            setComment(res)
+            setCommentList(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            navigate(-1)
         }
+        // eslint-disable-next-line
     }, [token])
 
     // Get Comment by ID
-    const getCommentById = useCallback(async (id) => {
+    const fetchCommentById = useCallback(async (id) => {
         try {
             const CommentApi = `${host}/api/Comment/${id}`;
             const res = await FetchData(CommentApi, token);
@@ -45,8 +46,8 @@ export function CommentProvider({ children }) {
         try {
             const deleteAPI = `${host}/api/Comment/${id}`
             const res = await DeleteData(deleteAPI, token)
-            const newData = comment.filter(c => c.id !== id)
-            setComment(newData)
+            const newData = commentList.filter(c => c.id !== id)
+            setCommentList(newData)
             Alert({ icon: 'success', title: res })
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -78,7 +79,7 @@ export function CommentProvider({ children }) {
     };
 
     return (
-        <CommentContext.Provider value={{ selectedComment, comment, create, remove, update, getComment, getCommentById }}>
+        <CommentContext.Provider value={{ selectedComment, commentList, create, remove, update, fetchComment, fetchCommentById }}>
             {children}
         </CommentContext.Provider>
     );

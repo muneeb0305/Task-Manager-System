@@ -13,24 +13,24 @@ export const ProjectContext = createContext();
 export function ProjectProvider({ children }) {
     const navigate = useNavigate()
     // States
-    const [project, setProject] = useState([]);
+    const [projectList, setProjectList] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
     // Get Project
-    const getProject = useCallback(async () => {
+    const fetchProject = useCallback(async () => {
         try {
             const projectApi = `${host}/api/Project`
             const res = await FetchData(projectApi, token)
-            setProject(res)
+            setProjectList(res)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
     //Get Project by Project Id
-    const getProjectById = useCallback(async (id) => {
+    const fetchProjectById = useCallback(async (id) => {
         try {
             const projectApi = `${host}/api/Project/${id}`;
             const res = await FetchData(projectApi, token);
@@ -41,20 +41,17 @@ export function ProjectProvider({ children }) {
     }, [token])
 
     //Get User Project by User Id
-    const getUserProjectById = useCallback(async (id) => {
+    const fetchUserProjectById = useCallback(async (userId) => {
         try {
-            const projectApi = `${host}/api/Project/user/${userDetail.ID}`;
+            const projectApi = `${host}/api/Project/user/${userId}`;
             const res = await FetchData(projectApi, token);
-            const userProjects = res.find(p => p.id === Number(id))
-            setProject(res)
-            if (id) {
-                if (userProjects) {
-                    setSelectedProject(userProjects)
-                }
-                else {
-                    navigate(- 1)
-                    throw Error()
-                }
+            setProjectList(res) //for table
+            if (res.length > 0) {
+                setSelectedProject(res[0])  //for detail view
+            }
+            else {
+                navigate(- 1)
+                throw Error()
             }
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -67,7 +64,7 @@ export function ProjectProvider({ children }) {
         try {
             const deleteAPI = `${host}/api/Project/${id}`
             const res = await DeleteData(deleteAPI, token)
-            getProject()
+            fetchProject()
             Alert({ icon: 'success', title: res })
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -79,7 +76,7 @@ export function ProjectProvider({ children }) {
         try {
             const CreateApi = `${host}/api/Project`
             const res = await PostData(CreateApi, newProject, token)
-            getProject()
+            fetchProject()
             Alert({ icon: 'success', title: res })
             navigate(-1)
         } catch (err) {
@@ -92,7 +89,7 @@ export function ProjectProvider({ children }) {
         try {
             const UpdateApi = `${host}/api/Project/${id}`
             const res = await PutData(UpdateApi, editProject, token)
-            getProject()
+            fetchProject()
             Alert({ icon: 'success', title: res })
             navigate(-1)
         } catch (err) {
@@ -116,14 +113,14 @@ export function ProjectProvider({ children }) {
     useEffect(() => {
         // if role is admin then get all the projects
         role === USER_ROLE_ADMIN &&
-            getProject()
+            fetchProject()
         // if role is user then get only his/her project
         role === USER_ROLE_USER &&
-            getUserProjectById()
-    }, [role, getProject, getUserProjectById])
+            fetchUserProjectById(userDetail.ID)
+    }, [role, fetchProject, fetchUserProjectById, userDetail])
 
     return (
-        <ProjectContext.Provider value={{ getUserProjectById, selectedProject, project, create, removeProject, update, getProjectById, getProject, assignProject }}>
+        <ProjectContext.Provider value={{ fetchUserProjectById, selectedProject, projectList, create, removeProject, update, fetchProjectById, fetchProject, assignProject }}>
             {children}
         </ProjectContext.Provider>
     );

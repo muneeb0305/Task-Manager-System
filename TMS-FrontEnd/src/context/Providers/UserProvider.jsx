@@ -13,25 +13,25 @@ export const UserContext = createContext();
 export function UserProvider({ children }) {
     const navigate = useNavigate()
     // User States
-    const [user, setUser] = useState([]);
+    const [userList, setUserList] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     // Get Token from Token Provider
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
     //Get All Users
-    const getUser = useCallback(async () => {
+    const fetchUsers = useCallback(async () => {
         try {
             const UserApi = `${host}/api/Users`
             const res = await FetchData(UserApi, token)
-            setUser(res)
+            setUserList(res)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
 
     //Get User By ID
-    const getUserById = useCallback(async (id) => {
+    const fetchUserById = useCallback(async (id) => {
         try {
             const UserApi = `${host}/api/Users/${id}`;
             const res = await FetchData(UserApi, token);
@@ -46,7 +46,7 @@ export function UserProvider({ children }) {
         try {
             const deleteAPI = `${host}/api/Users/${id}`
             const res = await DeleteData(deleteAPI, token)
-            getUser();  // Refresh User list
+            fetchUsers();  // Refresh User list
             Alert({ icon: 'success', title: res })
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -59,20 +59,20 @@ export function UserProvider({ children }) {
             const CreateApi = `${host}/api/Users`
             const res = await PostData(CreateApi, newUser, token)
             Alert({ icon: 'success', title: res })
-            getUser();  // Refresh User list
+            fetchUsers();  // Refresh User list
             navigate('/user')
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     };
-    
+
     // Update User
     const update = async (id, updatedUser) => {
         try {
             const UpdateApi = `${host}/api/Users/${id}`
             const res = await PutData(UpdateApi, updatedUser, token)
             Alert({ icon: 'success', title: res })
-            getUser()
+            fetchUsers()
             navigate('/user')
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -82,11 +82,11 @@ export function UserProvider({ children }) {
     // Update user state when role is Admin
     useEffect(() => {
         role === USER_ROLE_ADMIN &&
-            getUser()
-    }, [role, getUser])
+            fetchUsers()
+    }, [role, fetchUsers])
 
     return (
-        <UserContext.Provider value={{ selectedUser, user, create, removeUser, update, getUserById, getUser }}>
+        <UserContext.Provider value={{ selectedUser, userList, create, removeUser, update, fetchUserById, fetchUsers }}>
             {children}
         </UserContext.Provider>
     );

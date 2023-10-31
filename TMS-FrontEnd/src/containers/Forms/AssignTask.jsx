@@ -13,7 +13,7 @@ export default function AssignTask() {
     const queryParams = new URLSearchParams(location.search);
     const teamId = queryParams.get('team')
     // Get Data from providers
-    const { teamUsers, getTeamUsersById } = useTeamData()
+    const { teamUsers, fetchTeamUsersById } = useTeamData()
     const { assignTask } = useTaskData()
     // Form State
     const [Form, setForm] = useState({
@@ -21,8 +21,8 @@ export default function AssignTask() {
         userId: '',
     })
     useEffect(() => {
-        getTeamUsersById(teamId)
-    }, [getTeamUsersById, teamId])
+        fetchTeamUsersById(teamId)
+    }, [fetchTeamUsersById, teamId])
 
     useEffect(() => {
         if (teamUsers.length !== 0) {

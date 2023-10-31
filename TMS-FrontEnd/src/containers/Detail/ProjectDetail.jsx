@@ -13,16 +13,16 @@ export default function ProjectDetail() {
     // Get Project id from Url
     const { ProjectId } = useParams()
     // Get data from providers
-    const { selectedProject, getProjectById, getUserProjectById } = useProjectData()
-    const { task, getTaskByProjectId, remove, getUserTaskById } = useTaskData()
-    const { team } = useTeamData()
+    const { selectedProject, fetchProjectById, fetchUserProjectById } = useProjectData()
+    const { taskList, fetchTaskByProjectId, remove, fetchUserTaskById } = useTaskData()
+    const { teamList } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
 
     //table Configuration
     const tableConfig = {
         tableHeader: ["Task Name", "Status", "Due Date", "Action"],
-        tableData: task,
+        tableData: taskList,
         removeFunc: remove,
         dataArr: ['taskName', 'status', 'dueDate'],
         editLink: 'task',
@@ -31,14 +31,14 @@ export default function ProjectDetail() {
 
     useEffect(() => {
         if (role === USER_ROLE_USER) {
-            getUserProjectById(ProjectId)
-            getUserTaskById()
+            fetchUserProjectById(userDetail.ID)
+            fetchUserTaskById(userDetail.ID)
         }
         else if (role === USER_ROLE_ADMIN) {
-            getProjectById(ProjectId)
-            getTaskByProjectId(ProjectId)
+            fetchProjectById(ProjectId)
+            fetchTaskByProjectId(ProjectId)
         }
-    }, [ProjectId, getProjectById, getTaskByProjectId, getUserProjectById, getUserTaskById, role])
+    }, [ProjectId, fetchProjectById, fetchTaskByProjectId, fetchUserProjectById, fetchUserTaskById, role, userDetail])
 
     const aboutData = {
         "Project ID": selectedProject && selectedProject.id,
@@ -51,7 +51,7 @@ export default function ProjectDetail() {
         "Tasks Completed": selectedProject && selectedProject.taskCompleted,
     }
     const handleClick = () => {
-        team.length === 0 ?
+        teamList.length === 0 ?
             Alert({ icon: 'error', title: 'Add Team First' }) : navigate(`assign`)
     }
     return (

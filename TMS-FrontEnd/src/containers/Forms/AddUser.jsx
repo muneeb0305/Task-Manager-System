@@ -12,7 +12,7 @@ export default function AddUser() {
     //Check is ID there or not
     const isID = !!UserId
     //User Provider
-    const { selectedUser, create, update, getUserById } = useUserData()
+    const { selectedUser, create, update, fetchUserById } = useUserData()
     // User Types
     const userType = [
         {
@@ -34,8 +34,8 @@ export default function AddUser() {
     })
 
     useEffect(() => {
-        isID && getUserById(UserId)
-    }, [isID, UserId, getUserById]);
+        isID && fetchUserById(UserId)
+    }, [isID, UserId, fetchUserById]);
 
     useEffect(() => {
         // If ID set form

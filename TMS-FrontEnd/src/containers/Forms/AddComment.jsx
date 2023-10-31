@@ -10,7 +10,7 @@ export default function AddComment() {
     //Check is Comment ID there or not
     const isID = !!id
     // Get data from Providers
-    const { selectedComment, create, update, getCommentById } = useCommentData()
+    const { selectedComment, create, update, fetchCommentById } = useCommentData()
     const { userDetail } = useAuth()
     // Form State
     const [Form, setForm] = useState({
@@ -29,9 +29,9 @@ export default function AddComment() {
     }
     useEffect(() => {
         if (isID) {
-            getCommentById(id)
+            fetchCommentById(id)
         }
-    }, [isID, id, getCommentById, ProjectId, taskId]);
+    }, [isID, id, fetchCommentById, ProjectId, taskId]);
 
     useEffect(() => {
         // Set Form

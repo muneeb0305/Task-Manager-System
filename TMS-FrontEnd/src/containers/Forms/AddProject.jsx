@@ -10,7 +10,7 @@ export default function AddProject() {
     //Check is ID there or not
     const isID = !!ProjectId
     // Get Data from Providers
-    const { selectedProject, create, update, getProjectById } = useProjectData()
+    const { selectedProject, create, update, fetchProjectById } = useProjectData()
     // Form State
     const [Form, setForm] = useState({
         name: '',
@@ -18,8 +18,8 @@ export default function AddProject() {
     })
 
     useEffect(() => {
-        isID && getProjectById(ProjectId)
-    }, [ProjectId, isID, getProjectById])
+        isID && fetchProjectById(ProjectId)
+    }, [ProjectId, isID, fetchProjectById])
 
     useEffect(() => {
         (selectedProject && isID) &&

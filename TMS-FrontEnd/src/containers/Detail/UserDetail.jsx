@@ -9,12 +9,12 @@ export default function UserDetail() {
     // Get User ID
     const { UserId } = useParams()
     // Get Data from Provider
-    const { selectedUser, getUserById } = useUserData()
+    const { selectedUser, fetchUserById } = useUserData()
     const { userDetail } = useAuth()
 
     useEffect(() => {
-        userDetail.role === USER_ROLE_USER ? getUserById(userDetail.ID) : getUserById(UserId)
-    }, [UserId, getUserById, userDetail])
+        userDetail.role === USER_ROLE_USER ? fetchUserById(userDetail.ID) : fetchUserById(UserId)
+    }, [UserId, fetchUserById, userDetail])
 
     const aboutData = {
         "ID": selectedUser && selectedUser.id,

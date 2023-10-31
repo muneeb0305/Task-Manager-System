@@ -11,7 +11,7 @@ export default function TeamDetail() {
     // Get Team ID
     const { TeamId } = useParams()
     //Get data from providers
-    const { teamUsers, selectedTeam, getTeamById, getTeamUsersById, unassignTeam, getUserTeam } = useTeamData()
+    const { teamUsers, selectedTeam, fetchTeamById, fetchTeamUsersById, unassignTeam, fetchUserTeam } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
 
@@ -27,13 +27,13 @@ export default function TeamDetail() {
     // Retrive Data
     useEffect(() => {
         if (role === USER_ROLE_ADMIN) {
-            getTeamById(TeamId)
-            getTeamUsersById(TeamId)
+            fetchTeamById(TeamId)
+            fetchTeamUsersById(TeamId)
         }
         else if (role === USER_ROLE_USER) {
-            getUserTeam(TeamId)
+            fetchUserTeam(userDetail.ID)
         }
-    }, [TeamId, getTeamById, getUserTeam, role, getTeamUsersById])
+    }, [TeamId, fetchTeamById, fetchUserTeam, role, fetchTeamUsersById, userDetail])
 
     const aboutdata = {
         "Team ID": selectedTeam && selectedTeam.id,

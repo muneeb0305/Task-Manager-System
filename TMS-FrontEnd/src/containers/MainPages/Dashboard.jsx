@@ -8,10 +8,10 @@ import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function Dashboard() {
     //Get Data from Providers
-    const { project, remove } = useProjectData()
-    const { task } = useTaskData()
-    const { user } = useUserData()
-    const { team } = useTeamData()
+    const { projectList } = useProjectData()
+    const { taskList } = useTaskData()
+    const { userList } = useUserData()
+    const { teamList } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
 
@@ -22,7 +22,7 @@ export default function Dashboard() {
         Completed: 0,
     };
     if (role === USER_ROLE_USER) {
-        task.forEach((taskItem) => {
+        taskList.forEach((taskItem) => {
             statusCounts[taskItem.status]++;
         });
     }
@@ -31,13 +31,12 @@ export default function Dashboard() {
     const tableConfigs = {
         admin: {
             tableHeader: ["Project Name", "Assigned to"],
-            tableData: project,
-            removeFunc: remove,
+            tableData: projectList,
             dataArr: ['projectName', 'assignedTo'],
         },
         user: {
             tableHeader: ["Project Name", "Assigned to", "Action"],
-            tableData: project,
+            tableData: projectList,
             dataArr: ['projectName', 'assignedTo'],
             viewLink: 'project',
         }
@@ -48,9 +47,9 @@ export default function Dashboard() {
     const cardData = role === USER_ROLE_ADMIN ? AdminCardData : UserCardData
     const cardConfigs = {
         admin: {
-            'Projects': project.length,
-            'Teams': team.length,
-            'Users': user.length,
+            'Projects': projectList.length,
+            'Teams': teamList.length,
+            'Users': userList.length,
         },
         user: {
             'Task Pending': statusCounts.Pending,

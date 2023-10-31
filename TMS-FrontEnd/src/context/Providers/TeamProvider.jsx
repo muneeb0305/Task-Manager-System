@@ -13,7 +13,7 @@ export const TeamContext = createContext();
 export function TeamProvider({ children }) {
     const navigate = useNavigate()
     // States
-    const [team, setTeam] = useState([]);
+    const [teamList, setTeamList] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [teamUsers, setTeamUsers] = useState([]);
     // Get Token
@@ -21,18 +21,18 @@ export function TeamProvider({ children }) {
     const role = userDetail && userDetail.role
 
     // Get All Teams
-    const getTeam = useCallback(async () => {
+    const fetchTeam = useCallback(async () => {
         try {
             const TeamApi = `${host}/api/Team`
             const res = await FetchData(TeamApi, token)
-            setTeam(res)
+            setTeamList(res)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
 
     // Get Team by Team ID
-    const getTeamById = useCallback(async (id) => {
+    const fetchTeamById = useCallback(async (id) => {
         try {
             const TeamApi = `${host}/api/Team/${id}`;
             const res = await FetchData(TeamApi, token);
@@ -42,10 +42,10 @@ export function TeamProvider({ children }) {
         }
     }, [token])
 
-    // Get All users of team by Team ID
-    const getTeamUsersById = useCallback(async (id) => {
+    // Get All users with team by Team ID
+    const fetchTeamUsersById = useCallback(async (teamId) => {
         try {
-            const TeamApi = `${host}/api/Team/users/${id}`;
+            const TeamApi = `${host}/api/Team/users/${teamId}`;
             const result = await FetchData(TeamApi, token);
             setTeamUsers(result)
         } catch (err) {
@@ -54,34 +54,33 @@ export function TeamProvider({ children }) {
     }, [token])
 
     // Get User Team By User Id
-    const getUserTeam = useCallback(async (id) => {
+    const fetchUserTeam = useCallback(async (userId) => {
         try {
-            const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
+            const TeamApi = `${host}/api/Team/user/${userId}`;
             const res = await FetchData(TeamApi, token);
-            const userTeam = res.find(t => t.id === Number(id))
-            setTeam(res)
-            if (id) {
-                if (userTeam) {
-                    setSelectedTeam(userTeam)
+            setTeamList(res)    //for table
+            if (userId) {
+                if (res.length > 0) {
+                    setSelectedTeam(res[0]) //for Detail view
                 }
                 else {
                     navigate(- 1)
                     throw Error()
                 }
             }
-            res.length > 0 && getTeamUsersById(res[0].id)
+            res.length > 0 && fetchTeamUsersById(res[0].id) // fetch users of that team
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
         // eslint-disable-next-line
-    }, [token, userDetail, getTeamUsersById])         //ignore navigate
+    }, [token, userDetail, fetchTeamUsersById])         //ignore navigate
 
     // Delete Team
     const removeTeam = async (id) => {
         try {
             const deleteAPI = `${host}/api/Team/${id}`
             const res = await DeleteData(deleteAPI, token)
-            getTeam()
+            fetchTeam()
             Alert({ icon: 'success', title: res })
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -93,7 +92,7 @@ export function TeamProvider({ children }) {
         try {
             const CreateApi = `${host}/api/Team`
             const res = await PostData(CreateApi, newProject, token)
-            getTeam()
+            fetchTeam()
             Alert({ icon: 'success', title: res })
             navigate('/team')
         } catch (err) {
@@ -106,7 +105,7 @@ export function TeamProvider({ children }) {
         try {
             const UpdateApi = `${host}/api/Team/${id}`
             const res = await PutData(UpdateApi, editProject, token)
-            getTeam()
+            fetchTeam()
             Alert({ icon: 'success', title: res })
             navigate('/team')
         } catch (err) {
@@ -143,14 +142,14 @@ export function TeamProvider({ children }) {
     useEffect(() => {
         // If admin then get all teams
         role === USER_ROLE_ADMIN &&
-            getTeam()
+            fetchTeam()
         // if user than get its team
         role === USER_ROLE_USER &&
-            getUserTeam()
-    }, [role, getTeam, getUserTeam])
+            fetchUserTeam()
+    }, [role, fetchTeam, fetchUserTeam])
 
     return (
-        <TeamContext.Provider value={{ getUserTeam, selectedTeam, teamUsers, team, create, removeTeam, update, getTeamById, getTeam, getTeamUsersById, unassignTeam, assignTeam }}>
+        <TeamContext.Provider value={{ fetchUserTeam, selectedTeam, teamUsers, teamList, create, removeTeam, update, fetchTeamById, fetchTeam, fetchTeamUsersById, unassignTeam, assignTeam }}>
             {children}
         </TeamContext.Provider>
     );

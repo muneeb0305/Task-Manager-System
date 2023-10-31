@@ -13,9 +13,9 @@ export default function TaskDetail() {
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
-    const { selectedTask, getTaskById, getUserTaskById } = useTaskData()
-    const { comment, remove, getComment } = useCommentData()
-    const { teamUsers, getTeamUsersById } = useTeamData()
+    const { selectedTask, fetchTaskById, fetchUserTaskById } = useTaskData()
+    const { commentList, remove, fetchComment } = useCommentData()
+    const { teamUsers, fetchTeamUsersById } = useTeamData()
     const { userDetail } = useAuth()
     const role = userDetail.role
     // State
@@ -24,7 +24,7 @@ export default function TaskDetail() {
     //table Configuration
     const tableConfig = {
         tableHeader: role === USER_ROLE_ADMIN ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"],
-        tableData: comment,
+        tableData: commentList,
         removeFunc: remove,
         dataArr: ['comment', 'createdAt', 'createdBy'],
         editLink: 'comment',
@@ -32,19 +32,19 @@ export default function TaskDetail() {
 
     useEffect(() => {
         role === USER_ROLE_ADMIN &&
-            getTaskById(taskId)
+            fetchTaskById(taskId)
                 .then(() => setIsLoading(true))
         role === USER_ROLE_USER &&
-            getUserTaskById(taskId)
+            fetchUserTaskById(userDetail.ID)
                 .then(() => setIsLoading(true))
-        getComment(taskId)
-    }, [getComment, getTaskById, getUserTaskById, role, taskId])
+        fetchComment(taskId)
+    }, [fetchComment, fetchTaskById, fetchUserTaskById, role, taskId, userDetail])
 
     useEffect(() => {
         if (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) {
-            getTeamUsersById(selectedTask.teamId)
+            fetchTeamUsersById(selectedTask.teamId)
         }
-    }, [selectedTask, Loading, getTeamUsersById, role])
+    }, [selectedTask, Loading, fetchTeamUsersById, role])
 
     const aboutData = {
         "Task ID": selectedTask && selectedTask.id,

@@ -14,7 +14,7 @@ export default function AddTask() {
     // Get Project Id
     const { ProjectId } = useParams()
     // Get Data from Provider
-    const { selectedTask, create, update, getTaskById, getUserTaskById } = useTaskData()
+    const { selectedTask, create, update, fetchTaskById, fetchUserTaskById } = useTaskData()
     const { userDetail } = useAuth()
     const role = userDetail.role
     // Task Status
@@ -44,13 +44,13 @@ export default function AddTask() {
 
     useEffect(() => {
         if (isID && role === USER_ROLE_USER) {
-            getUserTaskById(taskId)
+            fetchUserTaskById(userDetail.ID)
         }
         else if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
-            isID && getTaskById(taskId)
+            isID && fetchTaskById(taskId)
         }
-    }, [isID, ProjectId, getTaskById, getUserTaskById, role, taskId]);
+    }, [isID, ProjectId, fetchTaskById, fetchUserTaskById, role, taskId, userDetail]);
 
     useEffect(() => {
         if (selectedTask && isID) {

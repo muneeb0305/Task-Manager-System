@@ -10,7 +10,7 @@ export default function AssignProject() {
     const { ProjectId } = useParams()
     // Get Data from Providers
     const { assignProject } = useProjectData()
-    const { team } = useTeamData()
+    const { teamList } = useTeamData()
     // Form State
     const [Form, setForm] = useState({
         projectId: Number(ProjectId),
@@ -18,13 +18,13 @@ export default function AssignProject() {
     })
 
     useEffect(() => {
-        team.length !== 0 &&
-            setForm(prevState => ({...prevState,teamId: team[0].id}))
-    }, [team])
+        teamList.length !== 0 &&
+            setForm(prevState => ({...prevState,teamId: teamList[0].id}))
+    }, [teamList])
 
     const handleChange = (e) => {
         const { value } = e.target;
-        const teamName = team.find(t => t.teamName === value)
+        const teamName = teamList.find(t => t.teamName === value)
         setForm((prevState) => ({ ...prevState, teamId: teamName.id }));
     };
 
@@ -42,7 +42,7 @@ export default function AssignProject() {
                         <form onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6 items-center">
                                 <Input type="number" name="teamId" value={Form.teamId} onChange={handleChange} minLength={8} title={'Team Id'} disabled />
-                                <Select label={'Team'} data={team.map((teams) => ({ Id: teams.id, value: teams.teamName }))} onChange={handleChange} required />
+                                <Select label={'Team'} data={teamList.map((teams) => ({ Id: teams.id, value: teams.teamName }))} onChange={handleChange} required />
                             </div>
                             <div className="flex justify-center">
                                 <div className='flex items-baseline gap-3'>
