@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { FetchData } from '../../utils/FetchData';
 import { DeleteData } from '../../utils/DeleteData';
 import { PostData } from '../../utils/PostData';
@@ -16,27 +16,19 @@ export function UserProvider({ children }) {
     // Get Token from Token Provider
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
-    
-    // Update user state when role is Admin
-    useEffect(() => {
-        role === USER_ROLE_ADMIN &&
-            getUser()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        // eslint-disable-next-line
-    }, [role])
 
     //Get All Users
-    const getUser = async () => {
+    const getUser = useCallback(async () => {
         const UserApi = `${host}/api/Users`
         const res = await FetchData(UserApi, token)
         setUser(res)
-    }
+    }, [token])
     //Get User By ID
-    const getUserById = async (id) => {
+    const getUserById = useCallback(async (id) => {
         const UserApi = `${host}/api/Users/${id}`;
         const res = await FetchData(UserApi, token);
         setSelectedUser(res)
-    }
+    }, [token])
     // Delete User
     const removeUser = async (id) => {
         const deleteAPI = `${host}/api/Users/${id}`
@@ -56,6 +48,13 @@ export function UserProvider({ children }) {
         const res = await PutData(UpdateApi, updatedUser, token)
         return res
     };
+
+    // Update user state when role is Admin
+    useEffect(() => {
+        role === USER_ROLE_ADMIN &&
+            getUser()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+    }, [role, getUser])
 
     return (
         <UserContext.Provider value={{ selectedUser, user, create, removeUser, update, getUserById, getUser }}>

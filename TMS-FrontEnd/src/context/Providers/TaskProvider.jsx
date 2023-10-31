@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { FetchData } from '../../utils/FetchData';
 import { DeleteData } from '../../utils/DeleteData';
 import { PostData } from '../../utils/PostData';
@@ -19,19 +19,12 @@ export function TaskProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
-    useEffect(() => {
-        role === USER_ROLE_USER &&
-            getUserTaskById()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        // eslint-disable-next-line
-    }, [role])
-
     // Get all tasks by project id
-    const getTaskByProjectId = async (id) => {
+    const getTaskByProjectId = useCallback(async (id) => {
         const TaskApi = `${host}/api/Tasks/project/${id}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
-    }
+    }, [token])
     // Get all tasks of User by UserId
     const getUserTask = async () => {
         const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
@@ -39,7 +32,7 @@ export function TaskProvider({ children }) {
         setTask(res)
     }
     // Get all User tasks by taskId
-    const getUserTaskById = async (id) => {
+    const getUserTaskById = useCallback(async (id) => {
         const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
         const res = await FetchData(TaskApi, token);
         setTask(res)
@@ -53,13 +46,14 @@ export function TaskProvider({ children }) {
                 throw Error()
             }
         }
-    }
+        // eslint-disable-next-line
+    }, [token, userDetail])          //ignore navigate
     // Get task by Task id
-    const getTaskById = async (id) => {
+    const getTaskById = useCallback(async (id) => {
         const TaskApi = `${host}/api/Tasks/${id}`;
         const res = await FetchData(TaskApi, token);
         setSelectedTask(res)
-    }
+    }, [token])
     // remove task
     const remove = async (id) => {
         const deleteAPI = `${host}/api/Tasks/${id}`
@@ -86,6 +80,14 @@ export function TaskProvider({ children }) {
         const res = await PutData(UpdateApi, data, token)
         return res
     };
+
+    // if role is user then update the task state with his/her tasks
+    useEffect(() => {
+        role === USER_ROLE_USER &&
+            getUserTaskById()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+    }, [role, getUserTaskById])
+
     return (
         <TaskContext.Provider value={{ getUserTaskById, getUserTask, selectedTask, task, create, remove, update, getTaskByProjectId, getTaskById, assignTask }}>
             {children}

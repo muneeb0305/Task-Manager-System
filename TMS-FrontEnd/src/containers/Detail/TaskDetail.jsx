@@ -13,7 +13,7 @@ export default function TaskDetail() {
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
-    const { selectedTask, getTaskById ,getUserTaskById} = useTaskData()
+    const { selectedTask, getTaskById, getUserTaskById } = useTaskData()
     const { comment, remove, getComment } = useCommentData()
     const { teamUsers, getTeamUsersById } = useTeamData()
     const { userDetail } = useAuth()
@@ -31,28 +31,24 @@ export default function TaskDetail() {
     }
 
     useEffect(() => {
-        if (role === USER_ROLE_ADMIN) {
+        role === USER_ROLE_ADMIN &&
             getTaskById(taskId)
                 .then(() => setIsLoading(true))
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
-        }
-        else if (role === USER_ROLE_USER) {
+        role === USER_ROLE_USER &&
             getUserTaskById(taskId)
                 .then(() => setIsLoading(true))
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
-        }
         getComment(taskId)
             .catch((err) => { Alert({ icon: 'error', title: err }) })
-        // eslint-disable-next-line
-    }, [])
+    }, [getComment, getTaskById, getUserTaskById, role, taskId])
 
     useEffect(() => {
         if (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) {
             getTeamUsersById(selectedTask.teamId)
                 .catch(err => console.log(err))
         }
-        // eslint-disable-next-line
-    }, [selectedTask, Loading])
+    }, [selectedTask, Loading, getTeamUsersById, role])
 
     const aboutData = {
         "Task ID": selectedTask && selectedTask.id,

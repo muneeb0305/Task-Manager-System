@@ -52,7 +52,7 @@ export default function AddComment() {
                 })
         }
         // eslint-disable-next-line
-    }, [isID, id]);
+    }, [isID, id, getCommentById, ProjectId, taskId]); // ignore navigate
 
     useEffect(() => {
         // Set Form

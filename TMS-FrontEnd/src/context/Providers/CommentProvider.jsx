@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { FetchData } from '../../utils/FetchData';
 import { DeleteData } from '../../utils/DeleteData';
 import { PostData } from '../../utils/PostData';
@@ -16,17 +16,17 @@ export function CommentProvider({ children }) {
     const { token } = useAuth()
 
     // Get All Comments by Task Id
-    const getComment = async (id) => {
+    const getComment = useCallback(async (id) => {
         const CommentApi = `${host}/api/Comment/task/${id}`
         const res = await FetchData(CommentApi, token)
         setComment(res)
-    }
+    }, [token])
     // Get Comment by ID
-    const getCommentById = async (id) => {
+    const getCommentById = useCallback(async (id) => {
         const CommentApi = `${host}/api/Comment/${id}`;
         const res = await FetchData(CommentApi, token);
         setSelectedComment(res)
-    }
+    }, [token])
     // Delete Comment
     const remove = async (id) => {
         const deleteAPI = `${host}/api/Comment/${id}`

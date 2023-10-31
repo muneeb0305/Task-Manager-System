@@ -24,8 +24,8 @@ export default function AddTeam() {
                     alert(err)
                 })
         }
-        // eslint-disable-next-line
-    }, []);
+    }, [TeamId, getTeamById, isID]);
+    
     useEffect(() => {
         // Set Form
         if (selectedTeam && isID) {

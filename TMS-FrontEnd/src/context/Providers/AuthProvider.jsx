@@ -28,8 +28,7 @@ export function AuthProvider({ children }) {
     catch (err) {
       clearToken()
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [token]);
 
   // Login
   const Login = async (userForm) => {

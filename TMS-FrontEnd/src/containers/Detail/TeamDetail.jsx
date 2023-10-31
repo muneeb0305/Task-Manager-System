@@ -40,10 +40,8 @@ export default function TeamDetail() {
                         .catch((err) => Alert({ icon: 'error', title: err }))
                 })
                 .catch((err) => Alert({ icon: 'error', title: err }))
-
         }
-        // eslint-disable-next-line
-    }, [])
+    }, [TeamId, getTeamById, getUserTeam, role, getTeamUsersById])
 
     const aboutdata = {
         "Team ID": selectedTeam && selectedTeam.id,

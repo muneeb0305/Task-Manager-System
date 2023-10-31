@@ -22,8 +22,7 @@ export default function UserDetail() {
             getUserById(UserId)
                 .catch((err) => Alert({ icon: 'error', title: err }))
         }
-        // eslint-disable-next-line 
-    }, [])
+    }, [UserId, getUserById, userDetail])
 
     const aboutData = {
         "ID": selectedUser && selectedUser.id,

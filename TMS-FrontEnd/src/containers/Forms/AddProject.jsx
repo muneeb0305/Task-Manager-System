@@ -22,12 +22,12 @@ export default function AddProject() {
     useEffect(() => {
         if (isID) {
             getProjectById(ProjectId)
-                .catch(err => {
+                .catch(() => {
                     navigate('/project')
                 })
         }
         // eslint-disable-next-line
-    }, [ProjectId, isID])
+    }, [ProjectId, isID, getProjectById])   //ignore navigate
 
     useEffect(() => {
         if (selectedProject && isID) {

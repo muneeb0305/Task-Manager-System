@@ -37,12 +37,12 @@ export default function AddUser() {
     useEffect(() => {
         if (isID) {
             getUserById(UserId)
-                .catch(err => {
+                .catch(() => {
                     navigate('/user')
                 })
         }
         // eslint-disable-next-line
-    }, [isID, UserId]);
+    }, [isID, UserId, getUserById]); // ignore navigate
 
     useEffect(() => {
         // If id set form
@@ -97,7 +97,7 @@ export default function AddUser() {
                         <form autoComplete="off" onSubmit={handleSubmit}>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Input type="text" name="userName" value={Form.userName} onChange={handleChange} maxLength={50} autoComplete="username" title={'User Name'} required />
-                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'}autoComplete="email" required />
+                                <Input type="email" name="email" value={Form.email} onChange={handleChange} title={'Email Address'} autoComplete="email" required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Input type="password" name="password" value={Form.password} minLength={8} onChange={handleChange} autoComplete="new-password" title={'Password'} required />

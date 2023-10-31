@@ -43,8 +43,7 @@ export default function ProjectDetail() {
             getTaskByProjectId(ProjectId)
                 .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
-        // eslint-disable-next-line
-    }, [ProjectId])
+    }, [ProjectId, getProjectById, getTaskByProjectId, getUserProjectById, getUserTaskById, role])
 
     const aboutData = {
         "Project ID": selectedProject && selectedProject.id,

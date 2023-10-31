@@ -24,8 +24,7 @@ export default function AssignTask() {
     })
     useEffect(() => {
         getTeamUsersById(teamId)
-        // eslint-disable-next-line
-    }, [])
+    }, [getTeamUsersById, teamId])
 
     useEffect(() => {
         if (teamUsers.length !== 0) {

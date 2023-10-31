@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { FetchData } from '../../utils/FetchData';
 import { DeleteData } from '../../utils/DeleteData';
 import { PostData } from '../../utils/PostData';
@@ -19,33 +19,20 @@ export function ProjectProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
-    // update project state according to user role
-    useEffect(() => {
-        // if role is admin then get all the projects
-        role === USER_ROLE_ADMIN &&
-            getProject()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        // if role is user then get only his/her project
-        role === USER_ROLE_USER &&
-            getUserProjectById()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        // eslint-disable-next-line
-    }, [role])
-
     // Get Project
-    const getProject = async () => {
+    const getProject = useCallback(async () => {
         const projectApi = `${host}/api/Project`
         const res = await FetchData(projectApi, token)
         setProject(res)
-    }
+    }, [token])
     //Get Project by Project Id
-    const getProjectById = async (id) => {
+    const getProjectById = useCallback(async (id) => {
         const projectApi = `${host}/api/Project/${id}`;
         const res = await FetchData(projectApi, token);
         setSelectedProject(res)
-    }
+    }, [token])
     //Get User Project by User Id
-    const getUserProjectById = async (id) => {
+    const getUserProjectById = useCallback(async (id) => {
         const projectApi = `${host}/api/Project/user/${userDetail.ID}`;
         const res = await FetchData(projectApi, token);
         const userProjects = res.find(p => p.id === Number(id))
@@ -59,7 +46,8 @@ export function ProjectProvider({ children }) {
                 throw Error()
             }
         }
-    }
+        // eslint-disable-next-line
+    }, [token, userDetail])         //ignore navigate
     // Delete Project
     const removeProject = async (id) => {
         const deleteAPI = `${host}/api/Project/${id}`
@@ -87,6 +75,19 @@ export function ProjectProvider({ children }) {
         const res = await PutData(AssignApi, data, token)
         return res
     };
+
+    // update project state according to user role
+    useEffect(() => {
+        // if role is admin then get all the projects
+        role === USER_ROLE_ADMIN &&
+            getProject()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        // if role is user then get only his/her project
+        role === USER_ROLE_USER &&
+            getUserProjectById()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+    }, [role, getProject, getUserProjectById])
+
     return (
         <ProjectContext.Provider value={{ getUserProjectById, selectedProject, project, create, removeProject, update, getProjectById, getProject, assignProject }}>
             {children}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function AddTask() {
     const { userDetail } = useAuth()
     const role = userDetail.role
     // Task Status
-    const taskStatus = [
+    const taskStatus = useMemo(() => [
         {
             id: 0,
             value: 'Pending'
@@ -33,7 +33,7 @@ export default function AddTask() {
             id: 2,
             value: 'Completed'
         }
-    ]
+    ], [])
     // Form State
     const [Form, setForm] = useState({
         taskName: '',
@@ -61,7 +61,7 @@ export default function AddTask() {
             }
         }
         // eslint-disable-next-line
-    }, [isID]);
+    }, [isID, ProjectId, getTaskById, getUserTaskById, role, taskId]);  //ignore navigate
 
     useEffect(() => {
         if (selectedTask && isID) {
@@ -73,8 +73,7 @@ export default function AddTask() {
                 status: taskStatus.find(t => t.value === selectedTask.status).id,
             }));
         }
-        // eslint-disable-next-line
-    }, [selectedTask, isID])
+    }, [selectedTask, isID, taskStatus])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
