@@ -51,12 +51,8 @@ export default function ProjectDetail() {
         "Tasks Completed": selectedProject && selectedProject.taskCompleted,
     }
     const handleClick = () => {
-        if (team.length === 0) {
-            Alert({ icon: 'error', title: 'Add Team First' })
-        }
-        else {
-            navigate(`assign`)
-        }
+        team.length === 0 ?
+            Alert({ icon: 'error', title: 'Add Team First' }) : navigate(`assign`)
     }
     return (
         <section className='bg-gray-100 min-h-screen pt-20'>

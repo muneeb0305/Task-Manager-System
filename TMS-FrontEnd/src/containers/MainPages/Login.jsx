@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useAuth } from "../../context";
-import Alert from "../../components/Alert";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-    const navigate = useNavigate()
     //Get Login Function From Provider
     const { Login } = useAuth()
     // Form State
@@ -18,13 +15,6 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         Login(Form)
-            .then(() => {
-                Alert({ icon: 'success', title: 'Logged in' })
-                navigate('/')
-            })
-            .catch(err => {
-                Alert({ icon: 'error', title: err })
-            })
     }
 
     const handleChange = (e) => {

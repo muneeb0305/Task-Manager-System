@@ -15,9 +15,7 @@ export default function AddTeam() {
     const [Form, setForm] = useState({ teamName: '' })
 
     useEffect(() => {
-        if (isID) {
-            getTeamById(TeamId)
-        }
+        isID && getTeamById(TeamId)
     }, [TeamId, getTeamById, isID]);
 
     useEffect(() => {

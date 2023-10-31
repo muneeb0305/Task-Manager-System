@@ -18,19 +18,16 @@ export default function AddProject() {
     })
 
     useEffect(() => {
-        if (isID) {
-            getProjectById(ProjectId)
-        }
+        isID && getProjectById(ProjectId)
     }, [ProjectId, isID, getProjectById])
 
     useEffect(() => {
-        if (selectedProject && isID) {
+        (selectedProject && isID) &&
             setForm((prevState) => ({
                 ...prevState,
                 name: selectedProject.projectName,
                 description: selectedProject.description
             }));
-        }
     }, [selectedProject, isID])
 
     const handleChange = (e) => {

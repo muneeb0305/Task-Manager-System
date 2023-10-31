@@ -32,7 +32,7 @@ export default function AddTask() {
             value: 'Completed'
         }
     ], [])
-    // Form State
+    // States
     const [Form, setForm] = useState({
         taskName: '',
         taskDescription: 'N/A',
@@ -48,9 +48,7 @@ export default function AddTask() {
         }
         else if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
-            if (isID) {
-                getTaskById(taskId)
-            }
+            isID && getTaskById(taskId)
         }
     }, [isID, ProjectId, getTaskById, getUserTaskById, role, taskId]);
 
