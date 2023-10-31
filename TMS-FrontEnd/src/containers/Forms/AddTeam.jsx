@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTeamData } from '../../context';
-import Alert from '../../components/Alert';
 
 export default function AddTeam() {
-    const navigate = useNavigate()
     // Get Team ID
     const { TeamId } = useParams()
     //Check is ID there or not
@@ -19,13 +17,9 @@ export default function AddTeam() {
     useEffect(() => {
         if (isID) {
             getTeamById(TeamId)
-                .catch(err => {
-                    console.log(err)
-                    alert(err)
-                })
         }
     }, [TeamId, getTeamById, isID]);
-    
+
     useEffect(() => {
         // Set Form
         if (selectedTeam && isID) {
@@ -43,22 +37,7 @@ export default function AddTeam() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ?
-            // Update Team
-            update(TeamId, Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate('/team')
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
-            :
-            // Create Team
-            create(Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate('/team')
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
+        isID ? update(TeamId, Form) : create(Form)
     }
 
     return (

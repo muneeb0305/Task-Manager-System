@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context';
-import Alert from './Alert';
 import { USER_ROLE_ADMIN } from '../data/AppConstants';
 
 export default function Modal({ ID, editLink, viewLink, remove }) {
@@ -14,8 +13,6 @@ export default function Modal({ ID, editLink, viewLink, remove }) {
 
     const handleDelete = () => {
         remove(ID)
-            .then(res => Alert({ icon: 'success', title: res }))
-            .catch(err => Alert({ icon: 'error', title: err }))
         closeModal()
     }
 

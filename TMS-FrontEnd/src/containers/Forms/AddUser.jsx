@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Select from '../../components/Select';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useUserData } from '../../context';
 import Alert from '../../components/Alert';
 
 export default function AddUser() {
     // Get User Id 
     const { UserId } = useParams()
-    const navigate = useNavigate()
     //Check is ID there or not
     const isID = !!UserId
     //User Provider
@@ -35,17 +34,11 @@ export default function AddUser() {
     })
 
     useEffect(() => {
-        if (isID) {
-            getUserById(UserId)
-                .catch(() => {
-                    navigate('/user')
-                })
-        }
-        // eslint-disable-next-line
-    }, [isID, UserId, getUserById]); // ignore navigate
+        isID && getUserById(UserId)
+    }, [isID, UserId, getUserById]);
 
     useEffect(() => {
-        // If id set form
+        // If ID set form
         if (selectedUser && isID) {
             setForm(prev => ({
                 ...prev,
@@ -54,9 +47,7 @@ export default function AddUser() {
                 role: selectedUser.role
             }));
         }
-
     }, [selectedUser, isID]);
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,22 +60,7 @@ export default function AddUser() {
             Alert({ icon: 'error', title: "Password not match" })
         }
         else {
-            isID ?
-                // Update User
-                update(UserId, Form)
-                    .then(res => {
-                        Alert({ icon: 'success', title: res })
-                        navigate('/user')
-                    })
-                    .catch(err => Alert({ icon: 'error', title: err }))
-                :
-                //Create User
-                create(Form)
-                    .then(res => {
-                        Alert({ icon: 'success', title: res })
-                        navigate('/user')
-                    })
-                    .catch(err => Alert({ icon: 'error', title: err }))
+            isID ? update(UserId, Form) : create(Form)
         }
     }
 

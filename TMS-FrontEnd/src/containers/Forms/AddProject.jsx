@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useNavigate, useParams } from 'react-router-dom';
-import Alert from '../../components/Alert';
+import { useParams } from 'react-router-dom';
 import { useProjectData } from '../../context';
 
 export default function AddProject() {
-    const navigate = useNavigate()
     // Get Project Id
     const { ProjectId } = useParams()
     //Check is ID there or not
@@ -22,12 +20,8 @@ export default function AddProject() {
     useEffect(() => {
         if (isID) {
             getProjectById(ProjectId)
-                .catch(() => {
-                    navigate('/project')
-                })
         }
-        // eslint-disable-next-line
-    }, [ProjectId, isID, getProjectById])   //ignore navigate
+    }, [ProjectId, isID, getProjectById])
 
     useEffect(() => {
         if (selectedProject && isID) {
@@ -46,22 +40,7 @@ export default function AddProject() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ?
-            // Update Project
-            update(ProjectId, Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate('/project')
-                })
-                .catch((err) => Alert({ icon: 'error', title: err }))
-            :
-            // Create Project
-            create(Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate('/project')
-                })
-                .catch((err) => Alert({ icon: 'error', title: err }))
+        isID ? update(ProjectId, Form) : create(Form)
     }
 
     return (

@@ -3,7 +3,6 @@ import userPNG from '../../assets/user.png'
 import About from '../../components/About'
 import { useParams } from 'react-router-dom'
 import { useAuth, useUserData } from '../../context'
-import Alert from '../../components/Alert'
 import { USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function UserDetail() {
@@ -14,14 +13,7 @@ export default function UserDetail() {
     const { userDetail } = useAuth()
 
     useEffect(() => {
-        if (userDetail.role === USER_ROLE_USER) {
-            getUserById(userDetail.ID)
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        }
-        else {
-            getUserById(UserId)
-                .catch((err) => Alert({ icon: 'error', title: err }))
-        }
+        userDetail.role === USER_ROLE_USER ? getUserById(userDetail.ID) : getUserById(UserId)
     }, [UserId, getUserById, userDetail])
 
     const aboutData = {

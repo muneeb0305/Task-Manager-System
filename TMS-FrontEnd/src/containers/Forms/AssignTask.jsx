@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../../components/Button';
 import Select from '../../components/Select';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
-import Alert from '../../components/Alert';
 import { useTaskData, useTeamData } from '../../context';
 
 export default function AssignTask() {
-    const navigate = useNavigate()
     // Get Project and Task Id
-    const { ProjectId, taskId } = useParams()
+    const { taskId } = useParams()
     // Get Team id from url
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -44,11 +42,6 @@ export default function AssignTask() {
     const handleSubmit = (e) => {
         e.preventDefault()
         assignTask(Form)
-            .then(res => {
-                Alert({ icon: 'success', title: res })
-                navigate(`/project/${ProjectId}/task/${taskId}`)
-            })
-            .catch(err => Alert({ icon: 'error', title: err }))
     }
 
     return (

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAuth, useCommentData } from '../../context';
-import Alert from '../../components/Alert';
 
 export default function AddComment() {
-    const navigate = useNavigate()
     // get projectId, TaskId & CommentId
     const { ProjectId, taskId, id } = useParams()
     //Check is Comment ID there or not
@@ -27,32 +25,13 @@ export default function AddComment() {
     const handleSubmit = (e) => {
         e.preventDefault()
         const newForm = { ...Form, userId: Number(userDetail.ID) }
-        isID ?
-            // Update Comment
-            update(id, newForm)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate(`/project/${ProjectId}/task/${taskId}`)
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
-            :
-            // Create Comment
-            create(taskId, newForm)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate(`/project/${ProjectId}/task/${taskId}`)
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
+        isID ? update(id, newForm) : create(taskId, newForm)
     }
     useEffect(() => {
         if (isID) {
             getCommentById(id)
-                .catch(err => {
-                    navigate(`/project/${ProjectId}/task/${taskId}`)
-                })
         }
-        // eslint-disable-next-line
-    }, [isID, id, getCommentById, ProjectId, taskId]); // ignore navigate
+    }, [isID, id, getCommentById, ProjectId, taskId]);
 
     useEffect(() => {
         // Set Form

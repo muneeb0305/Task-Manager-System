@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../../components/Button';
 import Select from '../../components/Select';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Input from '../../components/Input';
-import Alert from '../../components/Alert';
 import { useProjectData, useTeamData } from '../../context';
 
 export default function AssignProject() {
-    const navigate = useNavigate()
     // Get Project Id
     const { ProjectId } = useParams()
     // Get Data from Providers
@@ -37,11 +35,6 @@ export default function AssignProject() {
     const handleSubmit = (e) => {
         e.preventDefault()
         assignProject(Form)
-            .then(res => {
-                Alert({ icon: 'success', title: res })
-                navigate(`/project/${ProjectId}`)
-            })
-            .catch(err => alert(err))
     }
 
     return (

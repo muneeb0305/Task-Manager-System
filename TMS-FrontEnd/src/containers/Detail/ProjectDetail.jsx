@@ -10,7 +10,6 @@ import { useAuth, useProjectData, useTaskData, useTeamData } from '../../context
 
 export default function ProjectDetail() {
     const navigate = useNavigate()
-
     // Get Project id from Url
     const { ProjectId } = useParams()
     // Get data from providers
@@ -33,15 +32,11 @@ export default function ProjectDetail() {
     useEffect(() => {
         if (role === USER_ROLE_USER) {
             getUserProjectById(ProjectId)
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
             getUserTaskById()
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
         else if (role === USER_ROLE_ADMIN) {
             getProjectById(ProjectId)
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
             getTaskByProjectId(ProjectId)
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
         }
     }, [ProjectId, getProjectById, getTaskByProjectId, getUserProjectById, getUserTaskById, role])
 

@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Select from '../../components/Select';
-import Alert from '../../components/Alert';
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth, useTaskData } from '../../context';
 
 export default function AddTask() {
-    const navigate = useNavigate()
     // Get Task id
     const { taskId } = useParams()
     //Check is ID there or not
@@ -47,21 +45,14 @@ export default function AddTask() {
     useEffect(() => {
         if (isID && role === USER_ROLE_USER) {
             getUserTaskById(taskId)
-                .catch((err) => {
-                    navigate(`/project/${ProjectId}`)
-                })
         }
         else if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
             if (isID) {
                 getTaskById(taskId)
-                    .catch(() => {
-                        navigate(`/project/${ProjectId}`)
-                    })
             }
         }
-        // eslint-disable-next-line
-    }, [isID, ProjectId, getTaskById, getUserTaskById, role, taskId]);  //ignore navigate
+    }, [isID, ProjectId, getTaskById, getUserTaskById, role, taskId]);
 
     useEffect(() => {
         if (selectedTask && isID) {
@@ -86,22 +77,7 @@ export default function AddTask() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ?
-            // Update Task
-            update(taskId, Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate(`/project/${ProjectId}`)
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
-            :
-            // Create Task
-            create(Form)
-                .then(res => {
-                    Alert({ icon: 'success', title: res })
-                    navigate(`/project/${ProjectId}`)
-                })
-                .catch(err => Alert({ icon: 'error', title: err }))
+        isID ? update(taskId, Form) : create(Form)
     }
 
     const getTodatDate = () => {

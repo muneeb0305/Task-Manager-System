@@ -22,74 +22,121 @@ export function TeamProvider({ children }) {
 
     // Get All Teams
     const getTeam = useCallback(async () => {
-        const TeamApi = `${host}/api/Team`
-        const res = await FetchData(TeamApi, token)
-        setTeam(res)
+        try {
+            const TeamApi = `${host}/api/Team`
+            const res = await FetchData(TeamApi, token)
+            setTeam(res)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     }, [token])
+
     // Get Team by Team ID
     const getTeamById = useCallback(async (id) => {
-        const TeamApi = `${host}/api/Team/${id}`;
-        const res = await FetchData(TeamApi, token);
-        setSelectedTeam(res)
-    }, [token])
-    // Get User Team By User Id
-    const getUserTeam = useCallback(async (id) => {
-        const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
-        const res = await FetchData(TeamApi, token);
-        const userTeam = res.find(t => t.id === Number(id))
-        setTeam(res)
-        if (id) {
-            if (userTeam) {
-                setSelectedTeam(userTeam)
-            }
-            else {
-                navigate(- 1)
-                throw Error()
-            }
+        try {
+            const TeamApi = `${host}/api/Team/${id}`;
+            const res = await FetchData(TeamApi, token);
+            setSelectedTeam(res)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
         }
-        return res[0]
-        // eslint-disable-next-line 
-    }, [token, userDetail])         //ignore navigate
-    // Delete Team
-    const removeTeam = async (id) => {
-        const deleteAPI = `${host}/api/Team/${id}`
-        const res = await DeleteData(deleteAPI, token)
-        getTeam()
-        return res
-    };
-    // Create Team
-    const create = async (newProject) => {
-        const CreateApi = `${host}/api/Team`
-        const res = await PostData(CreateApi, newProject, token)
-        getTeam()
-        return res
-    };
-    // Update Team
-    const update = async (id, editProject) => {
-        const UpdateApi = `${host}/api/Team/${id}`
-        const res = await PutData(UpdateApi, editProject, token)
-        getTeam()
-        return res
-    };
+    }, [token])
+
     // Get All users of team by Team ID
     const getTeamUsersById = useCallback(async (id) => {
-        const TeamApi = `${host}/api/Team/users/${id}`;
-        const result = await FetchData(TeamApi, token);
-        setTeamUsers(result)
+        try {
+            const TeamApi = `${host}/api/Team/users/${id}`;
+            const result = await FetchData(TeamApi, token);
+            setTeamUsers(result)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     }, [token])
+
+    // Get User Team By User Id
+    const getUserTeam = useCallback(async (id) => {
+        try {
+            const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
+            const res = await FetchData(TeamApi, token);
+            const userTeam = res.find(t => t.id === Number(id))
+            setTeam(res)
+            if (id) {
+                if (userTeam) {
+                    setSelectedTeam(userTeam)
+                }
+                else {
+                    navigate(- 1)
+                    throw Error()
+                }
+            }
+            getTeamUsersById(res[0].id)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
+        // eslint-disable-next-line
+    }, [token, userDetail, getTeamUsersById])         //ignore navigate
+
+    // Delete Team
+    const removeTeam = async (id) => {
+        try {
+            const deleteAPI = `${host}/api/Team/${id}`
+            const res = await DeleteData(deleteAPI, token)
+            getTeam()
+            Alert({ icon: 'success', title: res })
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
+    };
+    
+    // Create Team
+    const create = async (newProject) => {
+        try {
+            const CreateApi = `${host}/api/Team`
+            const res = await PostData(CreateApi, newProject, token)
+            getTeam()
+            Alert({ icon: 'success', title: res })
+            navigate('/team')
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
+    };
+    
+    // Update Team
+    const update = async (id, editProject) => {
+        try {
+            const UpdateApi = `${host}/api/Team/${id}`
+            const res = await PutData(UpdateApi, editProject, token)
+            getTeam()
+            Alert({ icon: 'success', title: res })
+            navigate('/team')
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
+    };
+    
     // Unassign Team
     const unassignTeam = async (id) => {
-        const deleteAPI = `${host}/api/Users/remove_team/${id}`
-        const res = await DeleteData(deleteAPI, token)
-        const newData = teamUsers.filter(u => u.id !== id)
-        setTeamUsers(newData)
-        return res
+        try {
+            const deleteAPI = `${host}/api/Users/remove_team/${id}`
+            const res = await DeleteData(deleteAPI, token)
+            const newData = teamUsers.filter(u => u.id !== id)
+            setTeamUsers(newData)
+            Alert({ icon: 'success', title: res })
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     };
+    
     // Assign Team to User
     const assignTeam = async (form) => {
-        const AssignTeamApi = `${host}/api/Users/assign_team`
-        const res = await PutData(AssignTeamApi, form, token)
-        return res
+        try {
+            const AssignTeamApi = `${host}/api/Users/assign_team`
+            const res = await PutData(AssignTeamApi, form, token)
+            Alert({ icon: 'success', title: res })
+            navigate(-1)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     };
 
     // Update team state according to user role. 
@@ -97,12 +144,9 @@ export function TeamProvider({ children }) {
         // If admin then get all teams
         role === USER_ROLE_ADMIN &&
             getTeam()
-                .catch((err) => Alert({ icon: 'error', title: err }))
         // if user than get its team
         role === USER_ROLE_USER &&
             getUserTeam()
-                .catch((err) => Alert({ icon: 'error', title: err }))
-
     }, [role, getTeam, getUserTeam])
 
     return (

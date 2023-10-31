@@ -5,7 +5,6 @@ import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
 import { useAuth, useTeamData } from '../../context'
-import Alert from '../../components/Alert'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function TeamDetail() {
@@ -29,17 +28,10 @@ export default function TeamDetail() {
     useEffect(() => {
         if (role === USER_ROLE_ADMIN) {
             getTeamById(TeamId)
-                .catch((err) => Alert({ icon: 'error', title: err }))
             getTeamUsersById(TeamId)
-                .catch((err) => Alert({ icon: 'error', title: err }))
         }
         else if (role === USER_ROLE_USER) {
             getUserTeam(TeamId)
-                .then(res => {
-                    getTeamUsersById(res.id)
-                        .catch((err) => Alert({ icon: 'error', title: err }))
-                })
-                .catch((err) => Alert({ icon: 'error', title: err }))
         }
     }, [TeamId, getTeamById, getUserTeam, role, getTeamUsersById])
 

@@ -34,19 +34,15 @@ export default function TaskDetail() {
         role === USER_ROLE_ADMIN &&
             getTaskById(taskId)
                 .then(() => setIsLoading(true))
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
         role === USER_ROLE_USER &&
             getUserTaskById(taskId)
                 .then(() => setIsLoading(true))
-                .catch((err) => { Alert({ icon: 'error', title: err }) })
         getComment(taskId)
-            .catch((err) => { Alert({ icon: 'error', title: err }) })
     }, [getComment, getTaskById, getUserTaskById, role, taskId])
 
     useEffect(() => {
         if (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) {
             getTeamUsersById(selectedTask.teamId)
-                .catch(err => console.log(err))
         }
     }, [selectedTask, Loading, getTeamUsersById, role])
 

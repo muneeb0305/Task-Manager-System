@@ -6,10 +6,12 @@ import { PutData } from '../../utils/PutData';
 import Alert from '../../components/Alert';
 import { USER_ROLE_ADMIN, host } from '../../data/AppConstants';
 import { useAuth } from '..';
+import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
+    const navigate = useNavigate()
     // User States
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -19,41 +21,68 @@ export function UserProvider({ children }) {
 
     //Get All Users
     const getUser = useCallback(async () => {
-        const UserApi = `${host}/api/Users`
-        const res = await FetchData(UserApi, token)
-        setUser(res)
+        try {
+            const UserApi = `${host}/api/Users`
+            const res = await FetchData(UserApi, token)
+            setUser(res)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     }, [token])
+
     //Get User By ID
     const getUserById = useCallback(async (id) => {
-        const UserApi = `${host}/api/Users/${id}`;
-        const res = await FetchData(UserApi, token);
-        setSelectedUser(res)
+        try {
+            const UserApi = `${host}/api/Users/${id}`;
+            const res = await FetchData(UserApi, token);
+            setSelectedUser(res)
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     }, [token])
+
     // Delete User
     const removeUser = async (id) => {
-        const deleteAPI = `${host}/api/Users/${id}`
-        const res = await DeleteData(deleteAPI, token)
-        getUser();
-        return res
+        try {
+            const deleteAPI = `${host}/api/Users/${id}`
+            const res = await DeleteData(deleteAPI, token)
+            getUser();  // Refresh User list
+            Alert({ icon: 'success', title: res })
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     };
+
     // Create User
     const create = async (newUser) => {
-        const CreateApi = `${host}/api/Users`
-        const res = await PostData(CreateApi, newUser, token)
-        return res
+        try {
+            const CreateApi = `${host}/api/Users`
+            const res = await PostData(CreateApi, newUser, token)
+            Alert({ icon: 'success', title: res })
+            getUser();  // Refresh User list
+            navigate('/user')
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     };
+    
     // Update User
     const update = async (id, updatedUser) => {
-        const UpdateApi = `${host}/api/Users/${id}`
-        const res = await PutData(UpdateApi, updatedUser, token)
-        return res
+        try {
+            const UpdateApi = `${host}/api/Users/${id}`
+            const res = await PutData(UpdateApi, updatedUser, token)
+            Alert({ icon: 'success', title: res })
+            getUser()
+            navigate('/user')
+        } catch (err) {
+            Alert({ icon: 'error', title: err })
+        }
     };
 
     // Update user state when role is Admin
     useEffect(() => {
         role === USER_ROLE_ADMIN &&
             getUser()
-                .catch((err) => Alert({ icon: 'error', title: err }))
     }, [role, getUser])
 
     return (

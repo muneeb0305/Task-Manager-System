@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Button from '../../components/Button';
 import Select from '../../components/Select';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Input from '../../components/Input';
 import { useTeamData, useUserData } from '../../context';
-import Alert from '../../components/Alert';
 
 export default function EnrollUser() {
     // Get Team Id
     const { TeamId } = useParams()
-    const navigate = useNavigate()
 
     // Get Data from providers
     const { assignTeam } = useTeamData()
@@ -38,11 +36,6 @@ export default function EnrollUser() {
     const handleSubmit = (e) => {
         e.preventDefault()
         assignTeam(Form)
-            .then((res) => {
-                Alert({ icon: 'success', title: res })
-                navigate(`/team/${TeamId}`)
-            })
-            .catch(err => Alert({ icon: 'success', title: err }))
     }
 
     return (
