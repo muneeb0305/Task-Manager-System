@@ -69,7 +69,7 @@ export function TeamProvider({ children }) {
                     throw Error()
                 }
             }
-            getTeamUsersById(res[0].id)
+            res.length > 0 && getTeamUsersById(res[0].id)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -87,7 +87,7 @@ export function TeamProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
-    
+
     // Create Team
     const create = async (newProject) => {
         try {
@@ -100,7 +100,7 @@ export function TeamProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
-    
+
     // Update Team
     const update = async (id, editProject) => {
         try {
@@ -113,7 +113,7 @@ export function TeamProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
-    
+
     // Unassign Team
     const unassignTeam = async (id) => {
         try {
@@ -126,7 +126,7 @@ export function TeamProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
-    
+
     // Assign Team to User
     const assignTeam = async (form) => {
         try {

@@ -41,7 +41,7 @@ export function TaskProvider({ children }) {
         }
     }
 
-    // Get all User tasks by taskId
+    // Get all User tasks by UserId
     const getUserTaskById = useCallback(async (id) => {
         try {
             const TaskApi = `${host}/api/Tasks/user/${userDetail.ID}`;
