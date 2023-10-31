@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useAuth } from './AuthProvider';
+import { useAuth } from './';
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../data/AppConstants';
 
-const ProjectContext = createContext();
+export const ProjectContext = createContext();
 
 export function ProjectProvider({ children }) {
     const navigate = useNavigate()
@@ -19,18 +19,18 @@ export function ProjectProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
+    // update project state according to user role
     useEffect(() => {
-        if (role === USER_ROLE_ADMIN) {
+        // if role is admin then get all the projects
+        role === USER_ROLE_ADMIN &&
             getProject()
                 .catch((err) => Alert({ icon: 'error', title: err }))
-        }
-        else if (role === USER_ROLE_USER) {
+        // if role is user then get only his/her project
+        role === USER_ROLE_USER &&
             getUserProjectById()
                 .catch((err) => Alert({ icon: 'error', title: err }))
-        }
         // eslint-disable-next-line
     }, [role])
-
 
     // Get Project
     const getProject = async () => {
@@ -92,8 +92,4 @@ export function ProjectProvider({ children }) {
             {children}
         </ProjectContext.Provider>
     );
-}
-
-export function useProjectData() {
-    return useContext(ProjectContext);
 }

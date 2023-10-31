@@ -1,7 +1,7 @@
 import AppRoutes from '../Routes';
 import { Route, Routes } from 'react-router-dom';
 import Login from '../containers/MainPages/Login';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../context';
 
 export default function Authentication() {
     // Get Token from Provider

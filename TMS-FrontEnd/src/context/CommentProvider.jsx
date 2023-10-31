@@ -1,12 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useAuth } from './AuthProvider';
+import { useAuth } from './';
 import { host } from '../data/AppConstants';
 
-const CommentContext = createContext();
+export const CommentContext = createContext();
 
 export function CommentProvider({ children }) {
     // States
@@ -53,8 +53,4 @@ export function CommentProvider({ children }) {
             {children}
         </CommentContext.Provider>
     );
-}
-
-export function useCommentData() {
-    return useContext(CommentContext);
 }

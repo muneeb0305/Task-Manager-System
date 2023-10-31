@@ -1,10 +1,7 @@
 import React from 'react'
 import TableView from '../../components/TableView'
-import { useUserData } from '../../context/UserProvider'
-import { useProjectData } from '../../context/ProjectProvider'
-import { useAuth } from '../../context/AuthProvider'
-import { useTeamData } from '../../context/TeamProvider'
 import { USER_ROLE_ADMIN } from '../../data/AppConstants'
+import { useUserData, useTeamData, useProjectData, useAuth } from '../../context'
 
 export default function View({ display }) {
     // Get Data from Provider

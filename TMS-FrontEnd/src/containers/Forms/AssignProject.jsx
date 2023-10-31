@@ -3,9 +3,8 @@ import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
-import { useProjectData } from '../../context/ProjectProvider';
-import { useTeamData } from '../../context/TeamProvider';
 import Alert from '../../components/Alert';
+import { useProjectData, useTeamData } from '../../context';
 
 export default function AssignProject() {
     const navigate = useNavigate()

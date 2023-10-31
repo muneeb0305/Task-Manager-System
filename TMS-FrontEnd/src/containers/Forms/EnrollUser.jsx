@@ -3,8 +3,7 @@ import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
-import { useUserData } from '../../context/UserProvider';
-import { useTeamData } from '../../context/TeamProvider';
+import { useTeamData, useUserData } from '../../context';
 import Alert from '../../components/Alert';
 
 export default function EnrollUser() {

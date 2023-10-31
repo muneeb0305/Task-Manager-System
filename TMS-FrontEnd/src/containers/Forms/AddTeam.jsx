@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTeamData } from '../../context/TeamProvider';
+import { useTeamData } from '../../context';
 import Alert from '../../components/Alert';
 
 export default function AddTeam() {

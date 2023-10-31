@@ -3,7 +3,7 @@ import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Table from './Table'
 import Button from './Button'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthProvider'
+import { useAuth } from '../context'
 import { USER_ROLE_ADMIN } from '../data/AppConstants'
 
 export default function TableView(props) {

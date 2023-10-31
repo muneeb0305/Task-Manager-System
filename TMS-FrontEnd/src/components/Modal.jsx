@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../context';
 import Alert from './Alert';
 import { USER_ROLE_ADMIN } from '../data/AppConstants';
 

@@ -3,11 +3,7 @@ import { AdminCardData, UserCardData } from '../../data/DashboardCardData'
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/24/solid'
 import Card from '../../components/Card'
 import Table from '../../components/Table'
-import { useProjectData } from '../../context/ProjectProvider'
-import { useUserData } from '../../context/UserProvider'
-import { useTeamData } from '../../context/TeamProvider'
-import { useTaskData } from '../../context/TaskProvider'
-import { useAuth } from '../../context/AuthProvider'
+import { useAuth, useProjectData, useTaskData, useTeamData, useUserData } from '../../context'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function Dashboard() {

@@ -3,7 +3,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUserData } from '../../context/UserProvider';
+import { useUserData } from '../../context';
 import Alert from '../../components/Alert';
 
 export default function AddUser() {

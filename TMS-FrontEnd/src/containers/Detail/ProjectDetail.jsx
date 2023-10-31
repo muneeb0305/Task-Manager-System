@@ -4,12 +4,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
-import { useProjectData } from '../../context/ProjectProvider'
-import { useTaskData } from '../../context/TaskProvider'
-import { useTeamData } from '../../context/TeamProvider'
-import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
+import { useAuth, useProjectData, useTaskData, useTeamData } from '../../context'
 
 export default function ProjectDetail() {
     const navigate = useNavigate()

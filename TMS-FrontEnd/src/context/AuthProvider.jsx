@@ -1,15 +1,16 @@
 import jwtDecode from 'jwt-decode';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { PostData } from '../utils/PostData';
 import { host } from '../data/AppConstants';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   // States
   const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [userDetail, setUserDetail] = useState({});
 
+  // If user refresh the page then get his token and set the token and user state
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     try {
@@ -36,7 +37,7 @@ export function AuthProvider({ children }) {
     const res = await PostData(LoginApi, userForm, token)
     SetToken(res)
   };
-
+  // Set Token
   const SetToken = (newToken) => {
     setToken(newToken);
     const decode = jwtDecode(newToken)
@@ -45,7 +46,7 @@ export function AuthProvider({ children }) {
     setUserDetail({ ID, role })
     sessionStorage.setItem('token', newToken);
   };
-
+  //Clear Token
   const clearToken = () => {
     setToken(null);
     setUserDetail(null);
@@ -57,8 +58,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }

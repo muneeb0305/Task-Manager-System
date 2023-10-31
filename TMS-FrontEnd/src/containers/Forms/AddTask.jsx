@@ -3,10 +3,9 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from '../../components/Select';
-import { useTaskData } from '../../context/TaskProvider';
-import { useAuth } from '../../context/AuthProvider';
 import Alert from '../../components/Alert';
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
+import { useAuth, useTaskData } from '../../context';
 
 export default function AddTask() {
     const navigate = useNavigate()

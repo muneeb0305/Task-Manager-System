@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCommentData } from '../../context/CommentProvider';
-import { useAuth } from '../../context/AuthProvider';
+import { useAuth, useCommentData } from '../../context';
 import Alert from '../../components/Alert';
 
 export default function AddComment() {

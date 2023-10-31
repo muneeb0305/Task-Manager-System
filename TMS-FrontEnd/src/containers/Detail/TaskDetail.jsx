@@ -3,13 +3,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
-import { useTaskData } from '../../context/TaskProvider'
-import { useCommentData } from '../../context/CommentProvider'
 import Table from '../../components/Table'
-import { useTeamData } from '../../context/TeamProvider'
-import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
+import { useAuth, useCommentData, useTaskData, useTeamData } from '../../context'
 
 export default function TaskDetail() {
     const navigate = useNavigate();

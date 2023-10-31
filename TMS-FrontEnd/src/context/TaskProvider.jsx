@@ -1,13 +1,14 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useAuth } from './AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { host } from '../data/AppConstants';
+import { USER_ROLE_USER, host } from '../data/AppConstants';
+import Alert from '../components/Alert';
+import { useAuth } from '.';
 
-const TaskContext = createContext();
+export const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
     const navigate = useNavigate()
@@ -16,6 +17,14 @@ export function TaskProvider({ children }) {
     const [selectedTask, setSelectedTask] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
+
+    useEffect(() => {
+        userDetail.role === USER_ROLE_USER &&
+            getUserTaskById()
+                .catch((err) => Alert({ icon: 'error', title: err }))
+        // eslint-disable-next-line
+    }, [userDetail.role])
+
     // Get all tasks by project id
     const getTaskByProjectId = async (id) => {
         const TaskApi = `${host}/api/Tasks/project/${id}`;
@@ -81,8 +90,4 @@ export function TaskProvider({ children }) {
             {children}
         </TaskContext.Provider>
     );
-}
-
-export function useTaskData() {
-    return useContext(TaskContext);
 }

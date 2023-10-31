@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import userPNG from '../../assets/user.png'
 import About from '../../components/About'
 import { useParams } from 'react-router-dom'
-import { useUserData } from '../../context/UserProvider'
+import { useAuth, useUserData } from '../../context'
 import Alert from '../../components/Alert'
-import { useAuth } from '../../context/AuthProvider'
 import { USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function UserDetail() {

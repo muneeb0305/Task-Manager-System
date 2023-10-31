@@ -1,29 +1,30 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
 import { USER_ROLE_ADMIN, host } from '../data/AppConstants';
+import { useAuth } from '.';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export function UserProvider({ children }) {
-    // User State
+    // User States
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     // Get Token from Token Provider
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
-
+    
+    // Update user state when role is Admin
     useEffect(() => {
-        if (role === USER_ROLE_ADMIN) {
+        role === USER_ROLE_ADMIN &&
             getUser()
                 .catch((err) => Alert({ icon: 'error', title: err }))
-        }
         // eslint-disable-next-line
     }, [role])
+
     //Get All Users
     const getUser = async () => {
         const UserApi = `${host}/api/Users`
@@ -61,8 +62,4 @@ export function UserProvider({ children }) {
             {children}
         </UserContext.Provider>
     );
-}
-
-export function useUserData() {
-    return useContext(UserContext);
 }

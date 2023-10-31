@@ -4,7 +4,7 @@ import SideBar from '../components/Sidebar'
 import { adminMenu, userMenu } from '../data/Menu'
 import { Route, Routes } from 'react-router-dom'
 import { routes } from '../data/routes'
-import { useAuth } from '../context/AuthProvider'
+import { useAuth } from '../context'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../data/AppConstants'
 
 export default function AppRoutes() {

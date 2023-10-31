@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthProvider'
+import { useAuth } from '../context'
 import Alert from './Alert'
 
 function classNames(...classes) {

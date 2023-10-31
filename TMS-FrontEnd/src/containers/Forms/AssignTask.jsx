@@ -3,9 +3,8 @@ import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Input from '../../components/Input';
-import { useTeamData } from '../../context/TeamProvider';
-import { useTaskData } from '../../context/TaskProvider';
 import Alert from '../../components/Alert';
+import { useTaskData, useTeamData } from '../../context';
 
 export default function AssignTask() {
     const navigate = useNavigate()

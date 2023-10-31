@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { FetchData } from '../utils/FetchData';
 import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
-import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../data/AppConstants';
+import { useAuth } from '.';
 
-const TeamContext = createContext();
+export const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
     const navigate = useNavigate()
@@ -20,15 +20,17 @@ export function TeamProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
+    // Update team state according to user role. 
     useEffect(() => {
-        if (role === USER_ROLE_ADMIN) {
+        // If admin then get all teams
+        role === USER_ROLE_ADMIN &&
             getTeam()
                 .catch((err) => Alert({ icon: 'error', title: err }))
-        }
-        else if (role === USER_ROLE_USER) {
+        // if user than get its team
+        role === USER_ROLE_USER &&
             getUserTeam()
                 .catch((err) => Alert({ icon: 'error', title: err }))
-        }
+
         // eslint-disable-next-line
     }, [role])
 
@@ -44,7 +46,7 @@ export function TeamProvider({ children }) {
         const res = await FetchData(TeamApi, token);
         setSelectedTeam(res)
     }
-    // Get User Team 
+    // Get User Team By User Id
     const getUserTeam = async (id) => {
         const TeamApi = `${host}/api/Team/user/${userDetail.ID}`;
         const res = await FetchData(TeamApi, token);
@@ -108,8 +110,4 @@ export function TeamProvider({ children }) {
             {children}
         </TeamContext.Provider>
     );
-}
-
-export function useTeamData() {
-    return useContext(TeamContext);
 }

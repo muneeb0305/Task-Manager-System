@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useProjectData } from '../../context/ProjectProvider';
 import Alert from '../../components/Alert';
+import { useProjectData } from '../../context';
 
 export default function AddProject() {
     const navigate = useNavigate()

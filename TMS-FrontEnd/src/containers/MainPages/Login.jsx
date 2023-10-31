@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../context";
 import Alert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
 
