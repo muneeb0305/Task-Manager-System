@@ -30,7 +30,6 @@ export default function Dashboard() {
     //Configurations
     const tableConfigs = {
         admin: {
-
             tableHeader: ["Project Name", "Assigned to"],
             tableData: project,
             removeFunc: remove,
