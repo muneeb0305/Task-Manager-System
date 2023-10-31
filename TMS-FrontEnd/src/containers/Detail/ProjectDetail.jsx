@@ -9,11 +9,10 @@ import { useTaskData } from '../../context/TaskProvider'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
+import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function ProjectDetail() {
     const navigate = useNavigate()
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_USER = 'user';
 
     // Get Project id from Url
     const { ProjectId } = useParams()

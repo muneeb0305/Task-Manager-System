@@ -5,11 +5,11 @@ import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { host } from '../data/AppConstants';
 
 const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
-    const host = `https://localhost:7174`
     const navigate = useNavigate()
     // States
     const [task, setTask] = useState([]);

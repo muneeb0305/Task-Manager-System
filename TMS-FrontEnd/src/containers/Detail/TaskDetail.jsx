@@ -9,11 +9,10 @@ import Table from '../../components/Table'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
+import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function TaskDetail() {
-    const navigate = useNavigate()
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_USER = 'user';
+    const navigate = useNavigate();
     // Get Project & task id
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider

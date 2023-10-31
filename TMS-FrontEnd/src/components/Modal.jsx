@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
 import Alert from './Alert';
+import { USER_ROLE_ADMIN } from '../data/AppConstants';
 
 export default function Modal({ ID, editLink, viewLink, remove }) {
-    const USER_ROLE_ADMIN = 'admin';
     // Get User Detail from Provide
     const { userDetail } = useAuth()
     // States
@@ -33,7 +33,6 @@ export default function Modal({ ID, editLink, viewLink, remove }) {
             {
                 userDetail.role === USER_ROLE_ADMIN &&
                 <span className='ml-2 text-red-500 cursor-pointer' onClick={openModal}><i className="fa-solid fa-trash"></i></span>
-
             }
             {
                 isOpen &&

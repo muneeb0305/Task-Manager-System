@@ -8,11 +8,9 @@ import { useUserData } from '../../context/UserProvider'
 import { useTeamData } from '../../context/TeamProvider'
 import { useTaskData } from '../../context/TaskProvider'
 import { useAuth } from '../../context/AuthProvider'
+import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function Dashboard() {
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_USER = 'user';
-
     //Get Data from Providers
     const { project, remove } = useProjectData()
     const { task } = useTaskData()

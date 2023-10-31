@@ -7,10 +7,9 @@ import About from '../../components/About'
 import { useTeamData } from '../../context/TeamProvider'
 import { useAuth } from '../../context/AuthProvider'
 import Alert from '../../components/Alert'
+import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function TeamDetail() {
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_USER = 'user';
     // Get Team ID
     const { TeamId } = useParams()
     //Get data from providers

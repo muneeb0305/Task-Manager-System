@@ -1,11 +1,11 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { PostData } from '../utils/PostData';
+import { host } from '../data/AppConstants';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const host = `https://localhost:7174`
   // States
   const [token, setToken] = useState(sessionStorage.getItem('token'));
   const [userDetail, setUserDetail] = useState({});

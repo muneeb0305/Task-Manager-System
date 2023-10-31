@@ -5,12 +5,11 @@ import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
+import { USER_ROLE_ADMIN, host } from '../data/AppConstants';
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-    const host = `https://localhost:7174`
-    const USER_ROLE_ADMIN = 'admin';
     // User State
     const [user, setUser] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);

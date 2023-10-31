@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom'
 import { useUserData } from '../../context/UserProvider'
 import Alert from '../../components/Alert'
 import { useAuth } from '../../context/AuthProvider'
+import { USER_ROLE_USER } from '../../data/AppConstants'
 
 export default function UserDetail() {
-    const USER_ROLE_USER = 'user';
     // Get User ID
     const { UserId } = useParams()
     // Get Data from Provider

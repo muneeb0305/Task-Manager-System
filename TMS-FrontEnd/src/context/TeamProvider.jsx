@@ -6,14 +6,12 @@ import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
+import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../data/AppConstants';
 
 const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
-    const host = `https://localhost:7174`
     const navigate = useNavigate()
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_USER = 'user';
     // States
     const [team, setTeam] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);

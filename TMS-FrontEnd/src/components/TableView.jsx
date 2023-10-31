@@ -4,9 +4,9 @@ import Table from './Table'
 import Button from './Button'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthProvider'
+import { USER_ROLE_ADMIN } from '../data/AppConstants'
 
 export default function TableView(props) {
-    const USER_ROLE_ADMIN = 'admin';
     // get User Detail from Provider
     const { userDetail } = useAuth()
     const role = userDetail.role

@@ -6,11 +6,10 @@ import Select from '../../components/Select';
 import { useTaskData } from '../../context/TaskProvider';
 import { useAuth } from '../../context/AuthProvider';
 import Alert from '../../components/Alert';
+import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 
 export default function AddTask() {
     const navigate = useNavigate()
-    const USER_ROLE_ADMIN = 'admin';
-    const USER_ROLE_User = 'user';
     // Get Task id
     const { taskId } = useParams()
     //Check is ID there or not
@@ -47,7 +46,7 @@ export default function AddTask() {
     const [bool, setIsBool] = useState(true)
 
     useEffect(() => {
-        if (isID && role === USER_ROLE_User) {
+        if (isID && role === USER_ROLE_USER) {
             getUserTaskById(taskId)
                 .catch((err) => {
                     navigate(`/project/${ProjectId}`)

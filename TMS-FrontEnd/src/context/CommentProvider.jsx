@@ -4,11 +4,11 @@ import { DeleteData } from '../utils/DeleteData';
 import { PostData } from '../utils/PostData';
 import { PutData } from '../utils/PutData';
 import { useAuth } from './AuthProvider';
+import { host } from '../data/AppConstants';
 
 const CommentContext = createContext();
 
 export function CommentProvider({ children }) {
-    const host = `https://localhost:7174`
     // States
     const [comment, setComment] = useState([]);
     const [selectedComment, setSelectedComment] = useState(null);
