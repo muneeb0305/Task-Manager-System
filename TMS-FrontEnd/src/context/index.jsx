@@ -6,7 +6,7 @@ import { ProjectContext } from "./ProjectProvider";
 import { AuthContext } from "./AuthProvider";
 import { CommentContext } from "./CommentProvider";
 
-// Exports all the Contexts
+// Export all the Contexts
 export function useUserData() {
     return useContext(UserContext);
 }
