@@ -19,21 +19,20 @@ export function CommentProvider({ children }) {
     const { token } = useAuth()
 
     // Get All Comments by Task Id
-    const fetchComment = useCallback(async (id) => {
+    const fetchComment = useCallback(async (taskId) => {
         try {
-            const CommentApi = `${host}/api/Comment/task/${id}`
+            const CommentApi = `${host}/api/Comment/task/${taskId}`
             const res = await FetchData(CommentApi, token)
             setCommentList(res)
         } catch (err) {
-            navigate(-1)
+            Alert({ icon: 'error', title: err })
         }
-        // eslint-disable-next-line
     }, [token])
 
     // Get Comment by ID
-    const fetchCommentById = useCallback(async (id) => {
+    const fetchCommentById = useCallback(async (commentId) => {
         try {
-            const CommentApi = `${host}/api/Comment/${id}`;
+            const CommentApi = `${host}/api/Comment/${commentId}`;
             const res = await FetchData(CommentApi, token);
             setSelectedComment(res)
         } catch (err) {
@@ -42,11 +41,11 @@ export function CommentProvider({ children }) {
     }, [token])
 
     // Delete Comment
-    const remove = async (id) => {
+    const remove = async (commentId) => {
         try {
-            const deleteAPI = `${host}/api/Comment/${id}`
+            const deleteAPI = `${host}/api/Comment/${commentId}`
             const res = await DeleteData(deleteAPI, token)
-            const newData = commentList.filter(c => c.id !== id)
+            const newData = commentList.filter(c => c.id !== commentId)
             setCommentList(newData)
             Alert({ icon: 'success', title: res })
         } catch (err) {
@@ -55,9 +54,9 @@ export function CommentProvider({ children }) {
     };
 
     // Create Comment
-    const create = async (id, newComment) => {
+    const create = async (taskId, newComment) => {
         try {
-            const CreateApi = `${host}/api/Comment/${id}`
+            const CreateApi = `${host}/api/Comment/${taskId}`
             const res = await PostData(CreateApi, newComment, token)
             Alert({ icon: 'success', title: res })
             navigate(-1)
@@ -67,9 +66,9 @@ export function CommentProvider({ children }) {
     };
 
     // Update Team
-    const update = async (id, updatedComment) => {
+    const update = async (commentId, updatedComment) => {
         try {
-            const UpdateApi = `${host}/api/Comment/${id}`
+            const UpdateApi = `${host}/api/Comment/${commentId}`
             const res = await PutData(UpdateApi, updatedComment, token)
             Alert({ icon: 'success', title: res })
             navigate(-1)

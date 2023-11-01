@@ -33,10 +33,10 @@ export default function TaskDetail() {
     useEffect(() => {
         role === USER_ROLE_ADMIN &&
             fetchTaskById(taskId)
-                .then(() => setIsLoading(true))
+                .then(res => setIsLoading(res))
         role === USER_ROLE_USER &&
-            fetchUserTaskById(userDetail.ID)
-                .then(() => setIsLoading(true))
+            fetchUserTaskById(userDetail.ID, taskId)
+                .then(res => setIsLoading(res))
         fetchComment(taskId)
     }, [fetchComment, fetchTaskById, fetchUserTaskById, role, taskId, userDetail])
 

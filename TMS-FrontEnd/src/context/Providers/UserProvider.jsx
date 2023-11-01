@@ -31,9 +31,9 @@ export function UserProvider({ children }) {
     }, [token])
 
     //Get User By ID
-    const fetchUserById = useCallback(async (id) => {
+    const fetchUserById = useCallback(async (userId) => {
         try {
-            const UserApi = `${host}/api/Users/${id}`;
+            const UserApi = `${host}/api/Users/${userId}`;
             const res = await FetchData(UserApi, token);
             setSelectedUser(res)
         } catch (err) {
@@ -42,9 +42,9 @@ export function UserProvider({ children }) {
     }, [token])
 
     // Delete User
-    const removeUser = async (id) => {
+    const removeUser = async (userId) => {
         try {
-            const deleteAPI = `${host}/api/Users/${id}`
+            const deleteAPI = `${host}/api/Users/${userId}`
             const res = await DeleteData(deleteAPI, token)
             fetchUsers();  // Refresh User list
             Alert({ icon: 'success', title: res })
@@ -60,20 +60,20 @@ export function UserProvider({ children }) {
             const res = await PostData(CreateApi, newUser, token)
             Alert({ icon: 'success', title: res })
             fetchUsers();  // Refresh User list
-            navigate('/user')
+            navigate(-1)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     };
 
     // Update User
-    const update = async (id, updatedUser) => {
+    const update = async (userId, updatedUser) => {
         try {
-            const UpdateApi = `${host}/api/Users/${id}`
+            const UpdateApi = `${host}/api/Users/${userId}`
             const res = await PutData(UpdateApi, updatedUser, token)
             Alert({ icon: 'success', title: res })
             fetchUsers()
-            navigate('/user')
+            navigate(-1)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }

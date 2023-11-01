@@ -32,9 +32,9 @@ export function TeamProvider({ children }) {
     }, [token])
 
     // Get Team by Team ID
-    const fetchTeamById = useCallback(async (id) => {
+    const fetchTeamById = useCallback(async (teamId) => {
         try {
-            const TeamApi = `${host}/api/Team/${id}`;
+            const TeamApi = `${host}/api/Team/${teamId}`;
             const res = await FetchData(TeamApi, token);
             setSelectedTeam(res)
         } catch (err) {
@@ -54,21 +54,21 @@ export function TeamProvider({ children }) {
     }, [token])
 
     // Get User Team By User Id
-    const fetchUserTeam = useCallback(async (userId) => {
+    const fetchUserTeam = useCallback(async (userId, teamId) => {
         try {
             const TeamApi = `${host}/api/Team/user/${userId}`;
             const res = await FetchData(TeamApi, token);
             setTeamList(res)    //for table
-            if (userId) {
-                if (res.length > 0) {
-                    setSelectedTeam(res[0]) //for Detail view
+            if (teamId) {
+                const checkTeam = res.find(t => t.id === Number(teamId))
+                if (checkTeam) {
+                    setSelectedTeam(checkTeam) //for Detail view
+                    fetchTeamUsersById(checkTeam.id) // fetch users of that team
                 }
                 else {
                     navigate(- 1)
-                    throw Error()
                 }
             }
-            res.length > 0 && fetchTeamUsersById(res[0].id) // fetch users of that team
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -76,9 +76,9 @@ export function TeamProvider({ children }) {
     }, [token, userDetail, fetchTeamUsersById])         //ignore navigate
 
     // Delete Team
-    const removeTeam = async (id) => {
+    const removeTeam = async (teamId) => {
         try {
-            const deleteAPI = `${host}/api/Team/${id}`
+            const deleteAPI = `${host}/api/Team/${teamId}`
             const res = await DeleteData(deleteAPI, token)
             fetchTeam()
             Alert({ icon: 'success', title: res })
@@ -88,37 +88,37 @@ export function TeamProvider({ children }) {
     };
 
     // Create Team
-    const create = async (newProject) => {
+    const create = async (newTeam) => {
         try {
             const CreateApi = `${host}/api/Team`
-            const res = await PostData(CreateApi, newProject, token)
+            const res = await PostData(CreateApi, newTeam, token)
             fetchTeam()
             Alert({ icon: 'success', title: res })
-            navigate('/team')
+            navigate(-1)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     };
 
     // Update Team
-    const update = async (id, editProject) => {
+    const update = async (teamId, updatedTeam) => {
         try {
-            const UpdateApi = `${host}/api/Team/${id}`
-            const res = await PutData(UpdateApi, editProject, token)
+            const UpdateApi = `${host}/api/Team/${teamId}`
+            const res = await PutData(UpdateApi, updatedTeam, token)
             fetchTeam()
             Alert({ icon: 'success', title: res })
-            navigate('/team')
+            navigate(-1)
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     };
 
     // Unassign Team
-    const unassignTeam = async (id) => {
+    const unassignTeam = async (userId) => {
         try {
-            const deleteAPI = `${host}/api/Users/remove_team/${id}`
+            const deleteAPI = `${host}/api/Users/remove_team/${userId}`
             const res = await DeleteData(deleteAPI, token)
-            const newData = teamUsers.filter(u => u.id !== id)
+            const newData = teamUsers.filter(u => u.id !== userId)
             setTeamUsers(newData)
             Alert({ icon: 'success', title: res })
         } catch (err) {
@@ -145,8 +145,8 @@ export function TeamProvider({ children }) {
             fetchTeam()
         // if user than get its team
         role === USER_ROLE_USER &&
-            fetchUserTeam()
-    }, [role, fetchTeam, fetchUserTeam])
+            fetchUserTeam(userDetail.ID)
+    }, [role, fetchTeam, fetchUserTeam, userDetail])
 
     return (
         <TeamContext.Provider value={{ fetchUserTeam, selectedTeam, teamUsers, teamList, create, removeTeam, update, fetchTeamById, fetchTeam, fetchTeamUsersById, unassignTeam, assignTeam }}>

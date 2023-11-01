@@ -31,7 +31,7 @@ export default function ProjectDetail() {
 
     useEffect(() => {
         if (role === USER_ROLE_USER) {
-            fetchUserProjectById(userDetail.ID)
+            fetchUserProjectById(userDetail.ID, ProjectId)
             fetchUserTaskById(userDetail.ID)
         }
         else if (role === USER_ROLE_ADMIN) {

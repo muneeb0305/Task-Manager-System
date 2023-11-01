@@ -19,7 +19,7 @@ export function ProjectProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
-    // Get Project
+    // Get All Projects
     const fetchProject = useCallback(async () => {
         try {
             const projectApi = `${host}/api/Project`
@@ -29,10 +29,11 @@ export function ProjectProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
+
     //Get Project by Project Id
-    const fetchProjectById = useCallback(async (id) => {
+    const fetchProjectById = useCallback(async (projectId) => {
         try {
-            const projectApi = `${host}/api/Project/${id}`;
+            const projectApi = `${host}/api/Project/${projectId}`;
             const res = await FetchData(projectApi, token);
             setSelectedProject(res)
         } catch (err) {
@@ -41,17 +42,19 @@ export function ProjectProvider({ children }) {
     }, [token])
 
     //Get User Project by User Id
-    const fetchUserProjectById = useCallback(async (userId) => {
+    const fetchUserProjectById = useCallback(async (userId, projectId) => {
         try {
             const projectApi = `${host}/api/Project/user/${userId}`;
             const res = await FetchData(projectApi, token);
             setProjectList(res) //for table
-            if (res.length > 0) {
-                setSelectedProject(res[0])  //for detail view
-            }
-            else {
-                navigate(- 1)
-                throw Error()
+            if (projectId) {
+                const checkProject = res.find(p => p.id === Number(projectId))
+                if (checkProject) {
+                    setSelectedProject(checkProject)  //for detail view
+                }
+                else {
+                    navigate(- 1)
+                }
             }
         } catch (err) {
             Alert({ icon: 'error', title: err })
@@ -60,9 +63,9 @@ export function ProjectProvider({ children }) {
     }, [token, userDetail])         //ignore navigate
 
     // Delete Project
-    const removeProject = async (id) => {
+    const removeProject = async (projectId) => {
         try {
-            const deleteAPI = `${host}/api/Project/${id}`
+            const deleteAPI = `${host}/api/Project/${projectId}`
             const res = await DeleteData(deleteAPI, token)
             fetchProject()
             Alert({ icon: 'success', title: res })
@@ -85,9 +88,9 @@ export function ProjectProvider({ children }) {
     };
 
     // Update Project
-    const update = async (id, editProject) => {
+    const update = async (projectId, editProject) => {
         try {
-            const UpdateApi = `${host}/api/Project/${id}`
+            const UpdateApi = `${host}/api/Project/${projectId}`
             const res = await PutData(UpdateApi, editProject, token)
             fetchProject()
             Alert({ icon: 'success', title: res })

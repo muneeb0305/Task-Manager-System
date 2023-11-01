@@ -31,7 +31,7 @@ export default function TeamDetail() {
             fetchTeamUsersById(TeamId)
         }
         else if (role === USER_ROLE_USER) {
-            fetchUserTeam(userDetail.ID)
+            fetchUserTeam(userDetail.ID, TeamId)
         }
     }, [TeamId, fetchTeamById, fetchUserTeam, role, fetchTeamUsersById, userDetail])
 

@@ -44,7 +44,7 @@ export default function AddTask() {
 
     useEffect(() => {
         if (isID && role === USER_ROLE_USER) {
-            fetchUserTaskById(userDetail.ID)
+            fetchUserTaskById(userDetail.ID, taskId)
         }
         else if (role === USER_ROLE_ADMIN) {
             setIsBool(false)
@@ -78,15 +78,10 @@ export default function AddTask() {
         isID ? update(taskId, Form) : create(Form)
     }
 
-    const getTodatDate = () => {
-        const _date = new Date()
-        const date = _date.getDate()
-        const month = _date.getMonth() + 1
-        const year = _date.getFullYear()
-        const fullDate = `${year}-${month}-${date}`
-        return fullDate
+    const getTodayDate = () => {
+        const date = new Date().toISOString().split('T')[0]
+        return date
     }
-
     return (
         <section>
             <div className="bg-gray-50 min-h-screen pt-20">
@@ -99,7 +94,7 @@ export default function AddTask() {
                                 <Input type="text" name="taskDescription" value={Form.taskDescription} onChange={handleChange} title={'Task Description'} disabled={bool} maxLength={200} />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="date" name="dueDate" value={Form.dueDate} onChange={handleChange} minLength={8} title={'Due Date'} disabled={bool} min={getTodatDate()} required />
+                                <Input type="date" name="dueDate" value={Form.dueDate} onChange={handleChange} title={'Due Date'} disabled={bool} min={getTodayDate()} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <Select label={'Task Status'} data={taskStatus} name='status' value={Form.status} onChange={handleChange} />

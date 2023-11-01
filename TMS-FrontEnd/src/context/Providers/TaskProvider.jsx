@@ -30,17 +30,27 @@ export function TaskProvider({ children }) {
         }
     }, [token])
 
-    // Get all User tasks by UserId
-    const fetchUserTaskById = useCallback(async (userId) => {
+    // Get User tasks by UserId
+    const fetchUserTaskById = useCallback(async (userId, taskId) => {
         try {
             const TaskApi = `${host}/api/Tasks/user/${userId}`;
             const res = await FetchData(TaskApi, token);
             setTaskList(res)    // for table
-            setSelectedTask(res[0]) //for detail view
+            if (taskId) {
+                const task = res.find(t => t.id === Number(taskId))
+                if (task) {
+                    setSelectedTask(task) //for detail view
+                    return true
+                }
+                else{
+                    navigate(-1)
+                }
+            }
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
-    }, [token])
+        // eslint-disable-next-line
+    }, [token])     //ignore navigate
 
     // Get task by Task id
     const fetchTaskById = useCallback(async (taskId) => {
@@ -48,10 +58,12 @@ export function TaskProvider({ children }) {
             const TaskApi = `${host}/api/Tasks/${taskId}`;
             const res = await FetchData(TaskApi, token);
             setSelectedTask(res)
+            return true
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
     }, [token])
+
     // remove task
     const remove = async (taskId) => {
         try {
@@ -64,6 +76,7 @@ export function TaskProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
+
     // Create task
     const create = async (newTask) => {
         try {
@@ -75,6 +88,7 @@ export function TaskProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
+
     // Update task
     const update = async (taskId, updatedTask) => {
         try {
@@ -86,6 +100,7 @@ export function TaskProvider({ children }) {
             Alert({ icon: 'error', title: err })
         }
     };
+
     // Assign task
     const assignTask = async (data) => {
         try {
