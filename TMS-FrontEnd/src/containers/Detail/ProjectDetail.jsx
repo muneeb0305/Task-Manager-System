@@ -4,9 +4,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
-import Alert from '../../components/Alert'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 import { useAuth, useProjectData, useTaskData, useTeamData } from '../../context'
+import { handleError } from '../../utils'
 
 export default function ProjectDetail() {
     const navigate = useNavigate()
@@ -52,7 +52,7 @@ export default function ProjectDetail() {
     }
     const handleClick = () => {
         teamList.length === 0 ?
-            Alert({ icon: 'error', title: 'Add Team First' }) : navigate(`assign`)
+            handleError('Add Team First') : navigate(`assign`)
     }
     return (
         <section className='bg-gray-100 min-h-screen pt-20'>

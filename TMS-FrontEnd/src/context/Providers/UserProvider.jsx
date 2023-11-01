@@ -1,9 +1,8 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import Alert from '../../components/Alert';
 import { USER_ROLE_ADMIN, host } from '../../data/AppConstants';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
-import { DeleteData, FetchData, PostData, PutData, handleError } from '../../utils';
+import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 
 export const UserContext = createContext();
 
@@ -49,7 +48,7 @@ export function UserProvider({ children }) {
             const deleteAPI = `${host}/api/Users/${userId}`
             const res = await DeleteData(deleteAPI, token)
             fetchUsers();  // Refresh User list
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
         } catch (err) {
             handleError(err)
         }
@@ -60,7 +59,7 @@ export function UserProvider({ children }) {
         try {
             const CreateApi = `${host}/api/Users`
             const res = await PostData(CreateApi, newUser, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             fetchUsers();  // Refresh User list
             handleGoBack()
         } catch (err) {
@@ -73,7 +72,7 @@ export function UserProvider({ children }) {
         try {
             const UpdateApi = `${host}/api/Users/${userId}`
             const res = await PutData(UpdateApi, updatedUser, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             fetchUsers()
             handleGoBack()
         } catch (err) {

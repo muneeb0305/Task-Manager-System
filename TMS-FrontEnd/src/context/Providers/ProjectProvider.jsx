@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { DeleteData, FetchData, PostData, PutData } from '../../utils';
+import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useAuth } from '..';
-import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../../data/AppConstants';
 
@@ -27,7 +26,7 @@ export function ProjectProvider({ children }) {
             const res = await FetchData(projectApi, token)
             setProjectList(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -38,7 +37,7 @@ export function ProjectProvider({ children }) {
             const res = await FetchData(projectApi, token);
             setSelectedProject(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -58,7 +57,7 @@ export function ProjectProvider({ children }) {
                 }
             }
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token,handleGoBack])         
 
@@ -68,9 +67,9 @@ export function ProjectProvider({ children }) {
             const deleteAPI = `${host}/api/Project/${projectId}`
             const res = await DeleteData(deleteAPI, token)
             fetchProject()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -80,10 +79,10 @@ export function ProjectProvider({ children }) {
             const CreateApi = `${host}/api/Project`
             const res = await PostData(CreateApi, newProject, token)
             fetchProject()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -93,10 +92,10 @@ export function ProjectProvider({ children }) {
             const UpdateApi = `${host}/api/Project/${projectId}`
             const res = await PutData(UpdateApi, editProject, token)
             fetchProject()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -105,10 +104,10 @@ export function ProjectProvider({ children }) {
         try {
             const AssignApi = `${host}/api/Project/assign_project`
             const res = await PutData(AssignApi, data, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 

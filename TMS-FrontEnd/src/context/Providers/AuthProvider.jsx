@@ -1,8 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useState, useEffect } from 'react';
-import { PostData } from '../../utils';
+import { PostData, handleError, handleSuccess } from '../../utils';
 import { host } from '../../data/AppConstants';
-import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
@@ -39,10 +38,10 @@ export function AuthProvider({ children }) {
       const LoginApi = `${host}/api/Login`
       const res = await PostData(LoginApi, userForm, token)
       SetToken(res)
-      Alert({ icon: 'success', title: 'Log in Successfully' })
+      handleSuccess('Log in Successfully')
       navigate('/')
     } catch (err) {
-      Alert({ icon: 'error', title: err })
+      handleError(err)
     }
   };
   // Set Token

@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import Select from '../../components/Select';
 import { useParams } from 'react-router-dom';
 import { useUserData } from '../../context';
-import Alert from '../../components/Alert';
+import { handleError } from '../../utils';
 
 export default function AddUser() {
     // Get User Id 
@@ -57,7 +57,7 @@ export default function AddUser() {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (Form.password !== Form.retype_password) {
-            Alert({ icon: 'error', title: "Password not match" })
+            handleError("Password not match")
         }
         else {
             isID ? update(UserId, Form) : create(Form)

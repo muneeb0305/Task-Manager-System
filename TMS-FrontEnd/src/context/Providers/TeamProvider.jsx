@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { DeleteData, FetchData, PostData, PutData } from '../../utils';
-import Alert from '../../components/Alert';
+import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../../data/AppConstants';
 import { useAuth } from '..';
@@ -29,7 +28,7 @@ export function TeamProvider({ children }) {
             const res = await FetchData(TeamApi, token)
             setTeamList(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -40,7 +39,7 @@ export function TeamProvider({ children }) {
             const res = await FetchData(TeamApi, token);
             setSelectedTeam(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -51,7 +50,7 @@ export function TeamProvider({ children }) {
             const result = await FetchData(TeamApi, token);
             setTeamUsers(result)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -72,7 +71,7 @@ export function TeamProvider({ children }) {
                 }
             }
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token, fetchTeamUsersById, handleGoBack])
 
@@ -82,9 +81,9 @@ export function TeamProvider({ children }) {
             const deleteAPI = `${host}/api/Team/${teamId}`
             const res = await DeleteData(deleteAPI, token)
             fetchTeam()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -94,10 +93,10 @@ export function TeamProvider({ children }) {
             const CreateApi = `${host}/api/Team`
             const res = await PostData(CreateApi, newTeam, token)
             fetchTeam()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -107,10 +106,10 @@ export function TeamProvider({ children }) {
             const UpdateApi = `${host}/api/Team/${teamId}`
             const res = await PutData(UpdateApi, updatedTeam, token)
             fetchTeam()
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -121,9 +120,9 @@ export function TeamProvider({ children }) {
             const res = await DeleteData(deleteAPI, token)
             const newData = teamUsers.filter(u => u.id !== userId)
             setTeamUsers(newData)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -132,10 +131,10 @@ export function TeamProvider({ children }) {
         try {
             const AssignTeamApi = `${host}/api/Users/assign_team`
             const res = await PutData(AssignTeamApi, form, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 

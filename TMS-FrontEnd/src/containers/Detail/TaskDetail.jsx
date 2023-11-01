@@ -4,9 +4,9 @@ import { ListBulletIcon } from '@heroicons/react/24/solid'
 import Button from '../../components/Button'
 import About from '../../components/About'
 import Table from '../../components/Table'
-import Alert from '../../components/Alert'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants'
 import { useAuth, useCommentData, useTaskData, useTeamData } from '../../context'
+import { handleError } from '../../utils'
 
 export default function TaskDetail() {
     const navigate = useNavigate();
@@ -58,10 +58,10 @@ export default function TaskDetail() {
     }
     const handleClick = () => {
         if (selectedTask.teamId === null) {
-            Alert({ icon: 'error', title: "Team is not assigned" })
+            handleError("Team is not assigned")
         }
         else if (teamUsers.length === 0) {
-            Alert({ icon: 'error', title: "User not added in Team" })
+            handleError("User not added in Team")
         } else {
             navigate(`/project/${ProjectId}/task/${taskId}/assign?team=${selectedTask.teamId}`)
         }

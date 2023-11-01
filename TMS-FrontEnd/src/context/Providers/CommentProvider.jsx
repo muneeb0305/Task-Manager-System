@@ -1,8 +1,7 @@
 import React, { createContext, useCallback, useState } from 'react';
-import { DeleteData, FetchData, PostData, PutData } from '../../utils';
+import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useAuth } from '..';
 import { host } from '../../data/AppConstants';
-import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
 export const CommentContext = createContext();
@@ -26,7 +25,7 @@ export function CommentProvider({ children }) {
             const res = await FetchData(CommentApi, token)
             setCommentList(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -37,7 +36,7 @@ export function CommentProvider({ children }) {
             const res = await FetchData(CommentApi, token);
             setSelectedComment(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -48,9 +47,9 @@ export function CommentProvider({ children }) {
             const res = await DeleteData(deleteAPI, token)
             const newData = commentList.filter(c => c.id !== commentId)
             setCommentList(newData)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -59,10 +58,10 @@ export function CommentProvider({ children }) {
         try {
             const CreateApi = `${host}/api/Comment/${taskId}`
             const res = await PostData(CreateApi, newComment, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -71,10 +70,10 @@ export function CommentProvider({ children }) {
         try {
             const UpdateApi = `${host}/api/Comment/${commentId}`
             const res = await PutData(UpdateApi, updatedComment, token)
-            Alert({ icon: 'success', title: res })
+            handleSuccess(res)
             handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
