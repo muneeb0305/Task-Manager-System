@@ -7,12 +7,10 @@ import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth, useTaskData } from '../../context';
 
 export default function AddTask() {
-    // Get Task id
-    const { taskId } = useParams()
+    // Get Task id and Project id
+    const { taskId, ProjectId } = useParams()
     //Check is ID there or not
     const isID = !!taskId
-    // Get Project Id
-    const { ProjectId } = useParams()
     // Get Data from Provider
     const { selectedTask, create, update, fetchTaskById, fetchUserTaskById } = useTaskData()
     const { userDetail } = useAuth()

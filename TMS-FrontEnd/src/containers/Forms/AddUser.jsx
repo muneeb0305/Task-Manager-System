@@ -80,7 +80,7 @@ export default function AddUser() {
                                 <Input type="password" name="retype_password" value={Form.retype_password} minLength={8} autoComplete="new-password" onChange={handleChange} title={'Confirm Password'} required />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Select label={'User Typr'} data={userType} name='role' value={Form.role} onChange={handleChange} required />
+                                <Select label={'User Type'} data={userType} name='role' value={Form.role} onChange={handleChange} required />
                             </div>
                             <Button type="submit" label={'Submit'} />
                         </form>
