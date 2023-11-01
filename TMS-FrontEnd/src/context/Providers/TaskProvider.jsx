@@ -1,8 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { FetchData } from '../../utils/FetchData';
-import { DeleteData } from '../../utils/DeleteData';
-import { PostData } from '../../utils/PostData';
-import { PutData } from '../../utils/PutData';
+import { DeleteData, FetchData, PostData, PutData } from '../../utils';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_USER, host } from '../../data/AppConstants';
 import Alert from '../../components/Alert';
@@ -12,6 +9,10 @@ export const TaskContext = createContext();
 
 export function TaskProvider({ children }) {
     const navigate = useNavigate()
+    const handleGoBack = useCallback(() => {
+        navigate(-1);
+        // eslint-disable-next-line
+    }, []);             //ignore navigate
     // States
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
@@ -43,14 +44,13 @@ export function TaskProvider({ children }) {
                     return true
                 }
                 else{
-                    navigate(-1)
+                    handleGoBack()
                 }
             }
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
-        // eslint-disable-next-line
-    }, [token])     //ignore navigate
+    }, [token,handleGoBack])     
 
     // Get task by Task id
     const fetchTaskById = useCallback(async (taskId) => {
@@ -83,7 +83,7 @@ export function TaskProvider({ children }) {
             const CreateApi = `${host}/api/Tasks`
             const res = await PostData(CreateApi, newTask, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -95,7 +95,7 @@ export function TaskProvider({ children }) {
             const UpdateApi = `${host}/api/Tasks/${taskId}`
             const res = await PutData(UpdateApi, updatedTask, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -107,7 +107,7 @@ export function TaskProvider({ children }) {
             const UpdateApi = `${host}/api/Tasks/assign_task`
             const res = await PutData(UpdateApi, data, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }

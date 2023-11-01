@@ -1,8 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { FetchData } from '../../utils/FetchData';
-import { DeleteData } from '../../utils/DeleteData';
-import { PostData } from '../../utils/PostData';
-import { PutData } from '../../utils/PutData';
+import { DeleteData, FetchData, PostData, PutData } from '../../utils';
 import { useAuth } from '..';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +9,10 @@ export const ProjectContext = createContext();
 
 export function ProjectProvider({ children }) {
     const navigate = useNavigate()
+    const handleGoBack = useCallback(() => {
+        navigate(-1);
+        // eslint-disable-next-line
+    }, []);             //ignore navigate
     // States
     const [projectList, setProjectList] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
@@ -53,14 +54,13 @@ export function ProjectProvider({ children }) {
                     setSelectedProject(checkProject)  //for detail view
                 }
                 else {
-                    navigate(- 1)
+                    handleGoBack()
                 }
             }
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
-        // eslint-disable-next-line
-    }, [token, userDetail])         //ignore navigate
+    }, [token,handleGoBack])         
 
     // Delete Project
     const removeProject = async (projectId) => {
@@ -81,7 +81,7 @@ export function ProjectProvider({ children }) {
             const res = await PostData(CreateApi, newProject, token)
             fetchProject()
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -94,7 +94,7 @@ export function ProjectProvider({ children }) {
             const res = await PutData(UpdateApi, editProject, token)
             fetchProject()
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -106,7 +106,7 @@ export function ProjectProvider({ children }) {
             const AssignApi = `${host}/api/Project/assign_project`
             const res = await PutData(AssignApi, data, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }

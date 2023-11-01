@@ -1,8 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { FetchData } from '../../utils/FetchData';
-import { DeleteData } from '../../utils/DeleteData';
-import { PostData } from '../../utils/PostData';
-import { PutData } from '../../utils/PutData';
+import { DeleteData, FetchData, PostData, PutData } from '../../utils';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';
 import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../../data/AppConstants';
@@ -12,6 +9,11 @@ export const TeamContext = createContext();
 
 export function TeamProvider({ children }) {
     const navigate = useNavigate()
+    // Navigate back to the previous route
+    const handleGoBack = useCallback(() => {
+        navigate(-1);
+        // eslint-disable-next-line
+    }, []);             //ignore navigate
     // States
     const [teamList, setTeamList] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
@@ -66,14 +68,13 @@ export function TeamProvider({ children }) {
                     fetchTeamUsersById(checkTeam.id) // fetch users of that team
                 }
                 else {
-                    navigate(- 1)
+                    handleGoBack()
                 }
             }
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
-        // eslint-disable-next-line
-    }, [token, userDetail, fetchTeamUsersById])         //ignore navigate
+    }, [token, fetchTeamUsersById, handleGoBack])
 
     // Delete Team
     const removeTeam = async (teamId) => {
@@ -94,7 +95,7 @@ export function TeamProvider({ children }) {
             const res = await PostData(CreateApi, newTeam, token)
             fetchTeam()
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -107,7 +108,7 @@ export function TeamProvider({ children }) {
             const res = await PutData(UpdateApi, updatedTeam, token)
             fetchTeam()
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -132,7 +133,7 @@ export function TeamProvider({ children }) {
             const AssignTeamApi = `${host}/api/Users/assign_team`
             const res = await PutData(AssignTeamApi, form, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }

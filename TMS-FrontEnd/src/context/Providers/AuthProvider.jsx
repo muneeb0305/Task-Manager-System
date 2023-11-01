@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useState, useEffect } from 'react';
-import { PostData } from '../../utils/PostData';
+import { PostData } from '../../utils';
 import { host } from '../../data/AppConstants';
 import Alert from '../../components/Alert';
 import { useNavigate } from 'react-router-dom';

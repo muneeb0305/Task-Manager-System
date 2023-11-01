@@ -1,17 +1,19 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { FetchData } from '../../utils/FetchData';
-import { DeleteData } from '../../utils/DeleteData';
-import { PostData } from '../../utils/PostData';
-import { PutData } from '../../utils/PutData';
 import Alert from '../../components/Alert';
 import { USER_ROLE_ADMIN, host } from '../../data/AppConstants';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
+import { DeleteData, FetchData, PostData, PutData, handleError } from '../../utils';
 
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
     const navigate = useNavigate()
+    // Navigate back to the previous route
+    const handleGoBack = useCallback(() => {
+        navigate(-1);
+        // eslint-disable-next-line
+    }, []);             //ignore navigate
     // User States
     const [userList, setUserList] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -26,7 +28,7 @@ export function UserProvider({ children }) {
             const res = await FetchData(UserApi, token)
             setUserList(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -37,7 +39,7 @@ export function UserProvider({ children }) {
             const res = await FetchData(UserApi, token);
             setSelectedUser(res)
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     }, [token])
 
@@ -49,7 +51,7 @@ export function UserProvider({ children }) {
             fetchUsers();  // Refresh User list
             Alert({ icon: 'success', title: res })
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -60,9 +62,9 @@ export function UserProvider({ children }) {
             const res = await PostData(CreateApi, newUser, token)
             Alert({ icon: 'success', title: res })
             fetchUsers();  // Refresh User list
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 
@@ -73,9 +75,9 @@ export function UserProvider({ children }) {
             const res = await PutData(UpdateApi, updatedUser, token)
             Alert({ icon: 'success', title: res })
             fetchUsers()
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
-            Alert({ icon: 'error', title: err })
+            handleError(err)
         }
     };
 

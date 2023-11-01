@@ -1,8 +1,5 @@
 import React, { createContext, useCallback, useState } from 'react';
-import { FetchData } from '../../utils/FetchData';
-import { DeleteData } from '../../utils/DeleteData';
-import { PostData } from '../../utils/PostData';
-import { PutData } from '../../utils/PutData';
+import { DeleteData, FetchData, PostData, PutData } from '../../utils';
 import { useAuth } from '..';
 import { host } from '../../data/AppConstants';
 import Alert from '../../components/Alert';
@@ -12,6 +9,10 @@ export const CommentContext = createContext();
 
 export function CommentProvider({ children }) {
     const navigate = useNavigate()
+    const handleGoBack = useCallback(() => {
+        navigate(-1);
+        // eslint-disable-next-line
+    }, []);             //ignore navigate
     // States
     const [commentList, setCommentList] = useState([]);
     const [selectedComment, setSelectedComment] = useState(null);
@@ -59,7 +60,7 @@ export function CommentProvider({ children }) {
             const CreateApi = `${host}/api/Comment/${taskId}`
             const res = await PostData(CreateApi, newComment, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
@@ -71,7 +72,7 @@ export function CommentProvider({ children }) {
             const UpdateApi = `${host}/api/Comment/${commentId}`
             const res = await PutData(UpdateApi, updatedComment, token)
             Alert({ icon: 'success', title: res })
-            navigate(-1)
+            handleGoBack()
         } catch (err) {
             Alert({ icon: 'error', title: err })
         }
