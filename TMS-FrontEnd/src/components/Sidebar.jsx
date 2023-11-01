@@ -4,9 +4,14 @@ import { NavLink } from 'react-router-dom';
 const SideBar = ({ children, Menus }) => {
 
   const [open, setOpen] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState(Menus[0]);
+  const [selectedMenu, setSelectedMenu] = useState(() => {
+    const storedMenu = localStorage.getItem("selectedMenu");
+    return storedMenu ? JSON.parse(storedMenu) : Menus[0];
+  });
+
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
+    localStorage.setItem("selectedMenu", JSON.stringify(menu));
   };
 
   return (
@@ -36,7 +41,7 @@ const SideBar = ({ children, Menus }) => {
               <NavLink to={Menu.path} key={index} onClick={() => handleMenuClick(Menu)}>
                 <li
                   className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-white text-sm items-center gap-x-4 
-                  ${Menu.gap ? 'mt-9' : 'mt-2'} ${Menu === selectedMenu ? "bg-light-white" : ''}`}
+                  ${Menu.gap ? 'mt-9' : 'mt-2'} ${Menu.title === selectedMenu.title ? "bg-white bg-opacity-20" : ''}`}
                 >
                   <p className={`text-white text-lg`}>{Menu.icon}</p>
                   <span className={`${!open && "hidden"} origin-left duration-300`} >
