@@ -19,7 +19,7 @@ export default function AssignProject() {
 
     useEffect(() => {
         teamList.length !== 0 &&
-            setForm(prevState => ({...prevState,teamId: teamList[0].id}))
+            setForm(prevState => ({ ...prevState, teamId: teamList[0].id }))
     }, [teamList])
 
     const handleChange = (e) => {

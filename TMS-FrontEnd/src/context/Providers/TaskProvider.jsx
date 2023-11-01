@@ -42,14 +42,14 @@ export function TaskProvider({ children }) {
                     setSelectedTask(task) //for detail view
                     return true
                 }
-                else{
+                else {
                     handleGoBack()
                 }
             }
         } catch (err) {
             handleError(err)
         }
-    }, [token,handleGoBack])     
+    }, [token, handleGoBack])
 
     // Get task by Task id
     const fetchTaskById = useCallback(async (taskId) => {

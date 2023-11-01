@@ -59,7 +59,7 @@ export function ProjectProvider({ children }) {
         } catch (err) {
             handleError(err)
         }
-    }, [token,handleGoBack])         
+    }, [token, handleGoBack])
 
     // Delete Project
     const removeProject = async (projectId) => {
