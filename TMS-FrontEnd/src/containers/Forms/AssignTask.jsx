@@ -25,12 +25,11 @@ export default function AssignTask() {
     }, [fetchTeamUsersById, teamId])
 
     useEffect(() => {
-        if (teamUsers.length !== 0) {
+        teamUsers.length !== 0 &&
             setForm(prevState => ({
                 ...prevState,
                 userId: teamUsers[0].id
             }))
-        }
     }, [teamUsers])
 
     const handleChange = (e) => {

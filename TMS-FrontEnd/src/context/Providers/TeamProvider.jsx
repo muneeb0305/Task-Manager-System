@@ -19,7 +19,7 @@ export function TeamProvider({ children }) {
     const [teamUsers, setTeamUsers] = useState([]);
     // Get Token
     const { token, userDetail } = useAuth()
-    const role = userDetail && userDetail.role
+    const role = userDetail?.role
 
     // Get All Teams
     const fetchTeam = useCallback(async () => {

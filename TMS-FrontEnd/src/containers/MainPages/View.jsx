@@ -43,7 +43,7 @@ export default function View({ display }) {
             ButtonName: "Team",
             dataArr: ['teamName', 'assignedProject'],
             removeFunc: removeTeam,
-            editLink: userDetail.role === USER_ROLE_ADMIN ? '/team' : null,
+            editLink: role === USER_ROLE_ADMIN ? '/team' : null,
             viewLink: '/team',
         }
     }

@@ -20,12 +20,12 @@ export default function AddTeam() {
 
     useEffect(() => {
         // Set Form
-        if (selectedTeam && isID) {
+        (selectedTeam && isID) &&
             setForm((prevState) => ({
                 ...prevState,
                 teamName: selectedTeam.teamName
             }));
-        }
+
     }, [selectedTeam, isID])
 
     const handleChange = (e) => {

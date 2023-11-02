@@ -18,7 +18,7 @@ export function UserProvider({ children }) {
     const [selectedUser, setSelectedUser] = useState(null);
     // Get Token & userDetail from Auth
     const { token, userDetail } = useAuth()
-    const role = userDetail && userDetail.role
+    const role = userDetail?.role
 
     //Get All Users
     const fetchUsers = useCallback(async () => {

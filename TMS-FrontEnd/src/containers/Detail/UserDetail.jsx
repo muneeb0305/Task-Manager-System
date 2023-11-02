@@ -11,17 +11,18 @@ export default function UserDetail() {
     // Get Data from Provider
     const { selectedUser, fetchUserById } = useUserData()
     const { userDetail } = useAuth()
+    const { role } = userDetail
 
     useEffect(() => {
-        userDetail.role === USER_ROLE_USER ? fetchUserById(userDetail.ID) : fetchUserById(UserId)
-    }, [UserId, fetchUserById, userDetail])
+        role === USER_ROLE_USER ? fetchUserById(userDetail.ID) : fetchUserById(UserId)
+    }, [UserId, fetchUserById, userDetail, role])
 
     const aboutData = {
-        "ID": selectedUser && selectedUser.id,
-        "Name": selectedUser && selectedUser.userName,
-        "Email": selectedUser && selectedUser.email,
-        "Role": selectedUser && selectedUser.role,
-        "Assigned Team": selectedUser && selectedUser.assignedTeam
+        "ID": selectedUser?.id,
+        "Name": selectedUser?.userName,
+        "Email": selectedUser?.email,
+        "Role": selectedUser?.role,
+        "Assigned Team": selectedUser?.assignedTeam
     }
 
     return (

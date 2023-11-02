@@ -39,14 +39,14 @@ export default function AddUser() {
 
     useEffect(() => {
         // If ID set form
-        if (selectedUser && isID) {
+        (selectedUser && isID) &&
             setForm(prev => ({
                 ...prev,
                 userName: selectedUser.userName,
                 email: selectedUser.email,
                 role: selectedUser.role
             }));
-        }
+
     }, [selectedUser, isID]);
 
     const handleChange = (e) => {
@@ -56,12 +56,9 @@ export default function AddUser() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (Form.password !== Form.retype_password) {
-            handleError("Password not match")
-        }
-        else {
-            isID ? update(UserId, Form) : create(Form)
-        }
+        Form.password !== Form.retype_password
+            ? handleError("Password not match")
+            : isID ? update(UserId, Form) : create(Form)
     }
 
     return (

@@ -17,7 +17,7 @@ export function TaskProvider({ children }) {
     const [selectedTask, setSelectedTask] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
-    const role = userDetail && userDetail.role
+    const role =  userDetail?.role
 
     // Get all tasks by project id
     const fetchTaskByProjectId = useCallback(async (projectId) => {

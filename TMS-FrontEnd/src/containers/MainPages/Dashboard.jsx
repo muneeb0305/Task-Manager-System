@@ -13,7 +13,7 @@ export default function Dashboard() {
     const { userList } = useUserData()
     const { teamList } = useTeamData()
     const { userDetail } = useAuth()
-    const role = userDetail.role
+    const { role } = userDetail
 
     // User Card Data
     const statusCounts = {

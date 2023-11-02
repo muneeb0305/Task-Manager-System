@@ -17,7 +17,7 @@ export default function TaskDetail() {
     const { commentList, remove, fetchComment } = useCommentData()
     const { teamUsers, fetchTeamUsersById } = useTeamData()
     const { userDetail } = useAuth()
-    const role = userDetail.role
+    const { role } = userDetail
     // State
     const [Loading, setIsLoading] = useState(false)
 
@@ -41,31 +41,29 @@ export default function TaskDetail() {
     }, [fetchComment, fetchTaskById, fetchUserTaskById, role, taskId, userDetail])
 
     useEffect(() => {
-        if (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) {
-            fetchTeamUsersById(selectedTask.teamId)
-        }
+        (Loading && selectedTask.teamId && role === USER_ROLE_ADMIN) && fetchTeamUsersById(selectedTask.teamId)
+
     }, [selectedTask, Loading, fetchTeamUsersById, role])
 
     const aboutData = {
-        "Task ID": selectedTask && selectedTask.id,
-        "Task Name": selectedTask && selectedTask.taskName,
-        "Task Description": selectedTask && selectedTask.description,
-        "Project Name": selectedTask && selectedTask.projectName,
-        "Status": selectedTask && selectedTask.status,
-        "Assign To": selectedTask && selectedTask.assignedTo == null ? 'Not assigned' : selectedTask && selectedTask.assignedTo,
-        "Assigned Team": selectedTask && selectedTask.assinedTeam == null ? 'Not assigned' : selectedTask && selectedTask.assinedTeam,
+        "Task ID": selectedTask?.id,
+        "Task Name": selectedTask?.taskName,
+        "Task Description": selectedTask?.description,
+        "Project Name": selectedTask?.projectName,
+        "Status": selectedTask?.status,
+        "Assign To": selectedTask?.assignedTo ? selectedTask?.assignedTo : 'Not assigned',
+        "Assigned Team": selectedTask?.assinedTeam ? selectedTask?.assinedTeam : 'Not assigned',
         "Due Date": selectedTask && selectedTask.dueDate
     }
+    
     const handleClick = () => {
-        if (selectedTask.teamId === null) {
-            handleError("Team is not assigned")
-        }
-        else if (teamUsers.length === 0) {
-            handleError("User not added in Team")
-        } else {
-            navigate(`/project/${ProjectId}/task/${taskId}/assign?team=${selectedTask.teamId}`)
-        }
+        selectedTask.teamId === null
+            ? handleError("Team is not assigned") :
+            teamUsers.length === 0
+                ? handleError("User not added in Team")
+                : navigate(`/project/${ProjectId}/task/${taskId}/assign?team=${selectedTask.teamId}`)
     }
+
     return (
         <section>
             <div className='bg-gray-100 min-h-screen pt-20'>

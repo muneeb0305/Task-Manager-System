@@ -19,12 +19,11 @@ export default function EnrollUser() {
     })
 
     useEffect(() => {
-        if (userList.length !== 0) {
+        userList.length !== 0 &&
             setForm(pre => ({
                 ...pre,
                 userId: userList[0].id
             }))
-        }
     }, [userList])
 
     const handleChange = (e) => {

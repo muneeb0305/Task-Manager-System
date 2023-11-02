@@ -17,7 +17,7 @@ export function ProjectProvider({ children }) {
     const [selectedProject, setSelectedProject] = useState(null);
     // Get Token
     const { token, userDetail } = useAuth()
-    const role = userDetail && userDetail.role
+    const role = userDetail?.role
     // Get All Projects
     const fetchProject = useCallback(async () => {
         try {

@@ -13,7 +13,7 @@ export default function TeamDetail() {
     //Get data from providers
     const { teamUsers, selectedTeam, fetchTeamById, fetchTeamUsersById, unassignTeam, fetchUserTeam } = useTeamData()
     const { userDetail } = useAuth()
-    const role = userDetail.role
+    const { role } = userDetail
 
     //table Configuration
     const tableConfig = {
@@ -36,10 +36,10 @@ export default function TeamDetail() {
     }, [TeamId, fetchTeamById, fetchUserTeam, role, fetchTeamUsersById, userDetail])
 
     const aboutdata = {
-        "Team ID": selectedTeam && selectedTeam.id,
-        "Team Name": selectedTeam && selectedTeam.teamName,
-        "Assigned Project": selectedTeam && selectedTeam.assignedProject,
-        "Total Users": selectedTeam && selectedTeam.users
+        "Team ID": selectedTeam?.id,
+        "Team Name": selectedTeam?.teamName,
+        "Assigned Project": selectedTeam?.assignedProject,
+        "Total Users": selectedTeam?.users
     }
     return (
         <section className='min-h-screen pt-20'>

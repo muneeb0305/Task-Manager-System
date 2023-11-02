@@ -17,7 +17,7 @@ export default function ProjectDetail() {
     const { taskList, fetchTaskByProjectId, remove, fetchUserTaskById } = useTaskData()
     const { teamList } = useTeamData()
     const { userDetail } = useAuth()
-    const role = userDetail.role
+    const { role } = userDetail
 
     //table Configuration
     const tableConfig = {
@@ -41,18 +41,17 @@ export default function ProjectDetail() {
     }, [ProjectId, fetchProjectById, fetchTaskByProjectId, fetchUserProjectById, fetchUserTaskById, role, userDetail])
 
     const aboutData = {
-        "Project ID": selectedProject && selectedProject.id,
-        "Project Name": selectedProject && selectedProject.projectName,
-        "Description": selectedProject && selectedProject.description,
-        "Assigned Team": selectedProject && selectedProject.assignedTo,
-        "Total Tasks": selectedProject && selectedProject.totalTasks,
-        "Tasks Pending": selectedProject && selectedProject.taskPending,
-        "Tasks In-Process": selectedProject && selectedProject.taskInProcess,
-        "Tasks Completed": selectedProject && selectedProject.taskCompleted,
+        "Project ID": selectedProject?.id,
+        "Project Name": selectedProject?.projectName,
+        "Description": selectedProject?.description,
+        "Assigned Team": selectedProject?.assignedTo,
+        "Total Tasks": selectedProject?.totalTasks,
+        "Tasks Pending": selectedProject?.taskPending,
+        "Tasks In-Process": selectedProject?.taskInProcess,
+        "Tasks Completed": selectedProject?.taskCompleted,
     }
     const handleClick = () => {
-        teamList.length === 0 ?
-            handleError('Add Team First') : navigate(`assign`)
+        teamList.length === 0 ? handleError('Add Team First') : navigate(`assign`)
     }
     return (
         <section className='bg-gray-100 min-h-screen pt-20'>
