@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_ADMIN, USER_ROLE_USER, host } from '../../data/AppConstants';
+import { TEAM_API, USER_API, USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth } from '..';
 
 export const TeamContext = createContext();
@@ -24,8 +24,8 @@ export function TeamProvider({ children }) {
     // Get All Teams
     const fetchTeam = useCallback(async () => {
         try {
-            const TeamApi = `${host}/api/Team`
-            const res = await FetchData(TeamApi, token)
+            const API = `${TEAM_API}`
+            const res = await FetchData(API, token)
             setTeamList(res)
         } catch (err) {
             handleError(err)
@@ -35,8 +35,8 @@ export function TeamProvider({ children }) {
     // Get Team by Team ID
     const fetchTeamById = useCallback(async (teamId) => {
         try {
-            const TeamApi = `${host}/api/Team/${teamId}`;
-            const res = await FetchData(TeamApi, token);
+            const API = `${TEAM_API}/${teamId}`;
+            const res = await FetchData(API, token);
             setSelectedTeam(res)
         } catch (err) {
             handleError(err)
@@ -46,8 +46,8 @@ export function TeamProvider({ children }) {
     // Get All users with team by Team ID
     const fetchTeamUsersById = useCallback(async (teamId) => {
         try {
-            const TeamApi = `${host}/api/Team/users/${teamId}`;
-            const result = await FetchData(TeamApi, token);
+            const API = `${TEAM_API}/users/${teamId}`;
+            const result = await FetchData(API, token);
             setTeamUsers(result)
         } catch (err) {
             handleError(err)
@@ -57,8 +57,8 @@ export function TeamProvider({ children }) {
     // Get User Team By User Id
     const fetchUserTeam = useCallback(async (userId, teamId) => {
         try {
-            const TeamApi = `${host}/api/Team/user/${userId}`;
-            const res = await FetchData(TeamApi, token);
+            const API = `${TEAM_API}/user/${userId}`;
+            const res = await FetchData(API, token);
             setTeamList(res)    //for table
             if (teamId) {
                 const checkTeam = res.find(t => t.id === Number(teamId))
@@ -78,8 +78,8 @@ export function TeamProvider({ children }) {
     // Delete Team
     const removeTeam = async (teamId) => {
         try {
-            const deleteAPI = `${host}/api/Team/${teamId}`
-            const res = await DeleteData(deleteAPI, token)
+            const API = `${TEAM_API}/${teamId}`
+            const res = await DeleteData(API, token)
             fetchTeam()
             handleSuccess(res)
         } catch (err) {
@@ -90,8 +90,8 @@ export function TeamProvider({ children }) {
     // Create Team
     const create = async (newTeam) => {
         try {
-            const CreateApi = `${host}/api/Team`
-            const res = await PostData(CreateApi, newTeam, token)
+            const API = `${TEAM_API}`
+            const res = await PostData(API, newTeam, token)
             fetchTeam()
             handleSuccess(res)
             handleGoBack()
@@ -103,8 +103,8 @@ export function TeamProvider({ children }) {
     // Update Team
     const update = async (teamId, updatedTeam) => {
         try {
-            const UpdateApi = `${host}/api/Team/${teamId}`
-            const res = await PutData(UpdateApi, updatedTeam, token)
+            const API = `${TEAM_API}/${teamId}`
+            const res = await PutData(API, updatedTeam, token)
             fetchTeam()
             handleSuccess(res)
             handleGoBack()
@@ -116,8 +116,8 @@ export function TeamProvider({ children }) {
     // Unassign Team
     const unassignTeam = async (userId) => {
         try {
-            const deleteAPI = `${host}/api/Users/remove_team/${userId}`
-            const res = await DeleteData(deleteAPI, token)
+            const API = `${USER_API}/remove_team/${userId}`
+            const res = await DeleteData(API, token)
             const newData = teamUsers.filter(u => u.id !== userId)
             setTeamUsers(newData)
             handleSuccess(res)
@@ -129,8 +129,8 @@ export function TeamProvider({ children }) {
     // Assign Team to User
     const assignTeam = async (form) => {
         try {
-            const AssignTeamApi = `${host}/api/Users/assign_team`
-            const res = await PutData(AssignTeamApi, form, token)
+            const API = `${USER_API}/assign_team`
+            const res = await PutData(API, form, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

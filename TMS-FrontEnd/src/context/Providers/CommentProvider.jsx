@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useAuth } from '..';
-import { host } from '../../data/AppConstants';
+import { COMMENT_API } from '../../data/AppConstants';
 import { useNavigate } from 'react-router-dom';
 
 export const CommentContext = createContext();
@@ -21,8 +21,8 @@ export function CommentProvider({ children }) {
     // Get All Comments by Task Id
     const fetchComment = useCallback(async (taskId) => {
         try {
-            const CommentApi = `${host}/api/Comment/task/${taskId}`
-            const res = await FetchData(CommentApi, token)
+            const API = `${COMMENT_API}/task/${taskId}`
+            const res = await FetchData(API, token)
             setCommentList(res)
         } catch (err) {
             handleError(err)
@@ -32,8 +32,8 @@ export function CommentProvider({ children }) {
     // Get Comment by ID
     const fetchCommentById = useCallback(async (commentId) => {
         try {
-            const CommentApi = `${host}/api/Comment/${commentId}`;
-            const res = await FetchData(CommentApi, token);
+            const API = `${COMMENT_API}/${commentId}`;
+            const res = await FetchData(API, token);
             setSelectedComment(res)
         } catch (err) {
             handleError(err)
@@ -43,8 +43,8 @@ export function CommentProvider({ children }) {
     // Delete Comment
     const remove = async (commentId) => {
         try {
-            const deleteAPI = `${host}/api/Comment/${commentId}`
-            const res = await DeleteData(deleteAPI, token)
+            const API = `${COMMENT_API}/${commentId}`
+            const res = await DeleteData(API, token)
             const newData = commentList.filter(c => c.id !== commentId)
             setCommentList(newData)
             handleSuccess(res)
@@ -56,8 +56,8 @@ export function CommentProvider({ children }) {
     // Create Comment
     const create = async (taskId, newComment) => {
         try {
-            const CreateApi = `${host}/api/Comment/${taskId}`
-            const res = await PostData(CreateApi, newComment, token)
+            const API = `${COMMENT_API}/${taskId}`
+            const res = await PostData(API, newComment, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -68,8 +68,8 @@ export function CommentProvider({ children }) {
     // Update Team
     const update = async (commentId, updatedComment) => {
         try {
-            const UpdateApi = `${host}/api/Comment/${commentId}`
-            const res = await PutData(UpdateApi, updatedComment, token)
+            const API = `${COMMENT_API}/${commentId}`
+            const res = await PutData(API, updatedComment, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

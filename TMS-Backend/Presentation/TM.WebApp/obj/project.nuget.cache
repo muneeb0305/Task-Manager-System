@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5ai2iyl6nfJCGQIGMyWjmliY4krYpAjeqMRNRQl3xkoQ5DAD12kQF6uC92BnnjjCIVEyMhBNqKX19DWEUiTx2w==",
+  "dgSpecHash": "8Ud/XltcTLpwqQHouHz+or2YczPWGSeJZITlxpqz3lpSyj7Oi7dGs4K5G+3+KA5ol91R55Aa4oERkjhuezQx9g==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\Task-Manager-System\\TMS-Backend\\Presentation\\TM.WebApp\\TM.WebApp.csproj",
   "expectedPackageFiles": [
@@ -248,11 +248,7 @@
     "C:\\Users\\ahmefmun\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.9\\microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.9\\microsoft.windowsdesktop.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.9\\microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.9\\microsoft.netcore.app.host.win-x64.7.0.9.nupkg.sha512"
+    "C:\\Users\\ahmefmun\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

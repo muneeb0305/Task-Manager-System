@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { USER_ROLE_ADMIN, host } from '../../data/AppConstants';
+import { USER_API, USER_ROLE_ADMIN } from '../../data/AppConstants';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
 import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
@@ -16,15 +16,15 @@ export function UserProvider({ children }) {
     // User States
     const [userList, setUserList] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    // Get Token from Token Provider
+    // Get Token & userDetail from Auth
     const { token, userDetail } = useAuth()
     const role = userDetail && userDetail.role
 
     //Get All Users
     const fetchUsers = useCallback(async () => {
         try {
-            const UserApi = `${host}/api/Users`
-            const res = await FetchData(UserApi, token)
+            const API = `${USER_API}`
+            const res = await FetchData(API, token)
             setUserList(res)
         } catch (err) {
             handleError(err)
@@ -34,8 +34,8 @@ export function UserProvider({ children }) {
     //Get User By ID
     const fetchUserById = useCallback(async (userId) => {
         try {
-            const UserApi = `${host}/api/Users/${userId}`;
-            const res = await FetchData(UserApi, token);
+            const API = `${USER_API}/${userId}`;
+            const res = await FetchData(API, token);
             setSelectedUser(res)
         } catch (err) {
             handleError(err)
@@ -45,8 +45,8 @@ export function UserProvider({ children }) {
     // Delete User
     const removeUser = async (userId) => {
         try {
-            const deleteAPI = `${host}/api/Users/${userId}`
-            const res = await DeleteData(deleteAPI, token)
+            const API = `${USER_API}/${userId}`
+            const res = await DeleteData(API, token)
             fetchUsers();  // Refresh User list
             handleSuccess(res)
         } catch (err) {
@@ -57,8 +57,8 @@ export function UserProvider({ children }) {
     // Create User
     const create = async (newUser) => {
         try {
-            const CreateApi = `${host}/api/Users`
-            const res = await PostData(CreateApi, newUser, token)
+            const API = `${USER_API}`
+            const res = await PostData(API, newUser, token)
             handleSuccess(res)
             fetchUsers();  // Refresh User list
             handleGoBack()
@@ -70,8 +70,8 @@ export function UserProvider({ children }) {
     // Update User
     const update = async (userId, updatedUser) => {
         try {
-            const UpdateApi = `${host}/api/Users/${userId}`
-            const res = await PutData(UpdateApi, updatedUser, token)
+            const API = `${USER_API}/${userId}`
+            const res = await PutData(API, updatedUser, token)
             handleSuccess(res)
             fetchUsers()
             handleGoBack()

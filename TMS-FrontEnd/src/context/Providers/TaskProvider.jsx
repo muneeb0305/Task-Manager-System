@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_USER, host } from '../../data/AppConstants';
+import { TASK_API, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth } from '..';
 
 export const TaskContext = createContext();
@@ -22,8 +22,8 @@ export function TaskProvider({ children }) {
     // Get all tasks by project id
     const fetchTaskByProjectId = useCallback(async (projectId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/project/${projectId}`;
-            const res = await FetchData(TaskApi, token);
+            const API = `${TASK_API}/project/${projectId}`;
+            const res = await FetchData(API, token);
             setTaskList(res)
         } catch (err) {
             handleError(err)
@@ -33,8 +33,8 @@ export function TaskProvider({ children }) {
     // Get User tasks by UserId
     const fetchUserTaskById = useCallback(async (userId, taskId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/user/${userId}`;
-            const res = await FetchData(TaskApi, token);
+            const API = `${TASK_API}/user/${userId}`;
+            const res = await FetchData(API, token);
             setTaskList(res)    // for table
             if (taskId) {
                 const task = res.find(t => t.id === Number(taskId))
@@ -54,8 +54,8 @@ export function TaskProvider({ children }) {
     // Get task by Task id
     const fetchTaskById = useCallback(async (taskId) => {
         try {
-            const TaskApi = `${host}/api/Tasks/${taskId}`;
-            const res = await FetchData(TaskApi, token);
+            const API = `${TASK_API}/${taskId}`;
+            const res = await FetchData(API, token);
             setSelectedTask(res)
             return true
         } catch (err) {
@@ -66,8 +66,8 @@ export function TaskProvider({ children }) {
     // remove task
     const remove = async (taskId) => {
         try {
-            const deleteAPI = `${host}/api/Tasks/${taskId}`
-            const res = await DeleteData(deleteAPI, token)
+            const API = `${TASK_API}/${taskId}`
+            const res = await DeleteData(API, token)
             const newData = taskList.filter(d => d.id !== taskId)
             setTaskList(newData);
             handleSuccess(res)
@@ -79,8 +79,8 @@ export function TaskProvider({ children }) {
     // Create task
     const create = async (newTask) => {
         try {
-            const CreateApi = `${host}/api/Tasks`
-            const res = await PostData(CreateApi, newTask, token)
+            const API = `${TASK_API}`
+            const res = await PostData(API, newTask, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -91,8 +91,8 @@ export function TaskProvider({ children }) {
     // Update task
     const update = async (taskId, updatedTask) => {
         try {
-            const UpdateApi = `${host}/api/Tasks/${taskId}`
-            const res = await PutData(UpdateApi, updatedTask, token)
+            const API = `${TASK_API}/${taskId}`
+            const res = await PutData(API, updatedTask, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -103,8 +103,8 @@ export function TaskProvider({ children }) {
     // Assign task
     const assignTask = async (data) => {
         try {
-            const UpdateApi = `${host}/api/Tasks/assign_task`
-            const res = await PutData(UpdateApi, data, token)
+            const API = `${TASK_API}/assign_task`
+            const res = await PutData(API, data, token)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

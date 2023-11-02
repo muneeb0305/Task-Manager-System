@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+w8xLmV4HuLt0DCxIjZ8ZtlGh39VvMw14dvN34ebxZM0bcDTjGnmBRZbGRzYxc/ASXf+yadOj/UBrIzOTSToIw==",
+  "dgSpecHash": "NpGlXB0S9n52q7aAIp8/ch57T2t1PwoOCo8jcxPiSgse0IzxmRQPKNgF2l4UBRqnxM/9JDjpg3iMi3EkrJ1agQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmefmun\\OneDrive - PERSEUS MANAGEMENT GROUP INC\\Desktop\\Task-Manager-System\\TMS-Backend\\BuisnessServices\\TM.Buisness.Models\\TM.Buisness.Models.csproj",
   "expectedPackageFiles": [
@@ -14,10 +14,7 @@
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.extensions.options\\7.0.1\\microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.9\\microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.9\\microsoft.windowsdesktop.app.ref.7.0.9.nupkg.sha512",
-    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.9\\microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512"
+    "C:\\Users\\ahmefmun\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
