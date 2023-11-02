@@ -58,6 +58,7 @@ export function AuthProvider({ children }) {
     setToken(null);
     setUserDetail(null);
     sessionStorage.removeItem('token');
+    localStorage.clear()
   };
 
   return (
