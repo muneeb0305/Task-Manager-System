@@ -108,7 +108,7 @@ export const routes = [
     {
         path: '/project/:ProjectId/task/:taskId/comment/:id/edit',
         element: <AddComment />,
-        isAdmin: false
+        isAdmin: true
     },
     // User Routes
     {

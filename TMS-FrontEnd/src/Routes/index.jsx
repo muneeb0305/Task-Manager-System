@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import { routes } from '../data/routes'
 import { useAuth } from '../context'
 import { USER_ROLE_ADMIN, USER_ROLE_USER } from '../data/AppConstants'
+import NotFound from '../containers/MainPages/NotFound'
 
 export default function AppRoutes() {
     const { userDetail } = useAuth()
@@ -27,6 +28,7 @@ export default function AppRoutes() {
                         <Route key={index} path={route.path} element={route.element} /> : null
                     )
                 }
+                <Route path={'/*'} element={<NotFound />} />
             </Routes>
         </SideBar>
     )

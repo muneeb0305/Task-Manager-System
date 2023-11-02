@@ -140,7 +140,7 @@ namespace TM.Buisness.DataServices
                 .Find(t=>t.TaskId == TaskId)
                 .Include(t => t.Project)
                 .ThenInclude(p=>p.Team)
-                .ThenInclude(t=>t.UsersWorking)
+                .ThenInclude(t=>t!.UsersWorking)
                 .Include(t => t.AssignedUser)
                 .FirstOrDefaultAsync();
             NotFound(allTasks == null, "Task Not Found");
