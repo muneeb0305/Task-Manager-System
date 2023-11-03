@@ -18,7 +18,7 @@ export async function apiRequest(url, method, token, data) {
     }
     catch (err) {
         console.error('API Request Error:', err.response.status, err.response.data);
-        if (err.response.status) {
+        if (err.response.status === 401) {
             sessionStorage.removeItem('token');
             localStorage.clear()
             throw (err.response.data)

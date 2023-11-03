@@ -26,7 +26,6 @@ export const create = async (API, Token, form) => {
         Token ? handleSuccess(res) : handleSuccess('Log in Successfully')
         return res
     } catch (err) {
-        console.log("error")
         handleError(err)
     }
 };
