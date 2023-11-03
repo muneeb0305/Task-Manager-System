@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useState, useEffect } from 'react';
-import { PostData, handleError, handleSuccess } from '../../utils';
-import { host } from '../../data/AppConstants';
+import { HandleAPI, handleError, handleSuccess } from '../../utils';
+import { LOGIN_API, Methods } from '../../data/AppConstants';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
@@ -35,8 +35,8 @@ export function AuthProvider({ children }) {
   // Login
   const Login = async (userForm) => {
     try {
-      const LoginApi = `${host}/api/Login`
-      const res = await PostData(LoginApi, userForm, token)
+      const API = LOGIN_API
+      const res = await HandleAPI(API, Methods.Post, null, userForm)
       SetToken(res)
       handleSuccess('Log in Successfully')
       navigate('/')

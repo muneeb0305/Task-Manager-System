@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { DeleteData, FetchData, PostData, PutData, handleError, handleSuccess } from '../../utils';
+import { HandleAPI, handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { TEAM_API, USER_API, USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
+import { Methods, TEAM_API, USER_API, USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth } from '..';
 
 export const TeamContext = createContext();
@@ -25,7 +25,7 @@ export function TeamProvider({ children }) {
     const fetchTeam = useCallback(async () => {
         try {
             const API = `${TEAM_API}`
-            const res = await FetchData(API, token)
+            const res = await HandleAPI(API, Methods.Get, token)
             setTeamList(res)
         } catch (err) {
             handleError(err)
@@ -36,7 +36,7 @@ export function TeamProvider({ children }) {
     const fetchTeamById = useCallback(async (teamId) => {
         try {
             const API = `${TEAM_API}/${teamId}`;
-            const res = await FetchData(API, token);
+            const res = await HandleAPI(API, Methods.Get, token)
             setSelectedTeam(res)
         } catch (err) {
             handleError(err)
@@ -47,7 +47,7 @@ export function TeamProvider({ children }) {
     const fetchTeamUsersById = useCallback(async (teamId) => {
         try {
             const API = `${TEAM_API}/users/${teamId}`;
-            const result = await FetchData(API, token);
+            const result = await HandleAPI(API, Methods.Get, token)
             setTeamUsers(result)
         } catch (err) {
             handleError(err)
@@ -58,7 +58,7 @@ export function TeamProvider({ children }) {
     const fetchUserTeam = useCallback(async (userId, teamId) => {
         try {
             const API = `${TEAM_API}/user/${userId}`;
-            const res = await FetchData(API, token);
+            const res = await HandleAPI(API, Methods.Get, token)
             setTeamList(res)    //for table
             if (teamId) {
                 const checkTeam = res.find(t => t.id === Number(teamId))
@@ -79,7 +79,7 @@ export function TeamProvider({ children }) {
     const removeTeam = async (teamId) => {
         try {
             const API = `${TEAM_API}/${teamId}`
-            const res = await DeleteData(API, token)
+            const res = await HandleAPI(API, Methods.Delete, token)
             fetchTeam()
             handleSuccess(res)
         } catch (err) {
@@ -91,7 +91,7 @@ export function TeamProvider({ children }) {
     const create = async (newTeam) => {
         try {
             const API = `${TEAM_API}`
-            const res = await PostData(API, newTeam, token)
+            const res = await HandleAPI(API, Methods.Post, token, newTeam)
             fetchTeam()
             handleSuccess(res)
             handleGoBack()
@@ -104,7 +104,7 @@ export function TeamProvider({ children }) {
     const update = async (teamId, updatedTeam) => {
         try {
             const API = `${TEAM_API}/${teamId}`
-            const res = await PutData(API, updatedTeam, token)
+            const res = await HandleAPI(API, Methods.Put, token, updatedTeam)
             fetchTeam()
             handleSuccess(res)
             handleGoBack()
@@ -117,7 +117,7 @@ export function TeamProvider({ children }) {
     const unassignTeam = async (userId) => {
         try {
             const API = `${USER_API}/remove_team/${userId}`
-            const res = await DeleteData(API, token)
+            const res = await HandleAPI(API, Methods.Delete, token)
             const newData = teamUsers.filter(u => u.id !== userId)
             setTeamUsers(newData)
             handleSuccess(res)
@@ -130,7 +130,7 @@ export function TeamProvider({ children }) {
     const assignTeam = async (form) => {
         try {
             const API = `${USER_API}/assign_team`
-            const res = await PutData(API, form, token)
+            const res = await HandleAPI(API, Methods.Put, token, form)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

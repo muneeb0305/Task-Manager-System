@@ -92,13 +92,13 @@ namespace TM.WebApp
                             {
                                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                                 context.Response.ContentType = "application/json";
-                                return context.Response.WriteAsJsonAsync(new { Message = "Token has expired" });
+                                return context.Response.WriteAsJsonAsync("Token has expired");
                             }
                             else
                             {
                                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                                 context.Response.ContentType = "application/json";
-                                return context.Response.WriteAsJsonAsync(new { Message = "Invalid Token" });
+                                return context.Response.WriteAsJsonAsync("Invalid Token");
                             }
                         });
                         return Task.CompletedTask;
@@ -112,7 +112,7 @@ namespace TM.WebApp
                             {
                                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                                 context.Response.ContentType = "application/json";
-                                return context.Response.WriteAsJsonAsync(new { Message = "Token Required" });
+                                return context.Response.WriteAsJsonAsync("Token Required");
                             });
                         }
                         return Task.CompletedTask;
