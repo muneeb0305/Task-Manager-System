@@ -47,9 +47,9 @@ export default function Dashboard() {
     const cardData = role === USER_ROLE_ADMIN ? AdminCardData : UserCardData
     const cardConfigs = {
         admin: {
-            'Projects': projectList.length,
-            'Teams': teamList.length,
-            'Users': userList.length,
+            'Projects': projectList?.length,
+            'Teams': teamList?.length,
+            'Users': userList?.length,
         },
         user: {
             'Task Pending': statusCounts.Pending,

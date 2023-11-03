@@ -1,87 +1,50 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { API_ENDPOINTS, HttpMethod, USER_ROLE_ADMIN } from '../../data/AppConstants';
+import { API_ENDPOINTS, USER_ROLE_ADMIN } from '../../data/AppConstants';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
-import { HandleAPI, handleError, handleSuccess } from '../../utils';
+import { fetch, remove, create, update } from '../../utils';
 export const UserContext = createContext();
 
-// API
 const USER_API = API_ENDPOINTS.USER
 
 export function UserProvider({ children }) {
-    const navigate = useNavigate() 
-    // Navigate back to the previous route
-    const handleGoBack = useCallback(() => {
-        navigate(-1);
-        // eslint-disable-next-line
-    }, []);             //ignore navigate
-
-    // User States
-    const [userList, setUserList] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
-
+    const navigate = useNavigate()
     // Get Token & userDetail from Auth
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
+    // User States
+    const [userList, setUserList] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+    // Navigate back to the previous route
+    const handleGoBack = () => navigate(-1);
 
-    //Get All Users
+    // Functions Related to User
     const fetchUsers = useCallback(async () => {
-        try {
-            const API = `${USER_API}`
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setUserList(res)
-        } catch (err) {
-            handleError(err)
-        }
+        fetch(USER_API, token)
+            .then(res => setUserList(res))
     }, [token])
 
-    //Get User By ID
     const fetchUserById = useCallback(async (userId) => {
-        try {
-            const API = `${USER_API}/${userId}`;
-            const res = await HandleAPI(API, HttpMethod.GET, token);
-            setSelectedUser(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${USER_API}/${userId}`;
+        fetch(API, token)
+            .then(res => setSelectedUser(res))
     }, [token])
 
-    // Delete User
     const removeUser = async (userId) => {
-        try {
-            const API = `${USER_API}/${userId}`
-            const res = await HandleAPI(API, HttpMethod.DELETE, token);
-            fetchUsers();  // Refresh User list
-            handleSuccess(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${USER_API}/${userId}`
+        remove(API, token)
+            .then(() => fetchUsers())
     };
 
-    // Create User
-    const create = async (newUser) => {
-        try {
-            const API = `${USER_API}`
-            const res = await HandleAPI(API, HttpMethod.POST, token, newUser);
-            handleSuccess(res)
-            fetchUsers();  // Refresh User list
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const createUser = async (newUser) => {
+        create(USER_API, token, newUser)
+            .then(() => fetchUsers(), handleGoBack())
     };
 
-    // Update User
-    const update = async (userId, updatedUser) => {
-        try {
-            const API = `${USER_API}/${userId}`
-            const res = await HandleAPI(API, HttpMethod.PUT, token, updatedUser)
-            handleSuccess(res)
-            fetchUsers()
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const updateUser = async (userId, updatedUser) => {
+        const API = `${USER_API}/${userId}`
+        update(API, token, updatedUser)
+            .then(() => fetchUsers(), handleGoBack())
     };
 
     // Update user state when role is Admin
@@ -91,7 +54,7 @@ export function UserProvider({ children }) {
     }, [role, fetchUsers])
 
     return (
-        <UserContext.Provider value={{ selectedUser, userList, create, removeUser, update, fetchUserById, fetchUsers }}>
+        <UserContext.Provider value={{ selectedUser, userList, createUser, removeUser, updateUser, fetchUserById }}>
             {children}
         </UserContext.Provider>
     );

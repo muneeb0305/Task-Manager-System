@@ -1,5 +1,4 @@
 export { handleError } from './Handling/handleError';
 export { handleSuccess } from './Handling/handleSuccess';
-export { HandleAPI } from './API/HandleAPI';
-
-
+export { apiRequest } from './API/ApiRequest';
+export { fetch, remove, create, update } from './Crud/operations'

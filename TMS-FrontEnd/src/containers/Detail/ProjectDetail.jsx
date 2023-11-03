@@ -14,7 +14,7 @@ export default function ProjectDetail() {
     const { ProjectId } = useParams()
     // Get data from providers
     const { selectedProject, fetchProjectById, fetchUserProjectById } = useProjectData()
-    const { taskList, fetchTaskByProjectId, remove, fetchUserTaskById } = useTaskData()
+    const { taskList, fetchTaskByProjectId, removeTask, fetchUserTaskById } = useTaskData()
     const { teamList } = useTeamData()
     const { userDetail } = useAuth()
     const { role } = userDetail
@@ -23,7 +23,7 @@ export default function ProjectDetail() {
     const tableConfig = {
         tableHeader: ["Task Name", "Status", "Due Date", "Action"],
         tableData: taskList,
-        removeFunc: remove,
+        removeFunc: removeTask,
         dataArr: ['taskName', 'status', 'dueDate'],
         editLink: 'task',
         viewLink: 'task',

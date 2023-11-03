@@ -1,11 +1,10 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { HandleAPI, handleError, handleSuccess } from '../../utils';
+import { create, fetch, remove, update } from '../../utils';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_ADMIN, USER_ROLE_USER, HttpMethod, API_ENDPOINTS } from '../../data/AppConstants';
+import { USER_ROLE_ADMIN, USER_ROLE_USER, API_ENDPOINTS } from '../../data/AppConstants';
 export const ProjectContext = createContext();
 
-// API
 const PROJECT_API = API_ENDPOINTS.PROJECT
 
 export function ProjectProvider({ children }) {
@@ -14,105 +13,63 @@ export function ProjectProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
-
     // States
     const [projectList, setProjectList] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
-
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-    // Get All Projects
+   // Functions Related to Project
     const fetchProject = useCallback(async () => {
-        try {
-            const API = `${PROJECT_API}`
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setProjectList(res)
-        } catch (err) {
-            handleError(err)
-        }
+        fetch(PROJECT_API, token)
+            .then(res => setProjectList(res))
     }, [token])
 
-    //Get Project by Project Id
     const fetchProjectById = useCallback(async (projectId) => {
-        try {
-            const API = `${PROJECT_API}/${projectId}`;
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setSelectedProject(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${PROJECT_API}/${projectId}`;
+        fetch(API, token)
+            .then(res => setSelectedProject(res))
     }, [token])
 
-    //Get User Project by User Id
     const fetchUserProjectById = useCallback(async (userId, projectId) => {
-        try {
-            const API = `${PROJECT_API}/user/${userId}`;
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setProjectList(res) //for table
-            if (projectId) {
-                const checkProject = res.find(p => p.id === Number(projectId))
-                if (checkProject) {
-                    setSelectedProject(checkProject)  //for detail view
+        const API = `${PROJECT_API}/user/${userId}`;
+        fetch(API, token)
+            .then(res => {
+                setProjectList(res) //for table
+                if (projectId) {
+                    const checkProject = res.find(p => p.id === Number(projectId))
+                    if (checkProject) {
+                        setSelectedProject(checkProject)  //for detail view
+                    }
+                    else {
+                        handleGoBack()
+                    }
                 }
-                else {
-                    handleGoBack()
-                }
-            }
-        } catch (err) {
-            handleError(err)
-        }
+            })
     }, [token, handleGoBack])
 
-    // Delete Project
     const removeProject = async (projectId) => {
-        try {
-            const API = `${PROJECT_API}/${projectId}`
-            const res = await HandleAPI(API, HttpMethod.DELETE, token)
-            fetchProject()
-            handleSuccess(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${PROJECT_API}/${projectId}`
+        remove(API, token)
+            .then(() => fetchProject())
     };
 
-    // Create Project
-    const create = async (newProject) => {
-        try {
-            const API = `${PROJECT_API}`
-            const res = await HandleAPI(API, HttpMethod.POST, token, newProject)
-            fetchProject()
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const createProject = async (newProject) => {
+        create(PROJECT_API, token, newProject)
+            .then(() => fetchProject(), handleGoBack())
     };
 
-    // Update Project
-    const update = async (projectId, editProject) => {
-        try {
-            const API = `${PROJECT_API}/${projectId}`
-            const res = await HandleAPI(API, HttpMethod.PUT, token, editProject)
-            fetchProject()
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const updateProject = async (projectId, editProject) => {
+        const API = `${PROJECT_API}/${projectId}`
+        update(API, token, editProject)
+            .then(() => fetchProject(), handleGoBack())
     };
 
-    // Assign Project
     const assignProject = async (data) => {
-        try {
-            const API = `${PROJECT_API}/assign_project`
-            const res = await HandleAPI(API, HttpMethod.PUT, token, data)
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${PROJECT_API}/assign_project`
+        update(API, token, data)
+            .then(() => handleGoBack())
     };
 
     // update project state according to user role
@@ -126,7 +83,7 @@ export function ProjectProvider({ children }) {
     }, [role, fetchProject, fetchUserProjectById, userDetail])
 
     return (
-        <ProjectContext.Provider value={{ fetchUserProjectById, selectedProject, projectList, create, removeProject, update, fetchProjectById, fetchProject, assignProject }}>
+        <ProjectContext.Provider value={{ fetchUserProjectById, selectedProject, projectList, createProject, removeProject, updateProject, fetchProjectById, assignProject }}>
             {children}
         </ProjectContext.Provider>
     );

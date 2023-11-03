@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../../data/AppConstants';
 
-export async function HandleAPI(url, method, token, data) {
+export async function apiRequest(url, method, token, data) {
     const config = {
         baseURL: API_BASE_URL,                  // API base URL
         method,                                 // Method Name [GET, POST, PUT, DELETE]
@@ -18,6 +18,11 @@ export async function HandleAPI(url, method, token, data) {
     }
     catch (err) {
         console.error('API Request Error:', err.response.status, err.response.data);
+        if (err.response.status) {
+            sessionStorage.removeItem('token');
+            localStorage.clear()
+            throw (err.response.data)
+        }
         throw (err.response.data)
     }
 }

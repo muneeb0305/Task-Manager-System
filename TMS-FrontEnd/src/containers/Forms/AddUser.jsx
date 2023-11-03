@@ -12,7 +12,7 @@ export default function AddUser() {
     //Check is ID there or not
     const isID = !!UserId
     //User Provider
-    const { selectedUser, create, update, fetchUserById } = useUserData()
+    const { selectedUser, createUser, updateUser, fetchUserById } = useUserData()
     // User Types
     const userType = [
         {
@@ -58,7 +58,7 @@ export default function AddUser() {
         e.preventDefault()
         Form.password !== Form.retype_password
             ? handleError("Password not match")
-            : isID ? update(UserId, Form) : create(Form)
+            : isID ? updateUser(UserId, Form) : createUser(Form)
     }
 
     return (

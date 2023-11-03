@@ -1,13 +1,14 @@
 import jwtDecode from 'jwt-decode';
 import React, { createContext, useState, useEffect } from 'react';
-import { HandleAPI, handleError, handleSuccess } from '../../utils';
+import { apiRequest, handleError, handleSuccess } from '../../utils';
 import { API_ENDPOINTS, HttpMethod } from '../../data/AppConstants';
 import { useNavigate } from 'react-router-dom';
-
 export const AuthContext = createContext();
 
+// API
+const LOGIN_API = API_ENDPOINTS.LOGIN
+
 export function AuthProvider({ children }) {
-  const LOGIN_API = API_ENDPOINTS.LOGIN
   const navigate = useNavigate()
   // States
   const [token, setToken] = useState(sessionStorage.getItem('token'));
@@ -37,7 +38,7 @@ export function AuthProvider({ children }) {
   const Login = async (userForm) => {
     try {
       const API = LOGIN_API
-      const res = await HandleAPI(API, HttpMethod.POST, null, userForm)
+      const res = await apiRequest(API, HttpMethod.POST, null, userForm)
       SetToken(res)
       handleSuccess('Log in Successfully')
       navigate('/')
@@ -45,6 +46,7 @@ export function AuthProvider({ children }) {
       handleError(err)
     }
   };
+
   // Set Token
   const SetToken = (newToken) => {
     setToken(newToken);
@@ -54,6 +56,7 @@ export function AuthProvider({ children }) {
     setUserDetail({ ID, role })
     sessionStorage.setItem('token', newToken);
   };
+
   //Clear Token
   const clearToken = () => {
     setToken(null);

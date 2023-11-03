@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
-import { HandleAPI, handleError, handleSuccess } from '../../utils';
+import { create, fetch, remove, update } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { API_ENDPOINTS, HttpMethod, USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
+import { API_ENDPOINTS, USER_ROLE_ADMIN, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth } from '..';
 export const TeamContext = createContext();
 
@@ -16,131 +16,82 @@ export function TeamProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
-    
+
     // States
     const [teamList, setTeamList] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [teamUsers, setTeamUsers] = useState([]);
-    
+
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-    // Get All Teams
+    // Functions Related to Team
     const fetchTeam = useCallback(async () => {
-        try {
-            const API = `${TEAM_API}`
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setTeamList(res)
-        } catch (err) {
-            handleError(err)
-        }
+        fetch(TEAM_API, token)
+            .then(res => setTeamList(res))
     }, [token])
 
-    // Get Team by Team ID
     const fetchTeamById = useCallback(async (teamId) => {
-        try {
-            const API = `${TEAM_API}/${teamId}`;
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setSelectedTeam(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${TEAM_API}/${teamId}`;
+        fetch(API, token)
+            .then(res => setSelectedTeam(res))
     }, [token])
 
-    // Get All users with team by Team ID
     const fetchTeamUsersById = useCallback(async (teamId) => {
-        try {
-            const API = `${TEAM_API}/users/${teamId}`;
-            const result = await HandleAPI(API, HttpMethod.GET, token)
-            setTeamUsers(result)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${TEAM_API}/users/${teamId}`;
+        fetch(API, token)
+            .then(res => setTeamUsers(res))
     }, [token])
 
-    // Get User Team By User Id
     const fetchUserTeam = useCallback(async (userId, teamId) => {
-        try {
-            const API = `${TEAM_API}/user/${userId}`;
-            const res = await HandleAPI(API, HttpMethod.GET, token)
-            setTeamList(res)    //for table
-            if (teamId) {
-                const checkTeam = res.find(t => t.id === Number(teamId))
-                if (checkTeam) {
-                    setSelectedTeam(checkTeam) //for Detail view
-                    fetchTeamUsersById(checkTeam.id) // fetch users of that team
+        const API = `${TEAM_API}/user/${userId}`;
+        fetch(API, token)
+            .then(res => {
+                setTeamList(res)    //for table
+                if (teamId) {
+                    const checkTeam = res.find(t => t.id === Number(teamId))
+                    if (checkTeam) {
+                        setSelectedTeam(checkTeam) //for Detail view
+                        fetchTeamUsersById(checkTeam.id) // fetch users of that team
+                    }
+                    else {
+                        handleGoBack()
+                    }
                 }
-                else {
-                    handleGoBack()
-                }
-            }
-        } catch (err) {
-            handleError(err)
-        }
+            })
     }, [token, fetchTeamUsersById, handleGoBack])
 
-    // Delete Team
     const removeTeam = async (teamId) => {
-        try {
-            const API = `${TEAM_API}/${teamId}`
-            const res = await HandleAPI(API, HttpMethod.DELETE, token)
-            fetchTeam()
-            handleSuccess(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${TEAM_API}/${teamId}`
+        remove(API, token)
+            .then(() => fetchTeam())
     };
 
-    // Create Team
-    const create = async (newTeam) => {
-        try {
-            const API = `${TEAM_API}`
-            const res = await HandleAPI(API, HttpMethod.POST, token, newTeam)
-            fetchTeam()
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const createTeam = async (newTeam) => {
+        create(TEAM_API, token, newTeam)
+            .then(() => fetchTeam(), handleGoBack())
     };
 
-    // Update Team
-    const update = async (teamId, updatedTeam) => {
-        try {
-            const API = `${TEAM_API}/${teamId}`
-            const res = await HandleAPI(API, HttpMethod.PUT, token, updatedTeam)
-            fetchTeam()
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+    const updateTeam = async (teamId, updatedTeam) => {
+        const API = `${TEAM_API}/${teamId}`
+        update(API, token, updatedTeam)
+            .then(() => fetchTeam(), handleGoBack())
     };
 
-    // Unassign Team
     const unassignTeam = async (userId) => {
-        try {
-            const API = `${USER_API}/remove_team/${userId}`
-            const res = await HandleAPI(API, HttpMethod.DELETE, token)
-            const newData = teamUsers.filter(u => u.id !== userId)
-            setTeamUsers(newData)
-            handleSuccess(res)
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${USER_API}/remove_team/${userId}`
+        remove(API, token)
+            .then(() => {
+                const newData = teamUsers.filter(u => u.id !== userId)
+                setTeamUsers(newData)
+            })
     };
 
-    // Assign Team to User
     const assignTeam = async (form) => {
-        try {
-            const API = `${USER_API}/assign_team`
-            const res = await HandleAPI(API, HttpMethod.PUT, token, form)
-            handleSuccess(res)
-            handleGoBack()
-        } catch (err) {
-            handleError(err)
-        }
+        const API = `${USER_API}/assign_team`
+        update(API, token, form)
+            .then(() => handleGoBack())
     };
 
     // Update team state according to user role. 
@@ -154,7 +105,7 @@ export function TeamProvider({ children }) {
     }, [role, fetchTeam, fetchUserTeam, userDetail])
 
     return (
-        <TeamContext.Provider value={{ fetchUserTeam, selectedTeam, teamUsers, teamList, create, removeTeam, update, fetchTeamById, fetchTeam, fetchTeamUsersById, unassignTeam, assignTeam }}>
+        <TeamContext.Provider value={{ fetchUserTeam, selectedTeam, teamUsers, teamList, createTeam, removeTeam, updateTeam, fetchTeamById, fetchTeamUsersById, unassignTeam, assignTeam }}>
             {children}
         </TeamContext.Provider>
     );

@@ -14,7 +14,7 @@ export default function TaskDetail() {
     const { ProjectId, taskId } = useParams()
     // Get Task Data From Provider
     const { selectedTask, fetchTaskById, fetchUserTaskById } = useTaskData()
-    const { commentList, remove, fetchComment } = useCommentData()
+    const { commentList, removeComment, fetchComment } = useCommentData()
     const { teamUsers, fetchTeamUsersById } = useTeamData()
     const { userDetail } = useAuth()
     const { role } = userDetail
@@ -25,7 +25,7 @@ export default function TaskDetail() {
     const tableConfig = {
         tableHeader: role === USER_ROLE_ADMIN ? ["Comment", "Created At", "Created By", "Action"] : ["Comment", "Created At", "Created By"],
         tableData: commentList,
-        removeFunc: remove,
+        removeFunc: removeComment,
         dataArr: ['comment', 'createdAt', 'createdBy'],
         editLink: 'comment',
     }

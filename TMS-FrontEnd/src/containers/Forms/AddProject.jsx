@@ -10,7 +10,7 @@ export default function AddProject() {
     //Check is ID there or not
     const isID = !!ProjectId
     // Get Data from Providers
-    const { selectedProject, create, update, fetchProjectById } = useProjectData()
+    const { selectedProject, createProject, updateProject, fetchProjectById } = useProjectData()
     // Form State
     const [Form, setForm] = useState({
         name: '',
@@ -37,7 +37,7 @@ export default function AddProject() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ? update(ProjectId, Form) : create(Form)
+        isID ? updateProject(ProjectId, Form) : createProject(Form)
     }
 
     return (

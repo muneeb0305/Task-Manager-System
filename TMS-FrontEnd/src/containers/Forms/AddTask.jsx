@@ -12,7 +12,7 @@ export default function AddTask() {
     //Check is ID there or not
     const isID = !!taskId
     // Get Data from Provider
-    const { selectedTask, create, update, fetchTaskById, fetchUserTaskById } = useTaskData()
+    const { selectedTask, createTask, updateTask, fetchTaskById, fetchUserTaskById } = useTaskData()
     const { userDetail } = useAuth()
     const role = userDetail.role
     // Task Status
@@ -73,7 +73,7 @@ export default function AddTask() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ? update(taskId, Form) : create(Form)
+        isID ? updateTask(taskId, Form) : createTask(Form)
     }
 
     const getTodayDate = () => {

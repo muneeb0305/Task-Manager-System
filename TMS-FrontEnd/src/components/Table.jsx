@@ -18,7 +18,7 @@ export default function Table({ tableData, tableHeader, dataArr, editLink, viewL
                     </tr>
                   </thead>
                   {
-                    tableData.length !== 0 ? (
+                    tableData?.length ? (
                       <tbody>
                         {tableData.map((data, index) => (
                           <tr key={index} className={`hover:bg-gray-50 border-b text-center`}>

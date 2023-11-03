@@ -10,7 +10,7 @@ export default function AddTeam() {
     //Check is ID there or not
     const isID = !!TeamId
     // Get Data from Team Provider
-    const { selectedTeam, create, update, fetchTeamById } = useTeamData()
+    const { selectedTeam, createTeam, updateTeam, fetchTeamById } = useTeamData()
     // Form State
     const [Form, setForm] = useState({ teamName: '' })
 
@@ -35,7 +35,7 @@ export default function AddTeam() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        isID ? update(TeamId, Form) : create(Form)
+        isID ? updateTeam(TeamId, Form) : createTeam(Form)
     }
 
     return (
