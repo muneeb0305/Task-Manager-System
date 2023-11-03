@@ -16,17 +16,16 @@ export function TeamProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
-
     // States
     const [teamList, setTeamList] = useState([]);
     const [selectedTeam, setSelectedTeam] = useState(null);
     const [teamUsers, setTeamUsers] = useState([]);
-
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-    // Functions Related to Team
+    /*---------------------Functions Related to Team---------------------------*/
+
     const fetchTeam = useCallback(async () => {
         fetch(TEAM_API, token)
             .then(res => setTeamList(res))
@@ -97,11 +96,9 @@ export function TeamProvider({ children }) {
     // Update team state according to user role. 
     useEffect(() => {
         // If admin then get all teams
-        role === USER_ROLE_ADMIN &&
-            fetchTeam()
+        role === USER_ROLE_ADMIN && fetchTeam()
         // if user than get its team
-        role === USER_ROLE_USER &&
-            fetchUserTeam(userDetail.ID)
+        role === USER_ROLE_USER && fetchUserTeam(userDetail.ID)
     }, [role, fetchTeam, fetchUserTeam, userDetail])
 
     return (

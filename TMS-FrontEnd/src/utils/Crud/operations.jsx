@@ -23,8 +23,10 @@ export const remove = async (API, Token) => {
 export const create = async (API, Token, form) => {
     try {
         const res = await apiRequest(API, HttpMethod.POST, Token, form);
-        handleSuccess(res)
+        Token ? handleSuccess(res) : handleSuccess('Log in Successfully')
+        return res
     } catch (err) {
+        console.log("error")
         handleError(err)
     }
 };

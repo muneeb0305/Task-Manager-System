@@ -20,7 +20,8 @@ export function TaskProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-    // Functions Related to tasks
+    /*---------------------Functions Related to Tasks---------------------------*/
+
     const fetchTaskByProjectId = useCallback(async (projectId) => {
         const API = `${TASK_API}/project/${projectId}`;
         fetch(API, token)
@@ -48,10 +49,7 @@ export function TaskProvider({ children }) {
     const fetchTaskById = useCallback(async (taskId) => {
         const API = `${TASK_API}/${taskId}`;
         fetch(API, token)
-            .then(res => {
-                setSelectedTask(res)
-                return true
-            })
+            .then(res => { setSelectedTask(res); return true })
     }, [token])
 
     const removeTask = async (taskId) => {
@@ -82,8 +80,7 @@ export function TaskProvider({ children }) {
 
     // if role is user then update the task state with his/her tasks
     useEffect(() => {
-        role === USER_ROLE_USER &&
-            fetchUserTaskById(userDetail.ID)
+        role === USER_ROLE_USER && fetchUserTaskById(userDetail.ID)
     }, [role, fetchUserTaskById, userDetail])
 
     return (

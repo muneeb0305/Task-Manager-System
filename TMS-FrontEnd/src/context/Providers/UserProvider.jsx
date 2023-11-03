@@ -18,7 +18,8 @@ export function UserProvider({ children }) {
     // Navigate back to the previous route
     const handleGoBack = () => navigate(-1);
 
-    // Functions Related to User
+    /*---------------------Functions Related to User---------------------------*/
+
     const fetchUsers = useCallback(async () => {
         fetch(USER_API, token)
             .then(res => setUserList(res))
@@ -49,8 +50,7 @@ export function UserProvider({ children }) {
 
     // Update user state when role is Admin
     useEffect(() => {
-        role === USER_ROLE_ADMIN &&
-            fetchUsers()
+        role === USER_ROLE_ADMIN && fetchUsers()
     }, [role, fetchUsers])
 
     return (

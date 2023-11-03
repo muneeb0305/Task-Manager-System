@@ -20,7 +20,8 @@ export function ProjectProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-    // Functions Related to Project
+    /*---------------------Functions Related to Project---------------------------*/
+
     const fetchProject = useCallback(async () => {
         fetch(PROJECT_API, token)
             .then(res => setProjectList(res))
@@ -75,11 +76,9 @@ export function ProjectProvider({ children }) {
     // update project state according to user role
     useEffect(() => {
         // if role is admin then get all the projects
-        role === USER_ROLE_ADMIN &&
-            fetchProject()
+        role === USER_ROLE_ADMIN && fetchProject()
         // if role is user then get only his/her project
-        role === USER_ROLE_USER &&
-            fetchUserProjectById(userDetail.ID)
+        role === USER_ROLE_USER && fetchUserProjectById(userDetail.ID)
     }, [role, fetchProject, fetchUserProjectById, userDetail])
 
     return (
