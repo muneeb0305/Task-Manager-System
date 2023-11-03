@@ -20,7 +20,7 @@ export function ProjectProvider({ children }) {
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
 
-   // Functions Related to Project
+    // Functions Related to Project
     const fetchProject = useCallback(async () => {
         fetch(PROJECT_API, token)
             .then(res => setProjectList(res))
@@ -69,7 +69,7 @@ export function ProjectProvider({ children }) {
     const assignProject = async (data) => {
         const API = `${PROJECT_API}/assign_project`
         update(API, token, data)
-            .then(() => handleGoBack())
+            .then(() => fetchProject(), handleGoBack())
     };
 
     // update project state according to user role
