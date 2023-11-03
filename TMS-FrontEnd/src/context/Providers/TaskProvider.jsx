@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { HandleAPI, handleError, handleSuccess } from '../../utils';
 import { useNavigate } from 'react-router-dom';
-import { Methods, TASK_API, USER_ROLE_USER } from '../../data/AppConstants';
+import { API_ENDPOINTS, HttpMethod, USER_ROLE_USER } from '../../data/AppConstants';
 import { useAuth } from '..';
-
 export const TaskContext = createContext();
+
+// API
+const TASK_API = API_ENDPOINTS.TASK
 
 export function TaskProvider({ children }) {
     const navigate = useNavigate()
@@ -12,9 +14,11 @@ export function TaskProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
+
     // States
     const [taskList, setTaskList] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
+
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
@@ -23,7 +27,7 @@ export function TaskProvider({ children }) {
     const fetchTaskByProjectId = useCallback(async (projectId) => {
         try {
             const API = `${TASK_API}/project/${projectId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setTaskList(res)
         } catch (err) {
             handleError(err)
@@ -34,7 +38,7 @@ export function TaskProvider({ children }) {
     const fetchUserTaskById = useCallback(async (userId, taskId) => {
         try {
             const API = `${TASK_API}/user/${userId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setTaskList(res)    // for table
             if (taskId) {
                 const task = res.find(t => t.id === Number(taskId))
@@ -55,7 +59,7 @@ export function TaskProvider({ children }) {
     const fetchTaskById = useCallback(async (taskId) => {
         try {
             const API = `${TASK_API}/${taskId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setSelectedTask(res)
             return true
         } catch (err) {
@@ -67,7 +71,7 @@ export function TaskProvider({ children }) {
     const remove = async (taskId) => {
         try {
             const API = `${TASK_API}/${taskId}`
-            const res = await HandleAPI(API, Methods.Delete, token)
+            const res = await HandleAPI(API, HttpMethod.DELETE, token)
             const newData = taskList.filter(d => d.id !== taskId)
             setTaskList(newData);
             handleSuccess(res)
@@ -80,7 +84,7 @@ export function TaskProvider({ children }) {
     const create = async (newTask) => {
         try {
             const API = `${TASK_API}`
-            const res = await HandleAPI(API, Methods.Post, token, newTask)
+            const res = await HandleAPI(API, HttpMethod.POST, token, newTask)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -92,7 +96,7 @@ export function TaskProvider({ children }) {
     const update = async (taskId, updatedTask) => {
         try {
             const API = `${TASK_API}/${taskId}`
-            const res = await HandleAPI(API, Methods.Put, token, updatedTask)
+            const res = await HandleAPI(API, HttpMethod.PUT, token, updatedTask)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -104,7 +108,7 @@ export function TaskProvider({ children }) {
     const assignTask = async (data) => {
         try {
             const API = `${TASK_API}/assign_task`
-            const res = await HandleAPI(API, Methods.Put, token, data)
+            const res = await HandleAPI(API, HttpMethod.PUT, token, data)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

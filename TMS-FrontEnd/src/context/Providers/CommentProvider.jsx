@@ -1,10 +1,12 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { HandleAPI, handleError, handleSuccess } from '../../utils';
 import { useAuth } from '..';
-import { COMMENT_API, Methods } from '../../data/AppConstants';
+import { API_ENDPOINTS, HttpMethod } from '../../data/AppConstants';
 import { useNavigate } from 'react-router-dom';
-
 export const CommentContext = createContext();
+
+// API
+const COMMENT_API = API_ENDPOINTS.COMMENT
 
 export function CommentProvider({ children }) {
     const navigate = useNavigate()
@@ -12,9 +14,11 @@ export function CommentProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
+
     // States
     const [commentList, setCommentList] = useState([]);
     const [selectedComment, setSelectedComment] = useState(null);
+    
     // Get Token
     const { token } = useAuth()
 
@@ -22,7 +26,7 @@ export function CommentProvider({ children }) {
     const fetchComment = useCallback(async (taskId) => {
         try {
             const API = `${COMMENT_API}/task/${taskId}`
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setCommentList(res)
         } catch (err) {
             handleError(err)
@@ -33,7 +37,7 @@ export function CommentProvider({ children }) {
     const fetchCommentById = useCallback(async (commentId) => {
         try {
             const API = `${COMMENT_API}/${commentId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setSelectedComment(res)
         } catch (err) {
             handleError(err)
@@ -44,7 +48,7 @@ export function CommentProvider({ children }) {
     const remove = async (commentId) => {
         try {
             const API = `${COMMENT_API}/${commentId}`
-            const res = await HandleAPI(API, Methods.Delete, token)
+            const res = await HandleAPI(API, HttpMethod.DELETE, token)
             const newData = commentList.filter(c => c.id !== commentId)
             setCommentList(newData)
             handleSuccess(res)
@@ -57,7 +61,7 @@ export function CommentProvider({ children }) {
     const create = async (taskId, newComment) => {
         try {
             const API = `${COMMENT_API}/${taskId}`
-            const res = await HandleAPI(API, Methods.Post, token, newComment)
+            const res = await HandleAPI(API, HttpMethod.POST, token, newComment)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
@@ -69,7 +73,7 @@ export function CommentProvider({ children }) {
     const update = async (commentId, updatedComment) => {
         try {
             const API = `${COMMENT_API}/${commentId}`
-            const res = await HandleAPI(API, Methods.Put, token, updatedComment)
+            const res = await HandleAPI(API, HttpMethod.PUT, token, updatedComment)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {

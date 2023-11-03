@@ -1,13 +1,13 @@
 import axios from 'axios'
-import { baseURL } from '../../data/AppConstants';
+import { API_BASE_URL } from '../../data/AppConstants';
 
-export async function HandleAPI(apiUrl, method, token, data) {
+export async function HandleAPI(url, method, token, data) {
     const config = {
-        baseURL: baseURL,
-        method: method,
-        url: apiUrl,
-        data: data,
-        headers: {
+        baseURL: API_BASE_URL,                  // API base URL
+        method,                                 // Method Name [GET, POST, PUT, DELETE]
+        url,                                    // API End Point URl
+        data,                                   // Data to send with request (optional)
+        headers: {                              // Authentication Token
             Authorization: `Bearer ${token}`,
         },
     }

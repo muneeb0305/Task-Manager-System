@@ -2,9 +2,11 @@ import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { HandleAPI, handleError, handleSuccess } from '../../utils';
 import { useAuth } from '..';
 import { useNavigate } from 'react-router-dom';
-import { USER_ROLE_ADMIN, USER_ROLE_USER, PROJECT_API, Methods } from '../../data/AppConstants';
-
+import { USER_ROLE_ADMIN, USER_ROLE_USER, HttpMethod, API_ENDPOINTS } from '../../data/AppConstants';
 export const ProjectContext = createContext();
+
+// API
+const PROJECT_API = API_ENDPOINTS.PROJECT
 
 export function ProjectProvider({ children }) {
     const navigate = useNavigate()
@@ -12,9 +14,11 @@ export function ProjectProvider({ children }) {
         navigate(-1);
         // eslint-disable-next-line
     }, []);             //ignore navigate
+
     // States
     const [projectList, setProjectList] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
+
     // Get Token
     const { token, userDetail } = useAuth()
     const role = userDetail?.role
@@ -23,7 +27,7 @@ export function ProjectProvider({ children }) {
     const fetchProject = useCallback(async () => {
         try {
             const API = `${PROJECT_API}`
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setProjectList(res)
         } catch (err) {
             handleError(err)
@@ -34,7 +38,7 @@ export function ProjectProvider({ children }) {
     const fetchProjectById = useCallback(async (projectId) => {
         try {
             const API = `${PROJECT_API}/${projectId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setSelectedProject(res)
         } catch (err) {
             handleError(err)
@@ -45,7 +49,7 @@ export function ProjectProvider({ children }) {
     const fetchUserProjectById = useCallback(async (userId, projectId) => {
         try {
             const API = `${PROJECT_API}/user/${userId}`;
-            const res = await HandleAPI(API, Methods.Get, token)
+            const res = await HandleAPI(API, HttpMethod.GET, token)
             setProjectList(res) //for table
             if (projectId) {
                 const checkProject = res.find(p => p.id === Number(projectId))
@@ -65,7 +69,7 @@ export function ProjectProvider({ children }) {
     const removeProject = async (projectId) => {
         try {
             const API = `${PROJECT_API}/${projectId}`
-            const res = await HandleAPI(API, Methods.Delete, token)
+            const res = await HandleAPI(API, HttpMethod.DELETE, token)
             fetchProject()
             handleSuccess(res)
         } catch (err) {
@@ -77,7 +81,7 @@ export function ProjectProvider({ children }) {
     const create = async (newProject) => {
         try {
             const API = `${PROJECT_API}`
-            const res = await HandleAPI(API, Methods.Post, token, newProject)
+            const res = await HandleAPI(API, HttpMethod.POST, token, newProject)
             fetchProject()
             handleSuccess(res)
             handleGoBack()
@@ -90,7 +94,7 @@ export function ProjectProvider({ children }) {
     const update = async (projectId, editProject) => {
         try {
             const API = `${PROJECT_API}/${projectId}`
-            const res = await HandleAPI(API, Methods.Put, token, editProject)
+            const res = await HandleAPI(API, HttpMethod.PUT, token, editProject)
             fetchProject()
             handleSuccess(res)
             handleGoBack()
@@ -103,7 +107,7 @@ export function ProjectProvider({ children }) {
     const assignProject = async (data) => {
         try {
             const API = `${PROJECT_API}/assign_project`
-            const res = await HandleAPI(API, Methods.Put, token, data)
+            const res = await HandleAPI(API, HttpMethod.PUT, token, data)
             handleSuccess(res)
             handleGoBack()
         } catch (err) {
