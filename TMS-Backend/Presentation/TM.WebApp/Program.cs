@@ -122,7 +122,7 @@ namespace TM.WebApp
                     {
                         context.Response.StatusCode = StatusCodes.Status403Forbidden;
                         context.Response.ContentType = "application/json";
-                        return context.Response.WriteAsJsonAsync(new { Message = "Access Forbidden" });
+                        return context.Response.WriteAsJsonAsync("Access Forbidden");
                     }
                 };
             });
