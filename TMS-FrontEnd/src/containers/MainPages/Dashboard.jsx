@@ -58,8 +58,6 @@ export default function Dashboard() {
         }
     }
     const cardConfig = cardConfigs[role]
-    const keys = Object.keys(cardConfig)
-    const values = Object.values(cardConfig)
 
     return (
         <section>
@@ -67,24 +65,7 @@ export default function Dashboard() {
                 <div className='container mx-auto px-5 pt-5'>
                     <h1 className='text-4xl font-semibold mb-5'>Dashboard</h1>
                     {/* Dashboard Cards */}
-                    <div className='grid gap-6 mb-5 md:grid-cols-3'>
-                        {
-                            cardData.map(({ title, icon, textColor, bgColor }) => {
-                                const keyIndex = keys.indexOf(title);
-                                if (keyIndex !== -1) {
-                                    return (<Card
-                                        key={title}
-                                        textColor={textColor}
-                                        bgColor={bgColor}
-                                        icon={icon}
-                                        title={title}
-                                        value={values[keyIndex]}
-                                    />)
-                                }
-                                return null
-                            })
-                        }
-                    </div>
+                    <Card config={cardConfig} data={cardData} />
                     {/* Project Table */}
                     <div className={`bg-white border-2 rounded-lg  shadow-lg p-5`}>
                         <div className='flex items-center'>
