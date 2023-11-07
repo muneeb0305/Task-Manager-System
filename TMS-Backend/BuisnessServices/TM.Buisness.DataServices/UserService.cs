@@ -118,14 +118,14 @@ namespace TM.Buisness.DataServices
             }
             if (!string.IsNullOrWhiteSpace(user.Email))
             {
-                if(userUpdate!.Email == user.Email)
+                if (userUpdate!.Email == user.Email)
                 {
                     userUpdate!.Email = user.Email;
                 }
                 else
                 {
                     var emailExist = await unitOfWork.UserRepository.Find(u => u.Email == user.Email).FirstOrDefaultAsync();
-                    Validate(emailExist!=null, "Email already exist");
+                    Validate(emailExist != null, "Email already exist");
                     userUpdate!.Email = user.Email;
                 }
             }
@@ -204,7 +204,7 @@ namespace TM.Buisness.DataServices
         public async Task UnassignTeam(int UserId)
         {
 
-            var user = await unitOfWork.UserRepository.Find(u => u.UserId == UserId).Include(u=>u.AssignedTask).FirstOrDefaultAsync();
+            var user = await unitOfWork.UserRepository.Find(u => u.UserId == UserId).Include(u => u.AssignedTask).FirstOrDefaultAsync();
             NotFound(user == null, "User Not Found");
 
             user!.TeamId = null;

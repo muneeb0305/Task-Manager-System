@@ -90,8 +90,8 @@ namespace TM.Buisness.DataServices
         //Get All Comments
         public async Task<object> Get(int CommentId)
         {
-            var allComments = await unitOfWork.CommentRepository.Find(c=>c.CommentId == CommentId).Include(c => c.Task).FirstOrDefaultAsync();
-            var commentDetail =  new
+            var allComments = await unitOfWork.CommentRepository.Find(c => c.CommentId == CommentId).Include(c => c.Task).FirstOrDefaultAsync();
+            var commentDetail = new
             {
                 id = allComments!.CommentId,
                 taskName = allComments.Task.TaskName,
@@ -110,14 +110,14 @@ namespace TM.Buisness.DataServices
             //Not Found
             NotFound(taskExist == null, $"Invalid Task ID: {TaskId}");
 
-            var allComments = await unitOfWork.CommentRepository.Find(c => c.TaskId == TaskId).Include(c=>c.User).ToListAsync();
+            var allComments = await unitOfWork.CommentRepository.Find(c => c.TaskId == TaskId).Include(c => c.User).ToListAsync();
             var commentDetail = allComments.Select(c => new
             {
                 id = c.CommentId,
                 taskName = c.Task.TaskName,
                 taskDescription = c.Task.TaskDescription,
                 comment = c.CommentText,
-                createdBy= c.User.UserName,
+                createdBy = c.User.UserName,
                 createdAt = c.CreatedDate.ToString("yyyy-MM-dd")
             });
             return commentDetail;

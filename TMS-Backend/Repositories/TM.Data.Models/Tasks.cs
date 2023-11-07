@@ -19,7 +19,7 @@ namespace TM.Data.Models
 
         //one task can be done by one user
         public int? AssignedUserID { get; set; }
-        public User? AssignedUser { get; set; } 
+        public User? AssignedUser { get; set; }
 
         //one task can have many comments
         public ICollection<Comment> Comments { get; set; } = null!;

@@ -42,7 +42,7 @@ namespace TM.WebApp.Controllers
             return Ok(team);
         }
 
- 
+
         /// <summary>Get Team Users by Team Id</summary>
         // GET: /api/team/users/5
         [HttpGet("users/{TeamId}")]

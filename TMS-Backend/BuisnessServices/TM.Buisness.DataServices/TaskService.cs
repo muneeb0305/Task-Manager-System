@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using TM.Buisness.CustomErrors;
 using TM.Buisness.Interfaces;
 using TM.Buisness.Models;
@@ -137,14 +136,14 @@ namespace TM.Buisness.DataServices
         public async Task<object> Get(int TaskId)
         {
             var allTasks = await unitOfWork.TaskRepository
-                .Find(t=>t.TaskId == TaskId)
+                .Find(t => t.TaskId == TaskId)
                 .Include(t => t.Project)
-                .ThenInclude(p=>p.Team)
-                .ThenInclude(t=>t!.UsersWorking)
+                .ThenInclude(p => p.Team)
+                .ThenInclude(t => t!.UsersWorking)
                 .Include(t => t.AssignedUser)
                 .FirstOrDefaultAsync();
             NotFound(allTasks == null, "Task Not Found");
-            var taskDetail =  new
+            var taskDetail = new
             {
                 id = allTasks!.TaskId,
                 teamId = allTasks.Project.TeamId,
@@ -194,7 +193,7 @@ namespace TM.Buisness.DataServices
 
         public async Task<object> GetUserTasks(int UserId)
         {
-            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).Include(u=>u.AssignedTask)!.ThenInclude(t=>t.Project).ThenInclude(p=>p.Team).FirstOrDefaultAsync();
+            var user = await unitOfWork.UserRepository.Find(u => u.UserId == UserId).Include(u => u.AssignedTask)!.ThenInclude(t => t.Project).ThenInclude(p => p.Team).FirstOrDefaultAsync();
             NotFound(user == null, "User Not Found");
 
             var userTasks = user!.AssignedTask?.Select(t => new

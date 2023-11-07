@@ -89,8 +89,8 @@ namespace TM.Buisness.DataServices
         //Assign Project
         public async Task AssignProject(TeamProject teamProject)
         {
-            var team = await unitOfWork.TeamRepository.Find(t=>t.TeamId==teamProject.TeamId).Include(t=>t.Project).FirstOrDefaultAsync();
-            var project = await unitOfWork.ProjectRepository.Find(p=>p.ProjectId==teamProject.ProjectId).Include(p=>p.Tasks).FirstOrDefaultAsync();
+            var team = await unitOfWork.TeamRepository.Find(t => t.TeamId == teamProject.TeamId).Include(t => t.Project).FirstOrDefaultAsync();
+            var project = await unitOfWork.ProjectRepository.Find(p => p.ProjectId == teamProject.ProjectId).Include(p => p.Tasks).FirstOrDefaultAsync();
 
             //Not Found
             NotFound(team == null, "Team Not Found");
@@ -145,14 +145,14 @@ namespace TM.Buisness.DataServices
         }
 
         public async Task<object> GetUserProject(int UserId)
-        {          
-            var user = await unitOfWork.UserRepository.Find(u=>u.UserId == UserId).FirstOrDefaultAsync();
+        {
+            var user = await unitOfWork.UserRepository.Find(u => u.UserId == UserId).FirstOrDefaultAsync();
             //Not Found
             NotFound(user == null, "User Not Found");
 
             var userTeam = await unitOfWork.TeamRepository.Find(t => t.TeamId == user!.TeamId).FirstOrDefaultAsync();
             //Not Found
-            if(userTeam == null)
+            if (userTeam == null)
             {
                 return new object[] { };
             }

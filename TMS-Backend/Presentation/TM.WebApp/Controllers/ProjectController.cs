@@ -66,7 +66,7 @@ namespace TM.WebApp.Controllers
         public async Task<IActionResult> Update(int ProjectId, [FromBody] ProjectModel project)
         {
             await projectService.Update(ProjectId, project);
-            return Ok("Project Updated" );
+            return Ok("Project Updated");
         }
 
         /// <summary>Admin can Assign Project To Team</summary>
@@ -75,7 +75,7 @@ namespace TM.WebApp.Controllers
         public async Task<IActionResult> AssignProject([FromBody] TeamProject teamProject)
         {
             await projectService.AssignProject(teamProject);
-            return Ok( "Project assigned to Team");
+            return Ok("Project assigned to Team");
         }
     }
 }

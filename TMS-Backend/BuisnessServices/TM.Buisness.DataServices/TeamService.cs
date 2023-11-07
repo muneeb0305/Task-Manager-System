@@ -69,18 +69,18 @@ namespace TM.Buisness.DataServices
         public async Task Delete(int TeamId)
         {
             var removeTeam = await unitOfWork.TeamRepository.Get(TeamId);
-            var _teamTaks = await unitOfWork.TeamRepository.Find(t => t.TeamId == TeamId).Include(t=>t.Project).ThenInclude(p=>p!.Tasks).FirstOrDefaultAsync();
+            var _teamTaks = await unitOfWork.TeamRepository.Find(t => t.TeamId == TeamId).Include(t => t.Project).ThenInclude(p => p!.Tasks).FirstOrDefaultAsync();
             var tasks = _teamTaks?.Project?.Tasks;
             //Not Found
             NotFound(removeTeam == null, "Invalid Team ID");
-            if (tasks?.Count >0 && tasks != null)
+            if (tasks?.Count > 0 && tasks != null)
             {
                 foreach (var _tasks in tasks!)
                 {
                     _tasks.AssignedUserID = null;
                 }
             }
-            
+
             //Delete team
             var team = unitOfWork.TeamRepository.Remove(removeTeam!);
             if (team)
@@ -125,7 +125,7 @@ namespace TM.Buisness.DataServices
             };
             return teaminfo;
         }
-        
+
         //Get Team User by Team id
         public async Task<object> GetTeamUsers(int Teamid)
         {
@@ -144,12 +144,12 @@ namespace TM.Buisness.DataServices
 
         public async Task<object> GetUserTeam(int UserId)
         {
-            var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw=>uw.UserId == UserId)).Include(t => t.Project).Include(t=>t.UsersWorking).FirstOrDefaultAsync();
+            var team = await unitOfWork.TeamRepository.Find(t => t.UsersWorking!.Any(uw => uw.UserId == UserId)).Include(t => t.Project).Include(t => t.UsersWorking).FirstOrDefaultAsync();
             if (team == null)
             {
                 return new object[] { };
             }
-            var _team =  new
+            var _team = new
             {
                 Id = team!.TeamId,
                 teamName = team.TeamName,

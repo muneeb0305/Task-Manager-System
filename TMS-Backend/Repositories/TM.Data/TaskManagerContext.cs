@@ -43,9 +43,9 @@ namespace TM.Data
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Tasks>()
-                .HasOne(t=>t.AssignedUser)
-                .WithMany(u=>u.AssignedTask)
-                .HasForeignKey(u=>u.AssignedUserID)
+                .HasOne(t => t.AssignedUser)
+                .WithMany(u => u.AssignedTask)
+                .HasForeignKey(u => u.AssignedUserID)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }
