@@ -10,7 +10,7 @@ export default function Card({ config, data }) {
                     const keyIndex = keys.indexOf(title);
                     if (keyIndex !== -1) {
                         return (
-                            <div className={`min-w-0 rounded-lg shadow-lg overflow-hidden bg-white border-b-4 border-blue-300 `}>
+                            <div className={`min-w-0 rounded-lg shadow-lg overflow-hidden bg-white border-b-4 border-blue-300 `} key={keyIndex}>
                                 <div className="p-4 flex items-center">
                                     <div className={`p-3 rounded-full ${textColor} ${bgColor}  mr-4 `}>
                                         {icon}
